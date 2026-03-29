@@ -15,16 +15,7 @@ enum custom_keycodes {
   MAC_LOCK,
 };
 
-// Custom shift keys: add entries to remap Shift+key behavior.
-// Each entry is {key, shifted_key}. Examples:
-//   {KC_DOT,  KC_QUES},  // Shift + . = ?
-//   {KC_COMM, KC_EXLM},  // Shift + , = !
-//   {KC_MINS, KC_EQL},   // Shift + - = =
-const custom_shift_key_t custom_shift_keys[] = {
-  {MT(MOD_RALT, KC_COMMA), KC_SCLN},  // Shift + , = ;
-  {MEH_T(KC_DOT),          KC_COLN}   // Shift + . = :
-};
-
+// Dual function keys: number tap, function hold
 #define DUAL_FUNC_0 LT(14, KC_W)
 #define DUAL_FUNC_1 LT(4, KC_J)
 #define DUAL_FUNC_2 LT(13, KC_6)
@@ -38,48 +29,97 @@ const custom_shift_key_t custom_shift_keys[] = {
 #define DUAL_FUNC_10 LT(7, KC_K)
 #define DUAL_FUNC_11 LT(9, KC_T)
 
+// Home row mods
+#define HRM_L4 MT(MOD_LGUI, KC_A)
+#define HRM_L3 MT(MOD_LCTL, KC_S)
+#define HRM_L2 MT(MOD_LALT, KC_D)
+#define HRM_L1 MT(MOD_LSFT, KC_F)
+
+#define HRM_R1 MT(MOD_RSFT, KC_J)
+#define HRM_R2 MT(MOD_LALT, KC_K)
+#define HRM_R3 MT(MOD_RCTL, KC_L)
+#define HRM_R4 MT(MOD_RGUI, KC_QUOTE)
+
+// Bottom row mods
+#define BRM_L4 ALL_T(KC_Z)
+#define BRM_L3 MEH_T(KC_X)
+#define BRM_L2 MT(MOD_RALT, KC_C)
+#define BRM_L1 LT(3, KC_V)
+
+#define BRM_R1 LT(3, KC_M)
+#define BRM_R2 MT(MOD_RALT, KC_COMMA)
+#define BRM_R3 MEH_T(KC_DOT)
+#define BRM_R4 ALL_T(KC_SLASH)
+
+// Thumbs
+#define TMB_L1 LT(1, KC_BSPC)
+#define TMB_L2 LT(2, KC_ESCAPE)
+
+#define TMB_R2 LT(3, KC_ENTER)
+#define TMB_R1 LT(4, KC_SPACE)
+
+// Shortcuts
+#define KC_MAC_DELETE LGUI(KC_BSPC)
+#define KC_SELECT_ALL LGUI(KC_A)
+#define KC_QUIT       LGUI(KC_Q)
+#define KC_TAB_CLOSE  LGUI(KC_W)
+#define KC_TAB_PREV   LCTL(LSFT(KC_TAB))
+#define KC_TAB_NEXT   LCTL(KC_TAB)
+#define KC_TAB_OPEN   LGUI(KC_T)
+#define KC_FIND       LGUI(KC_F)
+
+
+
+// Custom shift keys: add entries to remap Shift+key behavior.
+// Each entry is {key, shifted_key}. Examples:
+//   {KC_DOT,  KC_QUES},  // Shift + . = ?
+const custom_shift_key_t custom_shift_keys[] = {
+  {BRM_R2, KC_SCLN},  // ,;
+  {BRM_R3, KC_COLN}   // .:
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    KC_GRAVE,       KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQUAL,
-    KC_TAB,         MT(MOD_LGUI, KC_A),MT(MOD_LCTL, KC_S),MT(MOD_LALT, KC_D),MT(MOD_LSFT, KC_F),KC_G,                               KC_H,           MT(MOD_RSFT, KC_J),MT(MOD_LALT, KC_K),MT(MOD_RCTL, KC_L),MT(MOD_RGUI, KC_QUOTE),KC_MINUS,
-    KC_UNDS,        ALL_T(KC_Z),    MEH_T(KC_X),    MT(MOD_RALT, KC_C),LT(3, KC_V),    KC_B,                                        KC_N,           LT(3, KC_M),    MT(MOD_RALT, KC_COMMA),MEH_T(KC_DOT),  ALL_T(KC_SLASH),LT(5, KC_MINUS),
-                                                    LT(1, KC_BSPC), LT(2, KC_ESCAPE),                                LT(3, KC_ENTER),LT(4, KC_SPACE)
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_MINUS,       LT(5, KC_EQUAL),
+    KC_NO,          KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_NO,
+    KC_LEFT_SHIFT,  HRM_L4,         HRM_L3,         HRM_L2,         HRM_L1,         KC_G,                                           KC_H,           HRM_R1,         HRM_R2,         HRM_R3,         HRM_R4,         KC_RIGHT_SHIFT,
+    KC_RIGHT_ALT,   BRM_L4,         BRM_L3,         BRM_L2,         BRM_L1,         KC_B,                                           KC_N,           BRM_R1,         BRM_R2,         BRM_R3,         BRM_R4,         KC_RIGHT_ALT,
+                                                                    TMB_L1,         TMB_L2,                                         TMB_R2,         TMB_R1
   ),
   [1] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    LGUI(KC_TAB),   LGUI(KC_Q),     LGUI(KC_W),     LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),   LGUI(KC_T),                                  KC_NO,          KC_LPRN,        KC_RPRN,        KC_LCBR,        KC_RCBR,        KC_NO,
-    LGUI(KC_A),     KC_LEFT_GUI,    KC_LEFT_CTRL,   KC_LEFT_ALT,    KC_LEFT_SHIFT,  CW_TOGG,                                        KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_COLN,        ST_MACRO_0,
-    LGUI(KC_BSPC),  KC_MAC_UNDO,    KC_MAC_CUT,     KC_MAC_COPY,    KC_MAC_PASTE,   LGUI(KC_F),                                     KC_NO,          KC_LBRC,        KC_RBRC,        KC_LABK,        KC_RABK,        KC_NO,
-                                                    KC_TRANSPARENT, KC_NO,                                          KC_ENTER,       KC_SPACE
+    KC_NO,          KC_QUIT,        KC_TAB_CLOSE,   KC_TAB_PREV,    KC_TAB_NEXT,    KC_TAB_OPEN,                                    KC_NO,          KC_LPRN,        KC_RPRN,        KC_LCBR,        KC_RCBR,        KC_NO,
+    KC_SELECT_ALL,  KC_LEFT_GUI,    KC_LEFT_CTRL,   KC_LEFT_ALT,    KC_LEFT_SHIFT,  CW_TOGG,                                        KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_COLN,        ST_MACRO_0,
+    KC_MAC_DELETE,  KC_MAC_UNDO,    KC_MAC_CUT,     KC_MAC_COPY,    KC_MAC_PASTE,   KC_FIND,                                        KC_NO,          KC_LBRC,        KC_RBRC,        KC_LABK,        KC_RABK,        KC_NO,
+                                                                    KC_TRANSPARENT, KC_NO,                                          KC_ENTER,       KC_SPACE
   ),
   [2] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
     KC_NO,          KC_NO,          KC_PLUS,        KC_MINUS,       KC_EQUAL,       KC_NO,                                          KC_NO,          DUAL_FUNC_0,    DUAL_FUNC_1,    DUAL_FUNC_2,    DUAL_FUNC_3,    KC_NO,
     KC_NO,          KC_LEFT_GUI,    KC_LEFT_CTRL,   KC_LEFT_ALT,    KC_LEFT_SHIFT,  KC_NO,                                          KC_0,           DUAL_FUNC_4,    DUAL_FUNC_5,    DUAL_FUNC_6,    DUAL_FUNC_7,    KC_NO,
     KC_NO,          KC_NO,          KC_COMMA,       KC_DOT,         KC_COLN,        KC_NO,                                          KC_NO,          DUAL_FUNC_8,    DUAL_FUNC_9,    DUAL_FUNC_10,   DUAL_FUNC_11,   KC_NO,
-                                                    KC_NO,          KC_TRANSPARENT,                                 KC_0,           KC_SPACE
+                                                                    KC_NO,          KC_TRANSPARENT,                                 KC_0,           KC_SPACE
   ),
   [3] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
     KC_NO,          KC_TILD,        KC_AT,          KC_HASH,        KC_PERC,        ST_MACRO_1,                                     KC_EXLM,        KC_LCBR,        KC_RCBR,        KC_EQUAL,       KC_PLUS,        KC_NO,
     KC_NO,          KC_CIRC,        KC_EXLM,        KC_EQUAL,       KC_DLR,         ST_MACRO_2,                                     KC_GRAVE,       KC_LPRN,        KC_RPRN,        KC_KP_MINUS,    KC_UNDS,        KC_NO,
     KC_NO,          KC_BSLS,        KC_PIPE,        KC_AMPR,        KC_ASTR,        KC_NO,                                          KC_NO,          KC_LBRC,        KC_RBRC,        KC_LABK,        KC_RABK,        KC_NO,
-                                                    KC_DELETE,      KC_TAB,                                         KC_TRANSPARENT, KC_SPACE
+                                                                    KC_DELETE,      KC_TAB,                                         KC_TRANSPARENT, KC_SPACE
   ),
   [4] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
     KC_NO,          KC_NO,          KC_NO,          KC_MS_UP,       KC_NO,          KC_NO,                                          KC_NO,          KC_MS_BTN4,     KC_MS_WH_UP,    KC_MS_BTN5,     KC_NO,          KC_NO,
     KC_NO,          KC_NO,          KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    KC_NO,                                          KC_NO,          KC_MS_BTN1,     KC_MS_BTN3,     KC_MS_BTN2,     KC_RIGHT_GUI,   KC_NO,
     KC_NO,          KC_NO,          KC_MS_ACCEL0,   KC_MS_ACCEL1,   KC_MS_ACCEL2,   KC_NO,                                          KC_NO,          KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_RIGHT, KC_NO,          KC_NO,
-                                                    KC_NO,          KC_NO,                                          KC_NO,          KC_TRANSPARENT
+                                                                    KC_NO,          KC_NO,                                          KC_NO,          KC_TRANSPARENT
   ),
   [5] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    RGB_MODE_FORWARD,RGB_SPD,        RGB_SPI,        RGB_VAD,        RGB_VAI,        KC_BRIGHTNESS_UP,                                KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          QK_BOOT,
-    RGB_SLD,        KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_BRIGHTNESS_DOWN,                                KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
+    RGB_MODE_FORWARD,RGB_SPD,       RGB_SPI,        RGB_VAD,        RGB_VAI,        KC_BRIGHTNESS_UP,                               KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          QK_BOOT,
+    RGB_SLD,        KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_BRIGHTNESS_DOWN,                   KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
     RGB_TOG,        RGB_SAD,        RGB_SAI,        RGB_HUD,        RGB_HUI,        KC_NO,                                          KC_NO,          KC_NO,          MAC_LOCK,       MAC_DND,        KC_MS_JIGGLER_TOGGLE,KC_TRANSPARENT,
-                                                    KC_MEDIA_PLAY_PAUSE,KC_AUDIO_MUTE,                                  KC_NO,          KC_NO
+                                                                    KC_MEDIA_PLAY_PAUSE,KC_AUDIO_MUTE,                              KC_NO,          KC_NO
   ),
 };
 
@@ -131,11 +171,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 }
-
-
-
-
-
 
 static bool handle_dual_func(keyrecord_t *record,
                              uint16_t tap_kc, uint16_t hold_kc) {
