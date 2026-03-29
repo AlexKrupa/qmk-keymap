@@ -88,6 +88,8 @@ All keymap files are in `keyboards/zsa/voyager/keymaps/alexkrupa/`.
 
 ## Keymap overview
 
+![Keymap](keymap.svg)
+
 6 layers, QWERTY base. Top row is unused (Voyager 3x6 config).
 
 ### Layer 0 - Base
