@@ -3,6 +3,7 @@
         "zsa/oryx",
         "zsa/mousejiggler",
         "zsa/defaults",
+        "getreuer/cyclotab",
         "getreuer/custom_shift_keys"
     ]
 }

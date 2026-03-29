@@ -67,6 +67,7 @@ enum custom_keycodes {
 #define KC_TAB_NEXT   LCTL(KC_TAB)
 #define KC_TAB_OPEN   LGUI(KC_T)
 #define KC_FIND       LGUI(KC_F)
+#define KC_CYCLOTAB   LGUI(KC_TAB)
 
 
 
@@ -88,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [1] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    KC_NO,          KC_QUIT,        KC_TAB_CLOSE,   KC_TAB_PREV,    KC_TAB_NEXT,    KC_TAB_OPEN,                                    KC_NO,          KC_LPRN,        KC_RPRN,        KC_LCBR,        KC_RCBR,        KC_NO,
+    KC_CYCLOTAB,    KC_QUIT,        KC_TAB_CLOSE,   KC_TAB_PREV,    KC_TAB_NEXT,    KC_TAB_OPEN,                                    KC_NO,          KC_LPRN,        KC_RPRN,        KC_LCBR,        KC_RCBR,        KC_NO,
     KC_SELECT_ALL,  KC_LEFT_GUI,    KC_LEFT_CTRL,   KC_LEFT_ALT,    KC_LEFT_SHIFT,  CW_TOGG,                                        KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_COLN,        ST_MACRO_0,
     KC_MAC_DELETE,  KC_MAC_UNDO,    KC_MAC_CUT,     KC_MAC_COPY,    KC_MAC_PASTE,   KC_FIND,                                        KC_NO,          KC_LBRC,        KC_RBRC,        KC_LABK,        KC_RABK,        KC_NO,
                                                                     KC_TRANSPARENT, KC_NO,                                          KC_ENTER,       KC_SPACE
