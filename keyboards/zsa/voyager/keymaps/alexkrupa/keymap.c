@@ -132,12 +132,10 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
   '*', '*', '*', '*'
 );
 
-const uint16_t PROGMEM combo0[] = { MT(MOD_LSFT, KC_F), MT(MOD_RSFT, KC_J), COMBO_END};
-const uint16_t PROGMEM combo1[] = { KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM combo0[] = { KC_Q, KC_W, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-    COMBO(combo0, CW_TOGG),
-    COMBO(combo1, KC_TAB),
+    COMBO(combo0, KC_TAB),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -173,8 +171,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-static bool handle_dual_func(keyrecord_t *record,
-                             uint16_t tap_kc, uint16_t hold_kc) {
+static bool handle_num_fun(keyrecord_t *record,
+                           uint16_t tap_kc, uint16_t hold_kc) {
   if (record->tap.count > 0) {
     if (record->event.pressed) {
       register_code16(tap_kc);
@@ -229,18 +227,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MAC_LOCK:
       HCS(0x19E);
 
-    case NUM_FUN_0:  return handle_dual_func(record, KC_7,     KC_F7);
-    case NUM_FUN_1:  return handle_dual_func(record, KC_8,     KC_F8);
-    case NUM_FUN_2:  return handle_dual_func(record, KC_9,     KC_F9);
-    case NUM_FUN_3:  return handle_dual_func(record, KC_ASTR,  KC_F12);
-    case NUM_FUN_4:  return handle_dual_func(record, KC_1,     KC_F1);
-    case NUM_FUN_5:  return handle_dual_func(record, KC_2,     KC_F2);
-    case NUM_FUN_6:  return handle_dual_func(record, KC_3,     KC_F3);
-    case NUM_FUN_7:  return handle_dual_func(record, KC_0,     KC_F11);
-    case NUM_FUN_8:  return handle_dual_func(record, KC_4,     KC_F4);
-    case NUM_FUN_9:  return handle_dual_func(record, KC_5,     KC_F5);
-    case NUM_FUN_10: return handle_dual_func(record, KC_6,     KC_F6);
-    case NUM_FUN_11: return handle_dual_func(record, KC_SLASH, KC_F10);
+    case NUM_FUN_0:  return handle_num_fun(record, KC_7,     KC_F7);
+    case NUM_FUN_1:  return handle_num_fun(record, KC_8,     KC_F8);
+    case NUM_FUN_2:  return handle_num_fun(record, KC_9,     KC_F9);
+    case NUM_FUN_3:  return handle_num_fun(record, KC_ASTR,  KC_F12);
+    case NUM_FUN_4:  return handle_num_fun(record, KC_1,     KC_F1);
+    case NUM_FUN_5:  return handle_num_fun(record, KC_2,     KC_F2);
+    case NUM_FUN_6:  return handle_num_fun(record, KC_3,     KC_F3);
+    case NUM_FUN_7:  return handle_num_fun(record, KC_0,     KC_F11);
+    case NUM_FUN_8:  return handle_num_fun(record, KC_4,     KC_F4);
+    case NUM_FUN_9:  return handle_num_fun(record, KC_5,     KC_F5);
+    case NUM_FUN_10: return handle_num_fun(record, KC_6,     KC_F6);
+    case NUM_FUN_11: return handle_num_fun(record, KC_SLASH, KC_F10);
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);
