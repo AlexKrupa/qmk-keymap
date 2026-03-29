@@ -16,18 +16,18 @@ enum custom_keycodes {
 };
 
 // Num/fun keys: number tap, function hold
-#define NUM_FUN_0 LT(14, KC_W)
-#define NUM_FUN_1 LT(4, KC_J)
-#define NUM_FUN_2 LT(13, KC_6)
-#define NUM_FUN_3 LT(1, KC_F13)
-#define NUM_FUN_4 LT(6, KC_F6)
-#define NUM_FUN_5 LT(9, KC_P)
-#define NUM_FUN_6 LT(14, KC_F21)
-#define NUM_FUN_7 LT(14, KC_Z)
-#define NUM_FUN_8 LT(13, KC_P)
-#define NUM_FUN_9 LT(15, KC_F20)
-#define NUM_FUN_10 LT(7, KC_K)
-#define NUM_FUN_11 LT(9, KC_T)
+#define DUAL_FUNC_0 LT(14, KC_W)
+#define DUAL_FUNC_1 LT(4, KC_J)
+#define DUAL_FUNC_2 LT(13, KC_6)
+#define DUAL_FUNC_3 LT(1, KC_F13)
+#define DUAL_FUNC_4 LT(6, KC_F6)
+#define DUAL_FUNC_5 LT(9, KC_P)
+#define DUAL_FUNC_6 LT(14, KC_F21)
+#define DUAL_FUNC_7 LT(14, KC_Z)
+#define DUAL_FUNC_8 LT(13, KC_P)
+#define DUAL_FUNC_9 LT(15, KC_F20)
+#define DUAL_FUNC_10 LT(7, KC_K)
+#define DUAL_FUNC_11 LT(9, KC_T)
 
 // Home row mods
 #define HRM_L4 MT(MOD_LGUI, KC_A)
@@ -96,9 +96,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [2] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    KC_NO,          KC_NO,          KC_PLUS,        KC_MINUS,       KC_EQUAL,       KC_NO,                                          KC_NO,          NUM_FUN_0,      NUM_FUN_1,      NUM_FUN_2,      NUM_FUN_3,      KC_NO,
-    KC_NO,          KC_LEFT_GUI,    KC_LEFT_CTRL,   KC_LEFT_ALT,    KC_LEFT_SHIFT,  KC_NO,                                          KC_0,           NUM_FUN_4,      NUM_FUN_5,      NUM_FUN_6,      NUM_FUN_7,      KC_NO,
-    KC_NO,          KC_NO,          KC_COMMA,       KC_DOT,         KC_COLN,        KC_NO,                                          KC_NO,          NUM_FUN_8,      NUM_FUN_9,      NUM_FUN_10,     NUM_FUN_11,     KC_NO,
+    KC_NO,          KC_NO,          KC_PLUS,        KC_MINUS,       KC_EQUAL,       KC_NO,                                          KC_NO,          DUAL_FUNC_0,    DUAL_FUNC_1,    DUAL_FUNC_2,    DUAL_FUNC_3,    KC_NO,
+    KC_NO,          KC_LEFT_GUI,    KC_LEFT_CTRL,   KC_LEFT_ALT,    KC_LEFT_SHIFT,  KC_NO,                                          KC_0,           DUAL_FUNC_4,    DUAL_FUNC_5,    DUAL_FUNC_6,    DUAL_FUNC_7,    KC_NO,
+    KC_NO,          KC_NO,          KC_COMMA,       KC_DOT,         KC_COLN,        KC_NO,                                          KC_NO,          DUAL_FUNC_8,    DUAL_FUNC_9,    DUAL_FUNC_10,   DUAL_FUNC_11,   KC_NO,
                                                                     KC_NO,          KC_TRANSPARENT,                                 KC_0,           KC_SPACE
   ),
   [3] = LAYOUT_voyager(
@@ -171,8 +171,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-static bool handle_num_fun(keyrecord_t *record,
-                           uint16_t tap_kc, uint16_t hold_kc) {
+static bool handle_dual_func(keyrecord_t *record,
+                             uint16_t tap_kc, uint16_t hold_kc) {
   if (record->tap.count > 0) {
     if (record->event.pressed) {
       register_code16(tap_kc);
@@ -227,18 +227,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MAC_LOCK:
       HCS(0x19E);
 
-    case NUM_FUN_0:  return handle_num_fun(record, KC_7,     KC_F7);
-    case NUM_FUN_1:  return handle_num_fun(record, KC_8,     KC_F8);
-    case NUM_FUN_2:  return handle_num_fun(record, KC_9,     KC_F9);
-    case NUM_FUN_3:  return handle_num_fun(record, KC_ASTR,  KC_F12);
-    case NUM_FUN_4:  return handle_num_fun(record, KC_1,     KC_F1);
-    case NUM_FUN_5:  return handle_num_fun(record, KC_2,     KC_F2);
-    case NUM_FUN_6:  return handle_num_fun(record, KC_3,     KC_F3);
-    case NUM_FUN_7:  return handle_num_fun(record, KC_0,     KC_F11);
-    case NUM_FUN_8:  return handle_num_fun(record, KC_4,     KC_F4);
-    case NUM_FUN_9:  return handle_num_fun(record, KC_5,     KC_F5);
-    case NUM_FUN_10: return handle_num_fun(record, KC_6,     KC_F6);
-    case NUM_FUN_11: return handle_num_fun(record, KC_SLASH, KC_F10);
+    case NUM_FUN_0:  return handle_dual_func(record, KC_7,     KC_F7);
+    case NUM_FUN_1:  return handle_dual_func(record, KC_8,     KC_F8);
+    case NUM_FUN_2:  return handle_dual_func(record, KC_9,     KC_F9);
+    case NUM_FUN_3:  return handle_dual_func(record, KC_ASTR,  KC_F12);
+    case NUM_FUN_4:  return handle_dual_func(record, KC_1,     KC_F1);
+    case NUM_FUN_5:  return handle_dual_func(record, KC_2,     KC_F2);
+    case NUM_FUN_6:  return handle_dual_func(record, KC_3,     KC_F3);
+    case NUM_FUN_7:  return handle_dual_func(record, KC_0,     KC_F11);
+    case NUM_FUN_8:  return handle_dual_func(record, KC_4,     KC_F4);
+    case NUM_FUN_9:  return handle_dual_func(record, KC_5,     KC_F5);
+    case NUM_FUN_10: return handle_dual_func(record, KC_6,     KC_F6);
+    case NUM_FUN_11: return handle_dual_func(record, KC_SLASH, KC_F10);
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);

@@ -2,18 +2,18 @@
 parse_config:
   raw_binding_map:
     # Oryx DUAL_FUNC: tap = digit, hold = F-key (numpad layer)
-    DUAL_FUNC_0: {t: "7", h: F7}
-    DUAL_FUNC_1: {t: "8", h: F8}
-    DUAL_FUNC_2: {t: "9", h: F9}
-    DUAL_FUNC_3: {t: "*", h: F12}
-    DUAL_FUNC_4: {t: "1", h: F1}
-    DUAL_FUNC_5: {t: "2", h: F2}
-    DUAL_FUNC_6: {t: "3", h: F3}
-    DUAL_FUNC_7: {t: "0", h: F11}
-    DUAL_FUNC_8: {t: "4", h: F4}
-    DUAL_FUNC_9: {t: "5", h: F5}
-    DUAL_FUNC_10: {t: "6", h: F6}
-    DUAL_FUNC_11: {t: "/", h: F10}
+    DUAL_FUNC_0: { t: "7", h: F7 }
+    DUAL_FUNC_1: { t: "8", h: F8 }
+    DUAL_FUNC_2: { t: "9", h: F9 }
+    DUAL_FUNC_3: { t: "*", h: F12 }
+    DUAL_FUNC_4: { t: "1", h: F1 }
+    DUAL_FUNC_5: { t: "2", h: F2 }
+    DUAL_FUNC_6: { t: "3", h: F3 }
+    DUAL_FUNC_7: { t: "0", h: F11 }
+    DUAL_FUNC_8: { t: "4", h: F4 }
+    DUAL_FUNC_9: { t: "5", h: F5 }
+    DUAL_FUNC_10: { t: "6", h: F6 }
+    DUAL_FUNC_11: { t: "/", h: F10 }
     # Macros
     ST_MACRO_0: "-> "
     ST_MACRO_1: "-> "
@@ -33,11 +33,7 @@ draw_config:
 # p: key positions (0-indexed per LAYOUT_voyager matrix order)
 #    0-11 top row, 12-23 row 2, 24-35 home row, 36-47 bottom row, 48-49 L thumbs, 50-51 R thumbs
 combos:
-  - p: [28, 31]   # F + J
-    k: CapsWord
-    l: [Base]
-    a: top
-  - p: [13, 14]   # Q + W
+  - p: [13, 14] # Q + W
     k: Tab
     l: [Base]
     a: top

@@ -385,12 +385,6 @@ path.combo { stroke: #7f7f7f; }
 </text>
 </g>
 <g class="combo combopos-0">
-<path d="M434,128 h-176 a6.0,6.0 0 0 0 -6.0,6.0 v4" class="combo"/>
-<path d="M434,128 h176 a6.0,6.0 0 0 1 6.0,6.0 v4" class="combo"/>
-<rect rx="6" ry="6" x="420" y="115" width="28" height="26" class="combo"/>
-<text x="434" y="128" class="combo tap"><tspan style="font-size: 75%">CapsWord</tspan></text>
-</g>
-<g class="combo combopos-1">
 <path d="M112,66 h-22 a6.0,6.0 0 0 0 -6.0,6.0 v16" class="combo"/>
 <path d="M112,66 h22 a6.0,6.0 0 0 1 6.0,6.0 v4" class="combo"/>
 <rect rx="6" ry="6" x="98" y="53" width="28" height="26" class="combo"/>
