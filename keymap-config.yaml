@@ -2,22 +2,32 @@
 parse_config:
   raw_binding_map:
     # Oryx DUAL_FUNC: tap = digit, hold = F-key (numpad layer)
-    DUAL_FUNC_0: { t: "7", h: F7 }
-    DUAL_FUNC_1: { t: "8", h: F8 }
-    DUAL_FUNC_2: { t: "9", h: F9 }
-    DUAL_FUNC_3: { t: "*", h: F12 }
-    DUAL_FUNC_4: { t: "1", h: F1 }
-    DUAL_FUNC_5: { t: "2", h: F2 }
-    DUAL_FUNC_6: { t: "3", h: F3 }
-    DUAL_FUNC_7: { t: "0", h: F11 }
-    DUAL_FUNC_8: { t: "4", h: F4 }
-    DUAL_FUNC_9: { t: "5", h: F5 }
-    DUAL_FUNC_10: { t: "6", h: F6 }
-    DUAL_FUNC_11: { t: "/", h: F10 }
+    DF_0: { t: "0", h: F11 }
+    DF_1: { t: "1", h: F1 }
+    DF_2: { t: "2", h: F2 }
+    DF_3: { t: "3", h: F3 }
+    DF_4: { t: "4", h: F4 }
+    DF_5: { t: "5", h: F5 }
+    DF_6: { t: "6", h: F6 }
+    DF_7: { t: "7", h: F7 }
+    DF_8: { t: "8", h: F8 }
+    DF_9: { t: "9", h: F9 }
+    DF_ASTR: { t: "*", h: F12 }
+    DF_SLS: { t: "/", h: F10 }
     # Macros
     ST_MACRO_0: "-> "
     ST_MACRO_1: "-> "
     ST_MACRO_2: "${}"
+    # Shortcut aliases
+    SEL_ALL: "Sel All"
+    MAC_QUIT: Quit
+    TAB_CLS: "Tab ✕"
+    TAB_PRV: "Tab ←"
+    TAB_NXT: "Tab →"
+    TAB_OPN: "Tab +"
+    MAC_FIND: Find
+    CYCLOTAB: "⌘Tab"
+    MAC_DEL: "⌘⌫"
     # System keys
     MAC_DND: DND
     MAC_LOCK: Lock
