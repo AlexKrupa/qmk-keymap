@@ -25,7 +25,7 @@ yaml.dump(cfg, sys.stdout, default_flow_style=False, sort_keys=False)
 
 # 3. Parse JSON to YAML with custom keycode labels
 keymap -c "$tmpdir/tool_config.yaml" parse -q "$tmpdir/keymap.json" \
-  -l Base Nav Num Sym Mouse Adjust -c 12 \
+  -l BASE NAV NUM SYM MOUSE SYSTEM -c 12 \
   | sed 's/layout_name: LAYOUT_voyager//' \
   > "$tmpdir/parsed.yaml"
 

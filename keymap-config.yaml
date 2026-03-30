@@ -1,5 +1,12 @@
 # Friendly labels for custom keycodes that keymap-drawer can't auto-detect.
 parse_config:
+  preprocess: true
+  skip_binding_parsing: false
+  sticky_label: sticky
+  toggle_label: $$mdi:toggle-switch$$
+  trans_legend:
+    t: ▽
+    type: trans
   raw_binding_map:
     # Oryx DUAL_FUNC: tap = digit, hold = F-key (numpad layer)
     DF_0: { t: "0", h: F11 }
@@ -14,12 +21,30 @@ parse_config:
     DF_9: { t: "9", h: F9 }
     DF_ASTR: { t: "*", h: F12 }
     DF_SLS: { t: "/", h: F10 }
+    # HRM
+    HRM_A: { t: "A", h: "LGUI" }
+    HRM_S: { t: "S", h: "LCTL" }
+    HRM_D: { t: "D", h: "LALT" }
+    HRM_F: { t: "F", h: "LSFT" }
+    HRM_J: { t: "J", h: "RSFT" }
+    HRM_K: { t: "K", h: "LALT" }
+    HRM_L: { t: "L", h: "RCTL" }
+    HRM_QUO: { t: '''"', h: "RGUI" }
+    # BRM
+    BRM_Z: { t: "Z", h: "HYPER" }
+    BRM_X: { t: "X", h: "MEH" }
+    BRM_C: { t: "C", h: "RALT" }
+    BRM_V: { t: "V", h: "SYM" }
+    BRM_M: { t: "M", h: "SYM" }
+    BRM_COM: { t: ",;", h: "RALT" }
+    BRM_DOT: { t: ".:", h: "MEH" }
+    BRM_SLS: { t: "/?", h: "HYPER" }
+    BRM_ASTR: { t: "*!", h: "SYS" }
     # Macros
-    ST_MACRO_0: "-> "
-    ST_MACRO_1: "-> "
-    ST_MACRO_2: "${}"
+    MCR_ARR: "-> "
+    MCR_DLR_BRC: "${}"
     # Shortcut aliases
-    SEL_ALL: "Sel All"
+    SEL_ALL: "Select All"
     MAC_QUIT: Quit
     TAB_CLS: "Tab ✕"
     TAB_PRV: "Tab ←"
@@ -32,6 +57,73 @@ parse_config:
     MAC_DND: DND
     MAC_LOCK: Lock
     RGB_SLD: Solid
+    # Other
+    XXXXXXX: ""
+    "NO": ""
+    MINUS: "-"
+    MINS: "-"
+    EQUAL: "="
+    EQL: "="
+    LEFT_BRACKET: "["
+    LBRC: "["
+    RIGHT_BRACKET: "]"
+    RBRC: "]"
+    BACKSLASH: \
+    BSLS: \
+    NONUS_HASH: "#"
+    NUHS: "#"
+    SEMICOLON: ;
+    SCLN: ;
+    QUOTE: "'"
+    QUOT: "'"
+    GRAVE: "`"
+    GRV: "`"
+    COMMA: ","
+    COMM: ","
+    DOT: .
+    SLASH: /
+    SLSH: /
+    TILDE: "~"
+    TILD: "~"
+    EXCLAIM: "!"
+    EXLM: "!"
+    AT: "@"
+    HASH: "#"
+    DOLLAR: $
+    DLR: $
+    PERCENT: "%"
+    PERC: "%"
+    CIRCUMFLEX: ^
+    CIRC: ^
+    AMPERSAND: "&"
+    AMPR: "&"
+    ASTERISK: "*"
+    ASTR: "*"
+    LEFT_PAREN: (
+    LPRN: (
+    RIGHT_PAREN: )
+    RPRN: )
+    UNDERSCORE: _
+    UNDS: _
+    PLUS: +
+    LEFT_CURLY_BRACE: "{"
+    LCBR: "{"
+    RIGHT_CURLY_BRACE: "}"
+    RCBR: "}"
+    PIPE: "|"
+    COLON: ":"
+    COLN: ":"
+    DOUBLE_QUOTE: '"'
+    DQUO: '"'
+    DQT: '"'
+    LEFT_ANGLE_BRACKET: <
+    LABK: <
+    LT: <
+    RIGHT_ANGLE_BRACKET: ">"
+    RABK: ">"
+    GT: ">"
+    QUESTION: "?"
+    QUES: "?"
 
 draw_config:
   append_colon_to_layer_header: false
@@ -45,5 +137,5 @@ draw_config:
 combos:
   - p: [13, 14] # Q + W
     k: Tab
-    l: [Base]
+    l: [BASE]
     a: top
