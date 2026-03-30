@@ -76,52 +76,124 @@ enum custom_keycodes {
 //   {KC_DOT,  KC_QUES},  // Shift + . = ?
 const custom_shift_key_t custom_shift_keys[] = {
   {BRM_R2, KC_SCLN},  // ,;
-  {BRM_R3, KC_COLN}   // .:
+  {BRM_R3, KC_COLN},   // .:
+  {KC_ASTR, KC_EXLM}   // *!
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_voyager(
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_MINUS,       LT(5, KC_EQUAL),
-    KC_NO,          KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_NO,
-    KC_LEFT_SHIFT,  HRM_L4,         HRM_L3,         HRM_L2,         HRM_L1,         KC_G,                                           KC_H,           HRM_R1,         HRM_R2,         HRM_R3,         HRM_R4,         KC_RIGHT_SHIFT,
-    KC_RIGHT_ALT,   BRM_L4,         BRM_L3,         BRM_L2,         BRM_L1,         KC_B,                                           KC_N,           BRM_R1,         BRM_R2,         BRM_R3,         BRM_R4,         KC_RIGHT_ALT,
-                                                                    TMB_L1,         TMB_L2,                                         TMB_R2,         TMB_R1
-  ),
-  [1] = LAYOUT_voyager(
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    KC_CYCLOTAB,    KC_QUIT,        KC_TAB_CLOSE,   KC_TAB_PREV,    KC_TAB_NEXT,    KC_TAB_OPEN,                                    KC_NO,          KC_LPRN,        KC_RPRN,        KC_LCBR,        KC_RCBR,        KC_NO,
-    KC_SELECT_ALL,  KC_LEFT_GUI,    KC_LEFT_CTRL,   KC_LEFT_ALT,    KC_LEFT_SHIFT,  CW_TOGG,                                        KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_COLN,        ST_MACRO_0,
-    KC_MAC_DELETE,  KC_MAC_UNDO,    KC_MAC_CUT,     KC_MAC_COPY,    KC_MAC_PASTE,   KC_FIND,                                        KC_NO,          KC_LBRC,        KC_RBRC,        KC_LABK,        KC_RABK,        KC_NO,
-                                                                    KC_TRANSPARENT, KC_NO,                                          KC_ENTER,       KC_SPACE
-  ),
-  [2] = LAYOUT_voyager(
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    KC_NO,          KC_NO,          KC_PLUS,        KC_MINUS,       KC_EQUAL,       KC_NO,                                          KC_NO,          DUAL_FUNC_0,    DUAL_FUNC_1,    DUAL_FUNC_2,    DUAL_FUNC_3,    KC_NO,
-    KC_NO,          KC_LEFT_GUI,    KC_LEFT_CTRL,   KC_LEFT_ALT,    KC_LEFT_SHIFT,  KC_NO,                                          KC_0,           DUAL_FUNC_4,    DUAL_FUNC_5,    DUAL_FUNC_6,    DUAL_FUNC_7,    KC_NO,
-    KC_NO,          KC_NO,          KC_COMMA,       KC_DOT,         KC_COLN,        KC_NO,                                          KC_NO,          DUAL_FUNC_8,    DUAL_FUNC_9,    DUAL_FUNC_10,   DUAL_FUNC_11,   KC_NO,
-                                                                    KC_NO,          KC_TRANSPARENT,                                 KC_0,           KC_SPACE
-  ),
-  [3] = LAYOUT_voyager(
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    KC_NO,          KC_TILD,        KC_LABK,        KC_RABK,        KC_PERC,        ST_MACRO_1,                                     KC_NO,          KC_LCBR,        KC_RCBR,        KC_EQUAL,       KC_PLUS,        KC_NO,
-    KC_NO,          KC_CIRC,        KC_AT,          KC_HASH,        KC_DLR,         ST_MACRO_2,                                     KC_NO,          KC_LPRN,        KC_RPRN,        KC_KP_MINUS,    KC_GRAVE,       KC_NO,
-    KC_NO,          KC_BSLS,        KC_PIPE,        KC_AMPR,        KC_ASTR,        KC_NO,                                          KC_NO,          KC_LBRC,        KC_RBRC,        KC_UNDS,        KC_EXLM,        KC_NO,
-                                                                    KC_DELETE,      KC_TAB,                                         KC_ENTER,       KC_SPACE
-  ),
-  [4] = LAYOUT_voyager(
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    KC_NO,          KC_NO,          KC_NO,          KC_MS_UP,       KC_NO,          KC_NO,                                          KC_NO,          KC_MS_BTN4,     KC_MS_WH_UP,    KC_MS_BTN5,     KC_NO,          KC_NO,
-    KC_NO,          KC_NO,          KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    KC_NO,                                          KC_NO,          KC_MS_BTN1,     KC_MS_BTN3,     KC_MS_BTN2,     KC_RIGHT_GUI,   KC_NO,
-    KC_NO,          KC_NO,          KC_MS_ACCEL0,   KC_MS_ACCEL1,   KC_MS_ACCEL2,   KC_NO,                                          KC_NO,          KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_RIGHT, KC_NO,          KC_NO,
-                                                                    KC_NO,          KC_NO,                                          KC_NO,          KC_TRANSPARENT
-  ),
-  [5] = LAYOUT_voyager(
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    RGB_MODE_FORWARD,RGB_SPD,       RGB_SPI,        RGB_VAD,        RGB_VAI,        KC_BRIGHTNESS_UP,                               KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          QK_BOOT,
-    RGB_SLD,        KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_BRIGHTNESS_DOWN,                   KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    RGB_TOG,        RGB_SAD,        RGB_SAI,        RGB_HUD,        RGB_HUI,        KC_NO,                                          KC_NO,          KC_NO,          MAC_LOCK,       MAC_DND,        KC_MS_JIGGLER_TOGGLE,KC_TRANSPARENT,
-                                                                    KC_MEDIA_PLAY_PAUSE,KC_AUDIO_MUTE,                              KC_NO,          KC_NO
-  ),
+//    ┌────────────┬────────┬────────┬────────┬────────┬────────┐   ┌────────┬────────┬────────┬────────┬────────┬───────────┐
+//    │     no     │   no   │   no   │   no   │   no   │   no   │   │   no   │   no   │   no   │   no   │   no   │ LT(5, no) │
+//    ├────────────┼────────┼────────┼────────┼────────┼────────┤   ├────────┼────────┼────────┼────────┼────────┼───────────┤
+//    │     `      │   q    │   w    │   e    │   r    │   t    │   │   y    │   u    │   i    │   o    │   p    │     =     │
+//    ├────────────┼────────┼────────┼────────┼────────┼────────┤   ├────────┼────────┼────────┼────────┼────────┼───────────┤
+//    │    tab     │ HRM_L4 │ HRM_L3 │ HRM_L2 │ HRM_L1 │   g    │   │   h    │ HRM_R1 │ HRM_R2 │ HRM_R3 │ HRM_R4 │     -     │
+//    ├────────────┼────────┼────────┼────────┼────────┼────────┤   ├────────┼────────┼────────┼────────┼────────┼───────────┤
+//    │ left_SHIFT │ BRM_L4 │ BRM_L3 │ BRM_L2 │ BRM_L1 │   b    │   │   n    │ BRM_R1 │ BRM_R2 │ BRM_R3 │ BRM_R4 │     *     │
+//    └────────────┴────────┴────────┴────────┼────────┼────────┤   ├────────┼────────┼────────┴────────┴────────┴───────────┘
+//                                            │ TMB_L1 │ TMB_L2 │   │ TMB_R2 │ TMB_R1 │
+//                                            └────────┴────────┘   └────────┴────────┘
+[0] = LAYOUT_voyager(
+  KC_NO         , KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  ,     KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  , LT(5, KC_NO),
+  KC_GRAVE      , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,     KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_EQUAL    ,
+  KC_TAB        , HRM_L4 , HRM_L3 , HRM_L2 , HRM_L1 , KC_G   ,     KC_H   , HRM_R1 , HRM_R2 , HRM_R3 , HRM_R4 , KC_MINUS    ,
+  KC_LEFT_SHIFT , BRM_L4 , BRM_L3 , BRM_L2 , BRM_L1 , KC_B   ,     KC_N   , BRM_R1 , BRM_R2 , BRM_R3 , BRM_R4 , KC_ASTR     ,
+                                             TMB_L1 , TMB_L2 ,     TMB_R2 , TMB_R1
+),
+
+//    ┌────────────┬──────────┬───────────┬──────────┬─────────────┬──────────┐   ┌──────┬──────┬────┬──────┬────┬────────────┐
+//    │     no     │    no    │    no     │    no    │     no      │    no    │   │  no  │  no  │ no │  no  │ no │     no     │
+//    ├────────────┼──────────┼───────────┼──────────┼─────────────┼──────────┤   ├──────┼──────┼────┼──────┼────┼────────────┤
+//    │ select_ALL │   qUIT   │ tab_CLOSE │ tab_PREV │  tab_NEXT   │ tab_OPEN │   │  no  │  (   │ )  │  {   │ }  │     no     │
+//    ├────────────┼──────────┼───────────┼──────────┼─────────────┼──────────┤   ├──────┼──────┼────┼──────┼────┼────────────┤
+//    │  cYCLOTAB  │ left_GUI │ left_CTRL │ left_ALT │ left_SHIFT  │ CW_TOGG  │   │ left │ down │ up │ rght │ :  │ ST_MACRO_0 │
+//    ├────────────┼──────────┼───────────┼──────────┼─────────────┼──────────┤   ├──────┼──────┼────┼──────┼────┼────────────┤
+//    │ mAC_DELETE │ mAC_UNDO │  mAC_CUT  │ mAC_COPY │  mAC_PASTE  │   find   │   │  no  │  [   │ ]  │  <   │ >  │     no     │
+//    └────────────┴──────────┴───────────┴──────────┼─────────────┼──────────┤   ├──────┼──────┼────┴──────┴────┴────────────┘
+//                                                   │ tRANSPARENT │    no    │   │ ent  │ spc  │
+//                                                   └─────────────┴──────────┘   └──────┴──────┘
+[1] = LAYOUT_voyager(
+  KC_NO         , KC_NO       , KC_NO        , KC_NO       , KC_NO          , KC_NO       ,     KC_NO    , KC_NO    , KC_NO   , KC_NO    , KC_NO   , KC_NO     ,
+  KC_SELECT_ALL , KC_QUIT     , KC_TAB_CLOSE , KC_TAB_PREV , KC_TAB_NEXT    , KC_TAB_OPEN ,     KC_NO    , KC_LPRN  , KC_RPRN , KC_LCBR  , KC_RCBR , KC_NO     ,
+  KC_CYCLOTAB   , KC_LEFT_GUI , KC_LEFT_CTRL , KC_LEFT_ALT , KC_LEFT_SHIFT  , CW_TOGG     ,     KC_LEFT  , KC_DOWN  , KC_UP   , KC_RIGHT , KC_COLN , ST_MACRO_0,
+  KC_MAC_DELETE , KC_MAC_UNDO , KC_MAC_CUT   , KC_MAC_COPY , KC_MAC_PASTE   , KC_FIND     ,     KC_NO    , KC_LBRC  , KC_RBRC , KC_LABK  , KC_RABK , KC_NO     ,
+                                                             KC_TRANSPARENT , KC_NO       ,     KC_ENTER , KC_SPACE
+),
+
+//    ┌────┬──────────┬───────────┬──────────┬────────────┬─────────────┐   ┌────┬─────────────┬─────────────┬──────────────┬──────────────┬────┐
+//    │ no │    no    │    no     │    no    │     no     │     no      │   │ no │     no      │     no      │      no      │      no      │ no │
+//    ├────┼──────────┼───────────┼──────────┼────────────┼─────────────┤   ├────┼─────────────┼─────────────┼──────────────┼──────────────┼────┤
+//    │ no │    no    │     +     │    -     │     =      │     no      │   │ no │ DUAL_FUNC_0 │ DUAL_FUNC_1 │ DUAL_FUNC_2  │ DUAL_FUNC_3  │ no │
+//    ├────┼──────────┼───────────┼──────────┼────────────┼─────────────┤   ├────┼─────────────┼─────────────┼──────────────┼──────────────┼────┤
+//    │ no │ left_GUI │ left_CTRL │ left_ALT │ left_SHIFT │     no      │   │ 0  │ DUAL_FUNC_4 │ DUAL_FUNC_5 │ DUAL_FUNC_6  │ DUAL_FUNC_7  │ no │
+//    ├────┼──────────┼───────────┼──────────┼────────────┼─────────────┤   ├────┼─────────────┼─────────────┼──────────────┼──────────────┼────┤
+//    │ no │    no    │     ,     │    .     │     :      │     no      │   │ no │ DUAL_FUNC_8 │ DUAL_FUNC_9 │ DUAL_FUNC_10 │ DUAL_FUNC_11 │ no │
+//    └────┴──────────┴───────────┴──────────┼────────────┼─────────────┤   ├────┼─────────────┼─────────────┴──────────────┴──────────────┴────┘
+//                                           │     no     │ tRANSPARENT │   │ 0  │     spc     │
+//                                           └────────────┴─────────────┘   └────┴─────────────┘
+[2] = LAYOUT_voyager(
+  KC_NO , KC_NO       , KC_NO        , KC_NO       , KC_NO         , KC_NO          ,     KC_NO , KC_NO       , KC_NO       , KC_NO        , KC_NO        , KC_NO,
+  KC_NO , KC_NO       , KC_PLUS      , KC_MINUS    , KC_EQUAL      , KC_NO          ,     KC_NO , DUAL_FUNC_0 , DUAL_FUNC_1 , DUAL_FUNC_2  , DUAL_FUNC_3  , KC_NO,
+  KC_NO , KC_LEFT_GUI , KC_LEFT_CTRL , KC_LEFT_ALT , KC_LEFT_SHIFT , KC_NO          ,     KC_0  , DUAL_FUNC_4 , DUAL_FUNC_5 , DUAL_FUNC_6  , DUAL_FUNC_7  , KC_NO,
+  KC_NO , KC_NO       , KC_COMMA     , KC_DOT      , KC_COLN       , KC_NO          ,     KC_NO , DUAL_FUNC_8 , DUAL_FUNC_9 , DUAL_FUNC_10 , DUAL_FUNC_11 , KC_NO,
+                                                     KC_NO         , KC_TRANSPARENT ,     KC_0  , KC_SPACE
+),
+
+//    ┌────┬────┬────┬────┬─────┬────────────┐   ┌─────┬─────┬────┬──────┬────┬────┐
+//    │ no │ no │ no │ no │ no  │     no     │   │ no  │ no  │ no │  no  │ no │ no │
+//    ├────┼────┼────┼────┼─────┼────────────┤   ├─────┼─────┼────┼──────┼────┼────┤
+//    │ no │ ~  │ <  │ >  │  %  │ ST_MACRO_1 │   │ no  │  {  │ }  │  =   │ +  │ no │
+//    ├────┼────┼────┼────┼─────┼────────────┤   ├─────┼─────┼────┼──────┼────┼────┤
+//    │ no │ ^  │ @  │ #  │  $  │ ST_MACRO_2 │   │ no  │  (  │ )  │ kp_- │ `  │ no │
+//    ├────┼────┼────┼────┼─────┼────────────┤   ├─────┼─────┼────┼──────┼────┼────┤
+//    │ no │ \  │ |  │ &  │  *  │     no     │   │ no  │  [  │ ]  │  _   │ !  │ no │
+//    └────┴────┴────┴────┼─────┼────────────┤   ├─────┼─────┼────┴──────┴────┴────┘
+//                        │ del │    tab     │   │ ent │ spc │
+//                        └─────┴────────────┘   └─────┴─────┘
+[3] = LAYOUT_voyager(
+  KC_NO , KC_NO   , KC_NO   , KC_NO   , KC_NO     , KC_NO      ,     KC_NO    , KC_NO    , KC_NO   , KC_NO       , KC_NO    , KC_NO,
+  KC_NO , KC_TILD , KC_LABK , KC_RABK , KC_PERC   , ST_MACRO_1 ,     KC_NO    , KC_LCBR  , KC_RCBR , KC_EQUAL    , KC_PLUS  , KC_NO,
+  KC_NO , KC_CIRC , KC_AT   , KC_HASH , KC_DLR    , ST_MACRO_2 ,     KC_NO    , KC_LPRN  , KC_RPRN , KC_KP_MINUS , KC_GRAVE , KC_NO,
+  KC_NO , KC_BSLS , KC_PIPE , KC_AMPR , KC_ASTR   , KC_NO      ,     KC_NO    , KC_LBRC  , KC_RBRC , KC_UNDS     , KC_EXLM  , KC_NO,
+                                        KC_DELETE , KC_TAB     ,     KC_ENTER , KC_SPACE
+),
+
+//    ┌────┬────┬───────────┬───────────┬───────────┬────┐   ┌────┬─────────────┬──────┬──────┬──────────┬────┐
+//    │ no │ no │    no     │    no     │    no     │ no │   │ no │     no      │  no  │  no  │    no    │ no │
+//    ├────┼────┼───────────┼───────────┼───────────┼────┤   ├────┼─────────────┼──────┼──────┼──────────┼────┤
+//    │ no │ no │    no     │   ms_u    │    no     │ no │   │ no │    btn4     │ wh_u │ btn5 │    no    │ no │
+//    ├────┼────┼───────────┼───────────┼───────────┼────┤   ├────┼─────────────┼──────┼──────┼──────────┼────┤
+//    │ no │ no │   ms_l    │   ms_d    │   ms_r    │ no │   │ no │    btn1     │ btn3 │ btn2 │ rght_GUI │ no │
+//    ├────┼────┼───────────┼───────────┼───────────┼────┤   ├────┼─────────────┼──────┼──────┼──────────┼────┤
+//    │ no │ no │ mS_ACCEL0 │ mS_ACCEL1 │ mS_ACCEL2 │ no │   │ no │    wh_l     │ wh_d │ wh_r │    no    │ no │
+//    └────┴────┴───────────┴───────────┼───────────┼────┤   ├────┼─────────────┼──────┴──────┴──────────┴────┘
+//                                      │    no     │ no │   │ no │ tRANSPARENT │
+//                                      └───────────┴────┘   └────┴─────────────┘
+[4] = LAYOUT_voyager(
+  KC_NO , KC_NO , KC_NO        , KC_NO        , KC_NO        , KC_NO ,     KC_NO , KC_NO          , KC_NO         , KC_NO          , KC_NO        , KC_NO,
+  KC_NO , KC_NO , KC_NO        , KC_MS_UP     , KC_NO        , KC_NO ,     KC_NO , KC_MS_BTN4     , KC_MS_WH_UP   , KC_MS_BTN5     , KC_NO        , KC_NO,
+  KC_NO , KC_NO , KC_MS_LEFT   , KC_MS_DOWN   , KC_MS_RIGHT  , KC_NO ,     KC_NO , KC_MS_BTN1     , KC_MS_BTN3    , KC_MS_BTN2     , KC_RIGHT_GUI , KC_NO,
+  KC_NO , KC_NO , KC_MS_ACCEL0 , KC_MS_ACCEL1 , KC_MS_ACCEL2 , KC_NO ,     KC_NO , KC_MS_WH_LEFT  , KC_MS_WH_DOWN , KC_MS_WH_RIGHT , KC_NO        , KC_NO,
+                                                KC_NO        , KC_NO ,     KC_NO , KC_TRANSPARENT
+),
+
+//    ┌──────────────────┬─────────┬─────────┬─────────┬─────────┬─────────────────┐   ┌────┬────┬──────────┬─────────┬───────────────────┬─────────────┐
+//    │        no        │   no    │   no    │   no    │   no    │       no        │   │ no │ no │    no    │   no    │        no         │     no      │
+//    ├──────────────────┼─────────┼─────────┼─────────┼─────────┼─────────────────┤   ├────┼────┼──────────┼─────────┼───────────────────┼─────────────┤
+//    │ RGB_MODE_FORWARD │ RGB_SPD │ RGB_SPI │ RGB_VAD │ RGB_VAI │  bRIGHTNESS_UP  │   │ no │ no │    no    │   no    │        no         │   QK_BOOT   │
+//    ├──────────────────┼─────────┼─────────┼─────────┼─────────┼─────────────────┤   ├────┼────┼──────────┼─────────┼───────────────────┼─────────────┤
+//    │     RGB_SLD      │  mprv   │  mnxt   │  vold   │  volu   │ bRIGHTNESS_DOWN │   │ no │ no │    no    │   no    │        no         │     no      │
+//    ├──────────────────┼─────────┼─────────┼─────────┼─────────┼─────────────────┤   ├────┼────┼──────────┼─────────┼───────────────────┼─────────────┤
+//    │     RGB_TOG      │ RGB_SAD │ RGB_SAI │ RGB_HUD │ RGB_HUI │       no        │   │ no │ no │ MAC_LOCK │ MAC_DND │ mS_JIGGLER_TOGGLE │ tRANSPARENT │
+//    └──────────────────┴─────────┴─────────┴─────────┼─────────┼─────────────────┤   ├────┼────┼──────────┴─────────┴───────────────────┴─────────────┘
+//                                                     │  mply   │      mute       │   │ no │ no │
+//                                                     └─────────┴─────────────────┘   └────┴────┘
+[5] = LAYOUT_voyager(
+  KC_NO            , KC_NO               , KC_NO               , KC_NO             , KC_NO               , KC_NO              ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , KC_NO         ,
+  RGB_MODE_FORWARD , RGB_SPD             , RGB_SPI             , RGB_VAD           , RGB_VAI             , KC_BRIGHTNESS_UP   ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , QK_BOOT       ,
+  RGB_SLD          , KC_MEDIA_PREV_TRACK , KC_MEDIA_NEXT_TRACK , KC_AUDIO_VOL_DOWN , KC_AUDIO_VOL_UP     , KC_BRIGHTNESS_DOWN ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , KC_NO         ,
+  RGB_TOG          , RGB_SAD             , RGB_SAI             , RGB_HUD           , RGB_HUI             , KC_NO              ,     KC_NO , KC_NO , MAC_LOCK , MAC_DND , KC_MS_JIGGLER_TOGGLE , KC_TRANSPARENT,
+                                                                                     KC_MEDIA_PLAY_PAUSE , KC_AUDIO_MUTE      ,     KC_NO , KC_NO
+)
 };
 
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
@@ -227,18 +299,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MAC_LOCK:
       HCS(0x19E);
 
-    case NUM_FUN_0:  return handle_dual_func(record, KC_7,     KC_F7);
-    case NUM_FUN_1:  return handle_dual_func(record, KC_8,     KC_F8);
-    case NUM_FUN_2:  return handle_dual_func(record, KC_9,     KC_F9);
-    case NUM_FUN_3:  return handle_dual_func(record, KC_ASTR,  KC_F12);
-    case NUM_FUN_4:  return handle_dual_func(record, KC_1,     KC_F1);
-    case NUM_FUN_5:  return handle_dual_func(record, KC_2,     KC_F2);
-    case NUM_FUN_6:  return handle_dual_func(record, KC_3,     KC_F3);
-    case NUM_FUN_7:  return handle_dual_func(record, KC_0,     KC_F11);
-    case NUM_FUN_8:  return handle_dual_func(record, KC_4,     KC_F4);
-    case NUM_FUN_9:  return handle_dual_func(record, KC_5,     KC_F5);
-    case NUM_FUN_10: return handle_dual_func(record, KC_6,     KC_F6);
-    case NUM_FUN_11: return handle_dual_func(record, KC_SLASH, KC_F10);
+    case DUAL_FUNC_0:  return handle_dual_func(record, KC_7,     KC_F7);
+    case DUAL_FUNC_1:  return handle_dual_func(record, KC_8,     KC_F8);
+    case DUAL_FUNC_2:  return handle_dual_func(record, KC_9,     KC_F9);
+    case DUAL_FUNC_3:  return handle_dual_func(record, KC_ASTR,  KC_F12);
+    case DUAL_FUNC_4:  return handle_dual_func(record, KC_1,     KC_F1);
+    case DUAL_FUNC_5:  return handle_dual_func(record, KC_2,     KC_F2);
+    case DUAL_FUNC_6:  return handle_dual_func(record, KC_3,     KC_F3);
+    case DUAL_FUNC_7:  return handle_dual_func(record, KC_0,     KC_F11);
+    case DUAL_FUNC_8:  return handle_dual_func(record, KC_4,     KC_F4);
+    case DUAL_FUNC_9:  return handle_dual_func(record, KC_5,     KC_F5);
+    case DUAL_FUNC_10: return handle_dual_func(record, KC_6,     KC_F6);
+    case DUAL_FUNC_11: return handle_dual_func(record, KC_SLASH, KC_F10);
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);
