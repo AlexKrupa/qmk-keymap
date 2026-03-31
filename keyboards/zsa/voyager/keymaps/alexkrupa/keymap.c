@@ -60,6 +60,12 @@ enum keycode_aliases {
   TMB_ENT = LT(3, KC_ENTER),
   TMB_SPC = LT(4, KC_SPACE),
 
+  // Layer 1 mod-taps: modifier on hold, action on tap
+  MT_CTL_SW = LT(12, KC_F22),  // Left Ctrl hold / SELWORD tap
+  MT_GUI_SA = LT(11, KC_F23),  // Left GUI hold / SEL_ALL tap
+  MT_ALT_DL = LT(10, KC_F24),  // Left Alt hold / MAC_DEL tap
+  MT_SFT_FD = LT(9, KC_F15),   // Left Shift hold / MAC_FIND tap
+
   // Shortcuts
   CYCLOTAB = LGUI(KC_TAB),
   MAC_DEL  = LGUI(KC_BSPC),
@@ -102,23 +108,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      TMB_BSP , TMB_ESC ,     TMB_ENT , TMB_SPC
 ),
 
-//    ┌──────────┬──────────┬───────────┬──────────┬─────────────┬──────────┐   ┌──────┬──────┬────┬──────┬────┬─────────┐
-//    │    no    │    no    │    no     │    no    │     no      │    no    │   │  no  │  no  │ no │  no  │ no │   no    │
-//    ├──────────┼──────────┼───────────┼──────────┼─────────────┼──────────┤   ├──────┼──────┼────┼──────┼────┼─────────┤
-//    │ SEL_ALL  │ MAC_QUIT │  TAB_CLS  │ TAB_PRV  │   TAB_NXT   │ TAB_OPN  │   │  no  │  (   │ )  │  {   │ }  │   no    │
-//    ├──────────┼──────────┼───────────┼──────────┼─────────────┼──────────┤   ├──────┼──────┼────┼──────┼────┼─────────┤
-//    │ CYCLOTAB │ left_GUI │ left_CTRL │ left_ALT │ left_SHIFT  │ CW_TOGG  │   │ left │ down │ up │ rght │ :  │ MCR_ARR │
-//    ├──────────┼──────────┼───────────┼──────────┼─────────────┼──────────┤   ├──────┼──────┼────┼──────┼────┼─────────┤
-//    │ MAC_DEL  │ mAC_UNDO │  mAC_CUT  │ mAC_COPY │  mAC_PASTE  │ MAC_FIND │   │  no  │  [   │ ]  │  <   │ >  │   no    │
-//    └──────────┴──────────┴───────────┴──────────┼─────────────┼──────────┤   ├──────┼──────┼────┴──────┴────┴─────────┘
-//                                                 │ tRANSPARENT │    no    │   │ ent  │ spc  │
-//                                                 └─────────────┴──────────┘   └──────┴──────┘
+//    ┌──────────┬───────────┬───────────┬───────────┬─────────────┬──────────┐   ┌──────┬──────┬────┬──────┬────┬─────────┐
+//    │    no    │    no     │    no     │    no     │     no      │    no    │   │  no  │  no  │ no │  no  │ no │   no    │
+//    ├──────────┼───────────┼───────────┼───────────┼─────────────┼──────────┤   ├──────┼──────┼────┼──────┼────┼─────────┤
+//    │    no    │ MAC_QUIT  │  TAB_CLS  │  TAB_PRV  │   TAB_NXT   │ TAB_OPN  │   │  no  │  (   │ )  │  {   │ }  │   no    │
+//    ├──────────┼───────────┼───────────┼───────────┼─────────────┼──────────┤   ├──────┼──────┼────┼──────┼────┼─────────┤
+//    │ CYCLOTAB │ MT_GUI_SA │ MT_CTL_SW │ MT_ALT_DL │  MT_SFT_FD  │ CW_TOGG  │   │ left │ down │ up │ rght │ :  │ MCR_ARR │
+//    ├──────────┼───────────┼───────────┼───────────┼─────────────┼──────────┤   ├──────┼──────┼────┼──────┼────┼─────────┤
+//    │    no    │ mAC_UNDO  │  mAC_CUT  │ mAC_COPY  │  mAC_PASTE  │ MAC_FIND │   │  no  │  [   │ ]  │  <   │ >  │   no    │
+//    └──────────┴───────────┴───────────┴───────────┼─────────────┼──────────┤   ├──────┼──────┼────┴──────┴────┴─────────┘
+//                                                   │ tRANSPARENT │    no    │   │ ent  │ spc  │
+//                                                   └─────────────┴──────────┘   └──────┴──────┘
 [1] = LAYOUT_voyager(
-  KC_NO    , KC_NO       , KC_NO        , KC_NO       , KC_NO          , KC_NO    ,     KC_NO    , KC_NO    , KC_NO   , KC_NO    , KC_NO   , KC_NO  ,
-  SEL_ALL  , MAC_QUIT    , TAB_CLS      , TAB_PRV     , TAB_NXT        , TAB_OPN  ,     KC_NO    , KC_LPRN  , KC_RPRN , KC_LCBR  , KC_RCBR , KC_NO  ,
-  CYCLOTAB , KC_LEFT_GUI , KC_LEFT_CTRL , KC_LEFT_ALT , KC_LEFT_SHIFT  , CW_TOGG  ,     KC_LEFT  , KC_DOWN  , KC_UP   , KC_RIGHT , KC_COLN , MCR_ARR,
-  MAC_DEL  , KC_MAC_UNDO , KC_MAC_CUT   , KC_MAC_COPY , KC_MAC_PASTE   , MAC_FIND ,     KC_NO    , KC_LBRC  , KC_RBRC , KC_LABK  , KC_RABK , KC_NO  ,
-                                                        KC_TRANSPARENT , KC_NO    ,     KC_ENTER , KC_SPACE
+  KC_NO    , KC_NO       , KC_NO      , KC_NO       , KC_NO          , KC_NO    ,     KC_NO    , KC_NO    , KC_NO   , KC_NO    , KC_NO   , KC_NO  ,
+  KC_NO    , MAC_QUIT    , TAB_CLS    , TAB_PRV     , TAB_NXT        , TAB_OPN  ,     KC_NO    , KC_LPRN  , KC_RPRN , KC_LCBR  , KC_RCBR , KC_NO  ,
+  CYCLOTAB , MT_GUI_SA   , MT_CTL_SW  , MT_ALT_DL   , MT_SFT_FD      , CW_TOGG  ,     KC_LEFT  , KC_DOWN  , KC_UP   , KC_RIGHT , KC_COLN , MCR_ARR,
+  KC_NO    , KC_MAC_UNDO , KC_MAC_CUT , KC_MAC_COPY , KC_MAC_PASTE   , MAC_FIND ,     KC_NO    , KC_LBRC  , KC_RBRC , KC_LABK  , KC_RABK , KC_NO  ,
+                                                      KC_TRANSPARENT , KC_NO    ,     KC_ENTER , KC_SPACE
 ),
 
 //    ┌────┬──────────┬───────────┬──────────┬────────────┬─────────────┐   ┌────┬──────┬──────┬──────┬─────────┬────┐
@@ -305,6 +311,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DF_5:     return handle_dual_func(record, KC_5,     KC_F5);
     case DF_6:     return handle_dual_func(record, KC_6,     KC_F6);
     case DF_SLS:   return handle_dual_func(record, KC_SLASH, KC_F10);
+
+    case MT_CTL_SW:
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          select_word_register('W');
+        } else {
+          select_word_unregister();
+        }
+      } else {
+        if (record->event.pressed) {
+          register_code(KC_LEFT_CTRL);
+        } else {
+          unregister_code(KC_LEFT_CTRL);
+        }
+      }
+      return false;
+
+    case MT_GUI_SA:
+      return handle_dual_func(record, LGUI(KC_A), KC_LEFT_GUI);
+
+    case MT_ALT_DL:
+      return handle_dual_func(record, LGUI(KC_BSPC), KC_LEFT_ALT);
+
+    case MT_SFT_FD:
+      return handle_dual_func(record, LGUI(KC_F), KC_LEFT_SHIFT);
+
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);

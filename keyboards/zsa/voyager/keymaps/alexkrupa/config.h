@@ -3,6 +3,21 @@
 
 #define COMBO_TERM 25
 
+// getreuer: Unfortunately, some applications drop or misorder fast key events.
+// This is a partial fix to slow down the rate at which macros are sent.
+#define TAP_CODE_DELAY 5
+
+// Holding Shift while Caps Word is active inverts the shift state.
+#define CAPS_WORD_INVERT_ON_SHIFT
+// When idle, turn off Caps Word after 5 seconds.
+#define CAPS_WORD_IDLE_TIMEOUT 5000
+
+// Don't apply custom shift keys with mods other than Shift.
+#define CUSTOM_SHIFT_KEYS_NEGMODS ~MOD_MASK_SHIFT
+
+// Only apply custom shift keys on layer 0
+#define CUSTOM_SHIFT_KEYS_LAYER_MASK (1 << 0)
+
 #define USB_SUSPEND_WAKEUP_DELAY 0
 #undef MOUSEKEY_INTERVAL
 #define MOUSEKEY_INTERVAL 10
