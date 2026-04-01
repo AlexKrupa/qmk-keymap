@@ -52,7 +52,7 @@ enum keycode_aliases {
   BRM_COM = MT(MOD_RALT, KC_COMMA),
   BRM_DOT = MEH_T(KC_DOT),
   BRM_SLS = ALL_T(KC_SLASH),
-  BRM_ASTR = LT(5, KC_ASTR),
+  BRM_ASTR = LT(5, KC_F16),  // KC_ASTR is S(KC_8), too wide for LT(); tap overridden in process_record_user
 
   // Thumbs
   TMB_BSP = LT(1, KC_BSPC),
@@ -85,7 +85,7 @@ enum keycode_aliases {
 const custom_shift_key_t custom_shift_keys[] = {
   {BRM_COM, KC_SCLN},  // ,;
   {BRM_DOT, KC_COLN},   // .:
-  {KC_ASTR, KC_EXLM}   // *!
+  {BRM_ASTR, KC_EXLM}  // *!
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -218,6 +218,24 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_TAB),
 };
 
+#ifdef SPECULATIVE_HOLD
+bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case HRM_F:   // LShift
+    case HRM_J:   // RShift
+    case HRM_S:   // LCtrl
+    case HRM_L:   // RCtrl
+    case HRM_D:   // LAlt
+    case HRM_K:   // LAlt
+    case BRM_C:   // RAlt
+    case HRM_A:   // LGui
+    case HRM_QUO: // RGui
+      return true;
+  }
+  return false;
+}
+#endif
+
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case HRM_A:
@@ -225,17 +243,17 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case HRM_S:
             return TAPPING_TERM + 20;
         case HRM_D:
-            return TAPPING_TERM -10;
+            return TAPPING_TERM - 10;
         case HRM_F:
-            return TAPPING_TERM -20;
+            return TAPPING_TERM - 20;
         case BRM_Z:
             return TAPPING_TERM + 60;
         case BRM_X:
             return TAPPING_TERM + 20;
         case HRM_J:
-            return TAPPING_TERM -20;
+            return TAPPING_TERM - 20;
         case HRM_K:
-            return TAPPING_TERM -10;
+            return TAPPING_TERM - 10;
         case HRM_L:
             return TAPPING_TERM + 20;
         case BRM_DOT:
@@ -288,12 +306,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_MINUS)SS_DELAY(1)  SS_LSFT(SS_TAP(X_DOT))SS_DELAY(1)  SS_TAP(X_SPACE));
     }
-    break;
+    return false;
     case MCR_DLR_BRC:
     if (record->event.pressed) {
       SEND_STRING(SS_LSFT(SS_TAP(X_4))SS_DELAY(1)  SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(1)  SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(1)  SS_TAP(X_LEFT));
     }
-    break;
+    return false;
     case MAC_DND:
       HSS(0x9B);
     case MAC_LOCK:
@@ -311,6 +329,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DF_5:     return handle_dual_func(record, KC_5,     KC_F5);
     case DF_6:     return handle_dual_func(record, KC_6,     KC_F6);
     case DF_SLS:   return handle_dual_func(record, KC_SLASH, KC_F10);
+
+    // Override LT tap: KC_F16 placeholder -> KC_ASTR (shifted case handled by custom_shift_keys module)
+    case BRM_ASTR:
+      if (record->tap.count > 0 && !((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT)) {
+        if (record->event.pressed) {
+          register_code16(KC_ASTR);
+        } else {
+          unregister_code16(KC_ASTR);
+        }
+        return false;
+      }
+      return true;
 
     case MT_CTL_SW:
       if (record->tap.count > 0) {

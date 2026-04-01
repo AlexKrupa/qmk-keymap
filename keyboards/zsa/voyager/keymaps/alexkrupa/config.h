@@ -1,6 +1,14 @@
 #define CHORDAL_HOLD
 #define PERMISSIVE_HOLD
 
+// Requires module in keymap.json
+// "getreuer/speculative_hold"
+// #define SPECULATIVE_HOLD
+
+// Speculative hold: neutralize flashing mods on tap rollback
+#define DUMMY_MOD_NEUTRALIZER_KEYCODE KC_RIGHT_CTRL
+#define MODS_TO_NEUTRALIZE { MOD_BIT(KC_LEFT_ALT), MOD_BIT(KC_RIGHT_ALT), MOD_BIT(KC_LEFT_GUI), MOD_BIT(KC_RIGHT_GUI) }
+
 #define COMBO_TERM 25
 
 // getreuer: Unfortunately, some applications drop or misorder fast key events.
