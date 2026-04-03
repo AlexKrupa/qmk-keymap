@@ -238,30 +238,54 @@ bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        // Pinky - home
         case HRM_A:
-            return TAPPING_TERM + 60;
+        case HRM_QUO:
+            return TAPPING_TERM + 70;
+
+        // Ring - home
         case HRM_S:
-            return TAPPING_TERM + 20;
+        case HRM_L:
+            return TAPPING_TERM + 40;
+
+        // Middle - home
         case HRM_D:
-            return TAPPING_TERM - 10;
-        case HRM_F:
-            return TAPPING_TERM - 20;
-        case BRM_Z:
-            return TAPPING_TERM + 60;
-        case BRM_X:
-            return TAPPING_TERM + 20;
-        case HRM_J:
-            return TAPPING_TERM - 20;
         case HRM_K:
             return TAPPING_TERM - 10;
-        case HRM_L:
-            return TAPPING_TERM + 20;
-        case BRM_DOT:
-            return TAPPING_TERM + 20;
+
+        // Index - home
+        case HRM_F:
+        case HRM_J:
+            return TAPPING_TERM - 20;
+
+        // Pinky - bottom
+        case BRM_Z:
         case BRM_SLS:
-            return TAPPING_TERM + 60;
         case BRM_ASTR:
             return TAPPING_TERM + 80;
+
+        // Ring - bottom
+        case BRM_X:
+        case BRM_DOT:
+            return TAPPING_TERM + 50;
+
+        // Middle - bottom
+        case BRM_C:
+        case BRM_COM:
+            return TAPPING_TERM + 20;
+
+        // Index - bottom
+        case BRM_V:
+        case BRM_M:
+            return TAPPING_TERM + 10;
+
+        // Thumbs
+        case TMB_BSP:
+        case TMB_ESC:
+        case TMB_ENT:
+        case TMB_SPC:
+            return TAPPING_TERM;
+
         default:
             return TAPPING_TERM;
     }
