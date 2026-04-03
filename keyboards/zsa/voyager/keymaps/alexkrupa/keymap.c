@@ -1,14 +1,8 @@
 #include QMK_KEYBOARD_H
-#include "version.h"
 #include "i18n.h"
-#define MOON_LED_LEVEL LED_LEVEL
-#ifndef ZSA_SAFE_RANGE
-#define ZSA_SAFE_RANGE SAFE_RANGE
-#endif
 
 enum custom_keycodes {
-  RGB_SLD = ZSA_SAFE_RANGE,
-  MCR_ARR,
+  MCR_ARR = SAFE_RANGE,
   MCR_DLR_BRC,
   MAC_DND,
   MAC_LOCK,
@@ -178,28 +172,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                      └───────────┴────┘   └────┴─────────────┘
 [4] = LAYOUT_voyager(
   KC_NO , KC_NO , KC_NO        , KC_NO        , KC_NO        , KC_NO ,     KC_NO , KC_NO          , KC_NO         , KC_NO          , KC_NO        , KC_NO,
-  KC_NO , KC_NO , KC_NO        , KC_MS_UP     , KC_NO        , KC_NO ,     KC_NO , KC_MS_BTN4     , KC_MS_WH_UP   , KC_MS_BTN5     , KC_NO        , KC_NO,
-  KC_NO , KC_NO , KC_MS_LEFT   , KC_MS_DOWN   , KC_MS_RIGHT  , KC_NO ,     KC_NO , KC_MS_BTN1     , KC_MS_BTN3    , KC_MS_BTN2     , KC_RIGHT_GUI , KC_NO,
-  KC_NO , KC_NO , KC_MS_ACCEL0 , KC_MS_ACCEL1 , KC_MS_ACCEL2 , KC_NO ,     KC_NO , KC_MS_WH_LEFT  , KC_MS_WH_DOWN , KC_MS_WH_RIGHT , KC_NO        , KC_NO,
+  KC_NO , KC_NO , KC_NO        , MS_UP     , KC_NO        , KC_NO ,     KC_NO , MS_BTN4     , MS_WHLU   , MS_BTN5     , KC_NO        , KC_NO,
+  KC_NO , KC_NO , MS_LEFT   , MS_DOWN   , MS_RGHT  , KC_NO ,     KC_NO , MS_BTN1     , MS_BTN3    , MS_BTN2     , KC_RIGHT_GUI , KC_NO,
+  KC_NO , KC_NO , MS_ACL0 , MS_ACL1 , MS_ACL2 , KC_NO ,     KC_NO , MS_WHLL  , MS_WHLD , MS_WHLR , KC_NO        , KC_NO,
                                                 KC_NO        , KC_NO ,     KC_NO , KC_TRANSPARENT
 ),
 
 //    ┌──────────────────┬─────────┬─────────┬─────────┬─────────┬─────────────────┐   ┌────┬────┬──────────┬─────────┬───────────────────┬─────────────┐
 //    │        no        │   no    │   no    │   no    │   no    │       no        │   │ no │ no │    no    │   no    │        no         │     no      │
 //    ├──────────────────┼─────────┼─────────┼─────────┼─────────┼─────────────────┤   ├────┼────┼──────────┼─────────┼───────────────────┼─────────────┤
-//    │ RGB_MODE_FORWARD │ RGB_SPD │ RGB_SPI │ RGB_VAD │ RGB_VAI │  bRIGHTNESS_UP  │   │ no │ no │    no    │   no    │        no         │   QK_BOOT   │
+//    │ RM_NEXT │ RM_SPDD │ RM_SPDU │ RM_VALD │ RM_VALU │  bRIGHTNESS_UP  │   │ no │ no │    no    │   no    │        no         │   QK_BOOT   │
 //    ├──────────────────┼─────────┼─────────┼─────────┼─────────┼─────────────────┤   ├────┼────┼──────────┼─────────┼───────────────────┼─────────────┤
-//    │     RGB_SLD      │  mprv   │  mnxt   │  vold   │  volu   │ bRIGHTNESS_DOWN │   │ no │ no │    no    │   no    │        no         │     no      │
+//    │     RM_PREV      │  mprv   │  mnxt   │  vold   │  volu   │ bRIGHTNESS_DOWN │   │ no │ no │    no    │   no    │        no         │     no      │
 //    ├──────────────────┼─────────┼─────────┼─────────┼─────────┼─────────────────┤   ├────┼────┼──────────┼─────────┼───────────────────┼─────────────┤
-//    │     RGB_TOG      │ RGB_SAD │ RGB_SAI │ RGB_HUD │ RGB_HUI │       no        │   │ no │ no │ MAC_LOCK │ MAC_DND │ mS_JIGGLER_TOGGLE │ tRANSPARENT │
+//    │     RM_TOGG      │ RM_SATD │ RM_SATU │ RM_HUED │ RM_HUEU │       no        │   │ no │ no │ MAC_LOCK │ MAC_DND │ mS_JIGGLER_TOGGLE │ tRANSPARENT │
 //    └──────────────────┴─────────┴─────────┴─────────┼─────────┼─────────────────┤   ├────┼────┼──────────┴─────────┴───────────────────┴─────────────┘
 //                                                     │  mply   │      mute       │   │ no │ no │
 //                                                     └─────────┴─────────────────┘   └────┴────┘
 [5] = LAYOUT_voyager(
   KC_NO            , KC_NO               , KC_NO               , KC_NO             , KC_NO               , KC_NO              ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , KC_NO         ,
-  RGB_MODE_FORWARD , RGB_SPD             , RGB_SPI             , RGB_VAD           , RGB_VAI             , KC_BRIGHTNESS_UP   ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , QK_BOOT       ,
-  RGB_SLD          , KC_MEDIA_PREV_TRACK , KC_MEDIA_NEXT_TRACK , KC_AUDIO_VOL_DOWN , KC_AUDIO_VOL_UP     , KC_BRIGHTNESS_DOWN ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , KC_NO         ,
-  RGB_TOG          , RGB_SAD             , RGB_SAI             , RGB_HUD           , RGB_HUI             , KC_NO              ,     KC_NO , KC_NO , MAC_LOCK , MAC_DND , KC_MS_JIGGLER_TOGGLE , KC_TRANSPARENT,
+  RM_NEXT , RM_SPDD             , RM_SPDU             , RM_VALD           , RM_VALU             , KC_BRIGHTNESS_UP   ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , QK_BOOT       ,
+  RM_PREV          , KC_MEDIA_PREV_TRACK , KC_MEDIA_NEXT_TRACK , KC_AUDIO_VOL_DOWN , KC_AUDIO_VOL_UP     , KC_BRIGHTNESS_DOWN ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , KC_NO         ,
+  RM_TOGG          , RM_SATD             , RM_SATU             , RM_HUED           , RM_HUEU             , KC_NO              ,     KC_NO , KC_NO , MAC_LOCK , MAC_DND , KC_MS_JIGGLER_TOGGLE , KC_TRANSPARENT,
                                                                                      KC_MEDIA_PLAY_PAUSE , KC_AUDIO_MUTE      ,     KC_NO , KC_NO
 )
 };
@@ -390,12 +384,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case MT_SFT_FD:
       return handle_dual_func(record, LGUI(KC_F), KC_LEFT_SHIFT);
-
-    case RGB_SLD:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-      }
-      return false;
   }
   return true;
 }

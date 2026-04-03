@@ -39,7 +39,7 @@
 #undef MOUSEKEY_WHEEL_MAX_SPEED
 #define MOUSEKEY_WHEEL_MAX_SPEED 16
 
-#define SERIAL_NUMBER "amZp5/Wv7bYl"
+#define SERIAL_NUMBER "amZp5/Wv7bYl"  // used by zsa/oryx module
 #define LAYER_STATE_8BIT
 #define COMBO_COUNT 1
 #define HSS(report) host_system_send(record->event.pressed ? report : 0); return false

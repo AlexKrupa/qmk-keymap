@@ -1,6 +1,6 @@
 # ZSA Voyager QMK keymap
 
-Custom QMK keymap for the ZSA Voyager, using the [external userspace](https://docs.qmk.fm/newbs_external_userspace) pattern. The ZSA firmware repo is cloned separately and never modified; this repo contains only the keymap and community modules.
+Custom QMK keymap for the ZSA Voyager, using the [external userspace](https://docs.qmk.fm/newbs_external_userspace) pattern. Uses mainline QMK firmware (not ZSA's fork) with ZSA-specific features pulled in as [community modules](https://github.com/zsa/qmk_modules). The firmware repo is cloned separately and never modified; this repo contains only the keymap and community modules.
 
 ## Setup
 
@@ -11,25 +11,32 @@ brew install qmk/qmk/qmk
 brew install dos2unix
 ```
 
-Clone ZSA's QMK fork (only needed once):
+Clone mainline QMK firmware and init its submodules (ChibiOS, etc.):
 
 ```fish
-qmk setup zsa/qmk_firmware -b firmware25 -H ~/src/oss/qmk_firmware
+qmk setup -H ~/<path-to>/qmk-firmware
+cd ~/<path-to>/qmk-firmware
+make git-submodule
 ```
 
-Clone this repo and init submodules:
+Clone this repo with submodules (ZSA modules, getreuer modules):
 
 ```fish
-git clone <this-repo> ~/src/me/qmk-keymap
-cd ~/src/me/qmk-keymap
+git clone --recurse-submodules <this-repo> ~/<path-to>/qmk-keymap
+```
+
+Or if already cloned:
+
+```fish
+cd ~/<path-to>/qmk-keymap
 git submodule update --init --recursive
 ```
 
-Point QMK at both directories:
+Point QMK at both directories. On macOS the config lives at `~/Library/Application Support/qmk/qmk.ini`.
 
 ```fish
-qmk config user.qmk_home=/Users/alexkrupa/src/oss/qmk_firmware
-qmk config user.overlay_dir=/Users/alexkrupa/src/me/qmk-keymap
+qmk config user.qmk_home=~/<path-to>/qmk-firmware
+qmk config user.overlay_dir=~/<path-to>/qmk-keymap
 ```
 
 The ARM and AVR compilers from Homebrew are keg-only and need to be on PATH. Add to `~/.config/fish/conf.d/qmk.fish`:
@@ -61,12 +68,12 @@ Then enter bootloader mode: hold `-` (activates layer 5) and press the top-right
 
 Note: bare `make` does not work with external userspace. Always use `qmk compile` / `qmk flash`.
 
-### Updating the ZSA firmware
+### Updating QMK firmware
 
 ```fish
-cd ~/src/oss/qmk_firmware
-git pull origin firmware25
-git submodule update --init --recursive
+cd ~/<path-to>/qmk-firmware
+git pull
+make git-submodule
 ```
 
 Then rebuild.
@@ -137,5 +144,4 @@ Mouse movement, buttons (1-5), scroll (all directions), acceleration (0/1/2).
 |---|---|
 | `zsa/oryx` | Keymapp live view and Oryx live training |
 | `zsa/mousejiggler` | Mouse jiggler toggle |
-| `zsa/defaults` | ZSA default configuration |
 | `getreuer/custom_shift_keys` | Custom Shift+key behavior (placeholder, not yet configured) |
