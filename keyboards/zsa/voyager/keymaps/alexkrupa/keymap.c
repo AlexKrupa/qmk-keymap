@@ -159,42 +159,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         KC_DELETE , KC_TAB      ,     KC_ENTER , KC_SPACE
 ),
 
-//    ┌────┬────┬───────────┬───────────┬───────────┬────┐   ┌────┬─────────────┬──────┬──────┬──────────┬────┐
-//    │ no │ no │    no     │    no     │    no     │ no │   │ no │     no      │  no  │  no  │    no    │ no │
-//    ├────┼────┼───────────┼───────────┼───────────┼────┤   ├────┼─────────────┼──────┼──────┼──────────┼────┤
-//    │ no │ no │    no     │   ms_u    │    no     │ no │   │ no │    btn4     │ wh_u │ btn5 │    no    │ no │
-//    ├────┼────┼───────────┼───────────┼───────────┼────┤   ├────┼─────────────┼──────┼──────┼──────────┼────┤
-//    │ no │ no │   ms_l    │   ms_d    │   ms_r    │ no │   │ no │    btn1     │ btn3 │ btn2 │ rght_GUI │ no │
-//    ├────┼────┼───────────┼───────────┼───────────┼────┤   ├────┼─────────────┼──────┼──────┼──────────┼────┤
-//    │ no │ no │ mS_ACCEL0 │ mS_ACCEL1 │ mS_ACCEL2 │ no │   │ no │    wh_l     │ wh_d │ wh_r │    no    │ no │
-//    └────┴────┴───────────┴───────────┼───────────┼────┤   ├────┼─────────────┼──────┴──────┴──────────┴────┘
-//                                      │    no     │ no │   │ no │ tRANSPARENT │
-//                                      └───────────┴────┘   └────┴─────────────┘
+//    ┌────┬────┬─────────┬─────────┬─────────┬────┐   ┌────┬─────────────┬─────────┬─────────┬──────────┬────┐
+//    │ no │ no │   no    │   no    │   no    │ no │   │ no │     no      │   no    │   no    │    no    │ no │
+//    ├────┼────┼─────────┼─────────┼─────────┼────┤   ├────┼─────────────┼─────────┼─────────┼──────────┼────┤
+//    │ no │ no │   no    │  MS_UP  │   no    │ no │   │ no │   MS_BTN4   │ MS_WHLU │ MS_BTN5 │    no    │ no │
+//    ├────┼────┼─────────┼─────────┼─────────┼────┤   ├────┼─────────────┼─────────┼─────────┼──────────┼────┤
+//    │ no │ no │ MS_LEFT │ MS_DOWN │ MS_RGHT │ no │   │ no │   MS_BTN1   │ MS_BTN3 │ MS_BTN2 │ rght_GUI │ no │
+//    ├────┼────┼─────────┼─────────┼─────────┼────┤   ├────┼─────────────┼─────────┼─────────┼──────────┼────┤
+//    │ no │ no │ MS_ACL0 │ MS_ACL1 │ MS_ACL2 │ no │   │ no │   MS_WHLL   │ MS_WHLD │ MS_WHLR │    no    │ no │
+//    └────┴────┴─────────┴─────────┼─────────┼────┤   ├────┼─────────────┼─────────┴─────────┴──────────┴────┘
+//                                  │   no    │ no │   │ no │ tRANSPARENT │
+//                                  └─────────┴────┘   └────┴─────────────┘
 [4] = LAYOUT_voyager(
-  KC_NO , KC_NO , KC_NO        , KC_NO        , KC_NO        , KC_NO ,     KC_NO , KC_NO          , KC_NO         , KC_NO          , KC_NO        , KC_NO,
-  KC_NO , KC_NO , KC_NO        , MS_UP     , KC_NO        , KC_NO ,     KC_NO , MS_BTN4     , MS_WHLU   , MS_BTN5     , KC_NO        , KC_NO,
-  KC_NO , KC_NO , MS_LEFT   , MS_DOWN   , MS_RGHT  , KC_NO ,     KC_NO , MS_BTN1     , MS_BTN3    , MS_BTN2     , KC_RIGHT_GUI , KC_NO,
-  KC_NO , KC_NO , MS_ACL0 , MS_ACL1 , MS_ACL2 , KC_NO ,     KC_NO , MS_WHLL  , MS_WHLD , MS_WHLR , KC_NO        , KC_NO,
-                                                KC_NO        , KC_NO ,     KC_NO , KC_TRANSPARENT
+  KC_NO , KC_NO , KC_NO   , KC_NO   , KC_NO   , KC_NO ,     KC_NO , KC_NO          , KC_NO   , KC_NO   , KC_NO        , KC_NO,
+  KC_NO , KC_NO , KC_NO   , MS_UP   , KC_NO   , KC_NO ,     KC_NO , MS_BTN4        , MS_WHLU , MS_BTN5 , KC_NO        , KC_NO,
+  KC_NO , KC_NO , MS_LEFT , MS_DOWN , MS_RGHT , KC_NO ,     KC_NO , MS_BTN1        , MS_BTN3 , MS_BTN2 , KC_RIGHT_GUI , KC_NO,
+  KC_NO , KC_NO , MS_ACL0 , MS_ACL1 , MS_ACL2 , KC_NO ,     KC_NO , MS_WHLL        , MS_WHLD , MS_WHLR , KC_NO        , KC_NO,
+                                      KC_NO   , KC_NO ,     KC_NO , KC_TRANSPARENT
 ),
 
-//    ┌──────────────────┬─────────┬─────────┬─────────┬─────────┬─────────────────┐   ┌────┬────┬──────────┬─────────┬───────────────────┬─────────────┐
-//    │        no        │   no    │   no    │   no    │   no    │       no        │   │ no │ no │    no    │   no    │        no         │     no      │
-//    ├──────────────────┼─────────┼─────────┼─────────┼─────────┼─────────────────┤   ├────┼────┼──────────┼─────────┼───────────────────┼─────────────┤
-//    │ RM_NEXT │ RM_SPDD │ RM_SPDU │ RM_VALD │ RM_VALU │  bRIGHTNESS_UP  │   │ no │ no │    no    │   no    │        no         │   QK_BOOT   │
-//    ├──────────────────┼─────────┼─────────┼─────────┼─────────┼─────────────────┤   ├────┼────┼──────────┼─────────┼───────────────────┼─────────────┤
-//    │     RM_PREV      │  mprv   │  mnxt   │  vold   │  volu   │ bRIGHTNESS_DOWN │   │ no │ no │    no    │   no    │        no         │     no      │
-//    ├──────────────────┼─────────┼─────────┼─────────┼─────────┼─────────────────┤   ├────┼────┼──────────┼─────────┼───────────────────┼─────────────┤
-//    │     RM_TOGG      │ RM_SATD │ RM_SATU │ RM_HUED │ RM_HUEU │       no        │   │ no │ no │ MAC_LOCK │ MAC_DND │ mS_JIGGLER_TOGGLE │ tRANSPARENT │
-//    └──────────────────┴─────────┴─────────┴─────────┼─────────┼─────────────────┤   ├────┼────┼──────────┴─────────┴───────────────────┴─────────────┘
-//                                                     │  mply   │      mute       │   │ no │ no │
-//                                                     └─────────┴─────────────────┘   └────┴────┘
+//    ┌─────────┬─────────┬─────────┬─────────┬─────────┬──────┐   ┌────┬────┬──────────┬─────────┬───────────────────┬─────────────┐
+//    │   no    │   no    │   no    │   no    │   no    │  no  │   │ no │ no │    no    │   no    │        no         │     no      │
+//    ├─────────┼─────────┼─────────┼─────────┼─────────┼──────┤   ├────┼────┼──────────┼─────────┼───────────────────┼─────────────┤
+//    │ RM_NEXT │ RM_SPDD │ RM_SPDU │ RM_VALD │ RM_VALU │  no  │   │ no │ no │    no    │   no    │        no         │   QK_BOOT   │
+//    ├─────────┼─────────┼─────────┼─────────┼─────────┼──────┤   ├────┼────┼──────────┼─────────┼───────────────────┼─────────────┤
+//    │ RM_PREV │  mprv   │  mnxt   │  vold   │  volu   │  no  │   │ no │ no │    no    │   no    │        no         │     no      │
+//    ├─────────┼─────────┼─────────┼─────────┼─────────┼──────┤   ├────┼────┼──────────┼─────────┼───────────────────┼─────────────┤
+//    │ LUMINO  │ RM_SATD │ RM_SATU │ RM_HUED │ RM_HUEU │  no  │   │ no │ no │ MAC_LOCK │ MAC_DND │ mS_JIGGLER_TOGGLE │ tRANSPARENT │
+//    └─────────┴─────────┴─────────┴─────────┼─────────┼──────┤   ├────┼────┼──────────┴─────────┴───────────────────┴─────────────┘
+//                                            │  mply   │ mute │   │ no │ no │
+//                                            └─────────┴──────┘   └────┴────┘
 [5] = LAYOUT_voyager(
-  KC_NO            , KC_NO               , KC_NO               , KC_NO             , KC_NO               , KC_NO              ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , KC_NO         ,
-  RM_NEXT , RM_SPDD             , RM_SPDU             , RM_VALD           , RM_VALU             , KC_BRIGHTNESS_UP   ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , QK_BOOT       ,
-  RM_PREV          , KC_MEDIA_PREV_TRACK , KC_MEDIA_NEXT_TRACK , KC_AUDIO_VOL_DOWN , KC_AUDIO_VOL_UP     , KC_BRIGHTNESS_DOWN ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , KC_NO         ,
-  RM_TOGG          , RM_SATD             , RM_SATU             , RM_HUED           , RM_HUEU             , KC_NO              ,     KC_NO , KC_NO , MAC_LOCK , MAC_DND , KC_MS_JIGGLER_TOGGLE , KC_TRANSPARENT,
-                                                                                     KC_MEDIA_PLAY_PAUSE , KC_AUDIO_MUTE      ,     KC_NO , KC_NO
+  KC_NO   , KC_NO               , KC_NO               , KC_NO             , KC_NO               , KC_NO         ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , KC_NO         ,
+  RM_NEXT , RM_SPDD             , RM_SPDU             , RM_VALD           , RM_VALU             , KC_NO         ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , QK_BOOT       ,
+  RM_PREV , KC_MEDIA_PREV_TRACK , KC_MEDIA_NEXT_TRACK , KC_AUDIO_VOL_DOWN , KC_AUDIO_VOL_UP     , KC_NO         ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , KC_NO         ,
+  LUMINO  , RM_SATD             , RM_SATU             , RM_HUED           , RM_HUEU             , KC_NO         ,     KC_NO , KC_NO , MAC_LOCK , MAC_DND , KC_MS_JIGGLER_TOGGLE , KC_TRANSPARENT,
+                                                                            KC_MEDIA_PLAY_PAUSE , KC_AUDIO_MUTE ,     KC_NO , KC_NO
 )
 };
 
@@ -228,7 +228,7 @@ bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
   }
   return false;
 }
-#endif
+#endif // SPECULATIVE_HOLD
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -284,6 +284,34 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 }
+
+#ifdef FLOW_TAP_TERM
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode) {
+  if (get_tap_keycode(prev_keycode) < KC_A || get_tap_keycode(prev_keycode) > KC_Z) return 0;
+  // Disable flow tap when hotkey modifiers are held (Cmd+A, Ctrl+C, etc.)
+  // Excludes Alt so diacritics (Alt+letter) still benefit from flow tap.
+  if (get_mods() & MOD_MASK_CG) return 0;
+  switch (keycode) {
+    // Home row
+    case HRM_A:
+    case HRM_QUO:
+    case HRM_S:
+    case HRM_L:
+
+    // Bottom row
+    case BRM_Z:
+    case BRM_X:
+    case BRM_V:
+    case BRM_M:
+    case BRM_DOT:
+    case BRM_SLS:
+    case BRM_ASTR:
+      return FLOW_TAP_TERM;
+    default:
+      return 0;
+  }
+}
+#endif // FLOW_TAP_TERM
 
 static bool handle_dual_func(keyrecord_t *record, uint16_t tap_kc, uint16_t hold_kc) {
   if (record->tap.count > 0) {

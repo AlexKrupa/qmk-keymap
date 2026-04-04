@@ -58,6 +58,12 @@ Compile:
 qmk compile -kb zsa/voyager -km alexkrupa
 ```
 
+Compile with `--compiledb` to make LSP cross-file navigation work:
+
+```fish
+qmk compile --compiledb -kb zsa/voyager -km alexkrupa
+```
+
 Compile and flash:
 
 ```fish

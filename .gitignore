@@ -2,3 +2,4 @@
 *.hex
 *.png
 .build/
+compile_commands.json
