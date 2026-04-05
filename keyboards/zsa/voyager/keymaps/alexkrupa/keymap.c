@@ -55,7 +55,6 @@ enum keycode_aliases {
   TMB_SPC = LT(4, KC_SPACE),
 
   // Layer 1 mod-taps: modifier on hold, action on tap
-  MT_CTL_SW = LT(12, KC_F22),  // Left Ctrl hold / SELWORD tap
   MT_GUI_SA = LT(11, KC_F23),  // Left GUI hold / SEL_ALL tap
   MT_ALT_DL = LT(10, KC_F24),  // Left Alt hold / MAC_DEL tap
   MT_SFT_FD = LT(9, KC_F15),   // Left Shift hold / MAC_FIND tap
@@ -83,17 +82,6 @@ const custom_shift_key_t custom_shift_keys[] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-//    ┌─────┬───────┬───────┬───────┬─────────┬─────────┐   ┌─────────┬─────────┬─────────┬─────────┬─────────┬──────────┐
-//    │ no  │  no   │  no   │  no   │   no    │   no    │   │   no    │   no    │   no    │   no    │   no    │    no    │
-//    ├─────┼───────┼───────┼───────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┼──────────┤
-//    │  `  │   q   │   w   │   e   │    r    │    t    │   │    y    │    u    │    i    │    o    │    p    │    =     │
-//    ├─────┼───────┼───────┼───────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┼──────────┤
-//    │ tab │ HRM_A │ HRM_S │ HRM_D │  HRM_F  │    g    │   │    h    │  HRM_J  │  HRM_K  │  HRM_L  │ HRM_QUO │    -     │
-//    ├─────┼───────┼───────┼───────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┼─────────┼─────────┼──────────┤
-//    │ no  │ BRM_Z │ BRM_X │ BRM_C │  BRM_V  │    b    │   │    n    │  BRM_M  │ BRM_COM │ BRM_DOT │ BRM_SLS │ BRM_ASTR │
-//    └─────┴───────┴───────┴───────┼─────────┼─────────┤   ├─────────┼─────────┼─────────┴─────────┴─────────┴──────────┘
-//                                  │ TMB_BSP │ TMB_ESC │   │ TMB_ENT │ TMB_SPC │
-//                                  └─────────┴─────────┘   └─────────┴─────────┘
 [0] = LAYOUT_voyager(
   KC_NO    , KC_NO , KC_NO , KC_NO , KC_NO   , KC_NO   ,     KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   ,
   KC_GRAVE , KC_Q  , KC_W  , KC_E  , KC_R    , KC_T    ,     KC_Y    , KC_U    , KC_I    , KC_O    , KC_P    , KC_EQUAL,
@@ -102,36 +90,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      TMB_BSP , TMB_ESC ,     TMB_ENT , TMB_SPC
 ),
 
-//    ┌──────────┬───────────┬───────────┬───────────┬─────────────┬──────────┐   ┌──────┬──────┬────┬──────┬────┬─────────┐
-//    │    no    │    no     │    no     │    no     │     no      │    no    │   │  no  │  no  │ no │  no  │ no │   no    │
-//    ├──────────┼───────────┼───────────┼───────────┼─────────────┼──────────┤   ├──────┼──────┼────┼──────┼────┼─────────┤
-//    │    no    │ MAC_QUIT  │  TAB_CLS  │  TAB_PRV  │   TAB_NXT   │ TAB_OPN  │   │  no  │  (   │ )  │  {   │ }  │   no    │
-//    ├──────────┼───────────┼───────────┼───────────┼─────────────┼──────────┤   ├──────┼──────┼────┼──────┼────┼─────────┤
-//    │ CYCLOTAB │ MT_GUI_SA │ MT_CTL_SW │ MT_ALT_DL │  MT_SFT_FD  │ CW_TOGG  │   │ left │ down │ up │ rght │ :  │ MCR_ARR │
-//    ├──────────┼───────────┼───────────┼───────────┼─────────────┼──────────┤   ├──────┼──────┼────┼──────┼────┼─────────┤
-//    │    no    │ mAC_UNDO  │  mAC_CUT  │ mAC_COPY  │  mAC_PASTE  │ MAC_FIND │   │  no  │  [   │ ]  │  <   │ >  │   no    │
-//    └──────────┴───────────┴───────────┴───────────┼─────────────┼──────────┤   ├──────┼──────┼────┴──────┴────┴─────────┘
-//                                                   │ tRANSPARENT │    no    │   │ ent  │ spc  │
-//                                                   └─────────────┴──────────┘   └──────┴──────┘
 [1] = LAYOUT_voyager(
-  KC_NO    , KC_NO       , KC_NO      , KC_NO       , KC_NO          , KC_NO    ,     KC_NO    , KC_NO    , KC_NO   , KC_NO    , KC_NO   , KC_NO  ,
-  KC_NO    , MAC_QUIT    , TAB_CLS    , TAB_PRV     , TAB_NXT        , TAB_OPN  ,     KC_NO    , KC_LPRN  , KC_RPRN , KC_LCBR  , KC_RCBR , KC_NO  ,
-  CYCLOTAB , MT_GUI_SA   , MT_CTL_SW  , MT_ALT_DL   , MT_SFT_FD      , CW_TOGG  ,     KC_LEFT  , KC_DOWN  , KC_UP   , KC_RIGHT , KC_COLN , MCR_ARR,
-  KC_NO    , KC_MAC_UNDO , KC_MAC_CUT , KC_MAC_COPY , KC_MAC_PASTE   , MAC_FIND ,     KC_NO    , KC_LBRC  , KC_RBRC , KC_LABK  , KC_RABK , KC_NO  ,
-                                                      KC_TRANSPARENT , KC_NO    ,     KC_ENTER , KC_SPACE
+  KC_NO    , KC_NO       , KC_NO        , KC_NO       , KC_NO          , KC_NO    ,     KC_NO    , KC_NO    , KC_NO   , KC_NO    , KC_NO   , KC_NO  ,
+  KC_NO    , MAC_QUIT    , TAB_CLS      , TAB_PRV     , TAB_NXT        , TAB_OPN  ,     KC_NO    , KC_LPRN  , KC_RPRN , KC_LCBR  , KC_RCBR , KC_NO  ,
+  CYCLOTAB , MT_GUI_SA   , KC_LEFT_CTRL , MT_ALT_DL   , MT_SFT_FD      , CW_TOGG  ,     KC_LEFT  , KC_DOWN  , KC_UP   , KC_RIGHT , KC_COLN , MCR_ARR,
+  KC_NO    , KC_MAC_UNDO , KC_MAC_CUT   , KC_MAC_COPY , KC_MAC_PASTE   , MAC_FIND ,     KC_NO    , KC_LBRC  , KC_RBRC , KC_LABK  , KC_RABK , KC_NO  ,
+                                                        KC_TRANSPARENT , KC_NO    ,     KC_ENTER , KC_SPACE
 ),
 
-//    ┌────┬──────────┬───────────┬──────────┬────────────┬─────────────┐   ┌────┬──────┬──────┬──────┬─────────┬────┐
-//    │ no │    no    │    no     │    no    │     no     │     no      │   │ no │  no  │  no  │  no  │   no    │ no │
-//    ├────┼──────────┼───────────┼──────────┼────────────┼─────────────┤   ├────┼──────┼──────┼──────┼─────────┼────┤
-//    │ no │    no    │     +     │    -     │     =      │     no      │   │ no │ DF_7 │ DF_8 │ DF_9 │ DF_ASTR │ no │
-//    ├────┼──────────┼───────────┼──────────┼────────────┼─────────────┤   ├────┼──────┼──────┼──────┼─────────┼────┤
-//    │ no │ left_GUI │ left_CTRL │ left_ALT │ left_SHIFT │     no      │   │ 0  │ DF_1 │ DF_2 │ DF_3 │  DF_0   │ no │
-//    ├────┼──────────┼───────────┼──────────┼────────────┼─────────────┤   ├────┼──────┼──────┼──────┼─────────┼────┤
-//    │ no │    no    │     ,     │    .     │     :      │     no      │   │ no │ DF_4 │ DF_5 │ DF_6 │ DF_SLS  │ no │
-//    └────┴──────────┴───────────┴──────────┼────────────┼─────────────┤   ├────┼──────┼──────┴──────┴─────────┴────┘
-//                                           │     no     │ tRANSPARENT │   │ 0  │ spc  │
-//                                           └────────────┴─────────────┘   └────┴──────┘
 [2] = LAYOUT_voyager(
   KC_NO , KC_NO       , KC_NO        , KC_NO       , KC_NO         , KC_NO          ,     KC_NO , KC_NO    , KC_NO , KC_NO , KC_NO   , KC_NO,
   KC_NO , KC_NO       , KC_PLUS      , KC_MINUS    , KC_EQUAL      , KC_NO          ,     KC_NO , DF_7     , DF_8  , DF_9  , DF_ASTR , KC_NO,
@@ -140,17 +106,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      KC_NO         , KC_TRANSPARENT ,     KC_0  , KC_SPACE
 ),
 
-//    ┌────┬────┬────┬────┬─────┬─────────────┐   ┌─────┬─────┬────┬──────┬────┬────┐
-//    │ no │ no │ no │ no │ no  │     no      │   │ no  │ no  │ no │  no  │ no │ no │
-//    ├────┼────┼────┼────┼─────┼─────────────┤   ├─────┼─────┼────┼──────┼────┼────┤
-//    │ no │ ~  │ <  │ >  │  %  │   MCR_ARR   │   │ no  │  {  │ }  │  =   │ +  │ no │
-//    ├────┼────┼────┼────┼─────┼─────────────┤   ├─────┼─────┼────┼──────┼────┼────┤
-//    │ no │ ^  │ @  │ #  │  $  │ MCR_DLR_BRC │   │ no  │  (  │ )  │ kp_- │ `  │ no │
-//    ├────┼────┼────┼────┼─────┼─────────────┤   ├─────┼─────┼────┼──────┼────┼────┤
-//    │ no │ \  │ |  │ &  │  *  │     no      │   │ no  │  [  │ ]  │  _   │ !  │ no │
-//    └────┴────┴────┴────┼─────┼─────────────┤   ├─────┼─────┼────┴──────┴────┴────┘
-//                        │ del │     tab     │   │ ent │ spc │
-//                        └─────┴─────────────┘   └─────┴─────┘
 [3] = LAYOUT_voyager(
   KC_NO , KC_NO   , KC_NO   , KC_NO   , KC_NO     , KC_NO       ,     KC_NO    , KC_NO    , KC_NO   , KC_NO       , KC_NO    , KC_NO,
   KC_NO , KC_TILD , KC_LABK , KC_RABK , KC_PERC   , MCR_ARR     ,     KC_NO    , KC_LCBR  , KC_RCBR , KC_EQUAL    , KC_PLUS  , KC_NO,
@@ -159,17 +114,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         KC_DELETE , KC_TAB      ,     KC_ENTER , KC_SPACE
 ),
 
-//    ┌────┬────┬─────────┬─────────┬─────────┬────┐   ┌────┬─────────────┬─────────┬─────────┬──────────┬────┐
-//    │ no │ no │   no    │   no    │   no    │ no │   │ no │     no      │   no    │   no    │    no    │ no │
-//    ├────┼────┼─────────┼─────────┼─────────┼────┤   ├────┼─────────────┼─────────┼─────────┼──────────┼────┤
-//    │ no │ no │   no    │  MS_UP  │   no    │ no │   │ no │   MS_BTN4   │ MS_WHLU │ MS_BTN5 │    no    │ no │
-//    ├────┼────┼─────────┼─────────┼─────────┼────┤   ├────┼─────────────┼─────────┼─────────┼──────────┼────┤
-//    │ no │ no │ MS_LEFT │ MS_DOWN │ MS_RGHT │ no │   │ no │   MS_BTN1   │ MS_BTN3 │ MS_BTN2 │ rght_GUI │ no │
-//    ├────┼────┼─────────┼─────────┼─────────┼────┤   ├────┼─────────────┼─────────┼─────────┼──────────┼────┤
-//    │ no │ no │ MS_ACL0 │ MS_ACL1 │ MS_ACL2 │ no │   │ no │   MS_WHLL   │ MS_WHLD │ MS_WHLR │    no    │ no │
-//    └────┴────┴─────────┴─────────┼─────────┼────┤   ├────┼─────────────┼─────────┴─────────┴──────────┴────┘
-//                                  │   no    │ no │   │ no │ tRANSPARENT │
-//                                  └─────────┴────┘   └────┴─────────────┘
 [4] = LAYOUT_voyager(
   KC_NO , KC_NO , KC_NO   , KC_NO   , KC_NO   , KC_NO ,     KC_NO , KC_NO          , KC_NO   , KC_NO   , KC_NO        , KC_NO,
   KC_NO , KC_NO , KC_NO   , MS_UP   , KC_NO   , KC_NO ,     KC_NO , MS_BTN4        , MS_WHLU , MS_BTN5 , KC_NO        , KC_NO,
@@ -178,17 +122,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       KC_NO   , KC_NO ,     KC_NO , KC_TRANSPARENT
 ),
 
-//    ┌─────────┬─────────┬─────────┬─────────┬─────────┬──────┐   ┌────┬────┬──────────┬─────────┬───────────────────┬─────────────┐
-//    │   no    │   no    │   no    │   no    │   no    │  no  │   │ no │ no │    no    │   no    │        no         │     no      │
-//    ├─────────┼─────────┼─────────┼─────────┼─────────┼──────┤   ├────┼────┼──────────┼─────────┼───────────────────┼─────────────┤
-//    │ RM_NEXT │ RM_SPDD │ RM_SPDU │ RM_VALD │ RM_VALU │  no  │   │ no │ no │    no    │   no    │        no         │   QK_BOOT   │
-//    ├─────────┼─────────┼─────────┼─────────┼─────────┼──────┤   ├────┼────┼──────────┼─────────┼───────────────────┼─────────────┤
-//    │ RM_PREV │  mprv   │  mnxt   │  vold   │  volu   │  no  │   │ no │ no │    no    │   no    │        no         │     no      │
-//    ├─────────┼─────────┼─────────┼─────────┼─────────┼──────┤   ├────┼────┼──────────┼─────────┼───────────────────┼─────────────┤
-//    │ LUMINO  │ RM_SATD │ RM_SATU │ RM_HUED │ RM_HUEU │  no  │   │ no │ no │ MAC_LOCK │ MAC_DND │ mS_JIGGLER_TOGGLE │ tRANSPARENT │
-//    └─────────┴─────────┴─────────┴─────────┼─────────┼──────┤   ├────┼────┼──────────┴─────────┴───────────────────┴─────────────┘
-//                                            │  mply   │ mute │   │ no │ no │
-//                                            └─────────┴──────┘   └────┴────┘
 [5] = LAYOUT_voyager(
   KC_NO   , KC_NO               , KC_NO               , KC_NO             , KC_NO               , KC_NO         ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , KC_NO         ,
   RM_NEXT , RM_SPDD             , RM_SPDU             , RM_VALD           , RM_VALU             , KC_NO         ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , QK_BOOT       ,
@@ -387,22 +320,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
       return true;
-
-    case MT_CTL_SW:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          select_word_register('W');
-        } else {
-          select_word_unregister();
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code(KC_LEFT_CTRL);
-        } else {
-          unregister_code(KC_LEFT_CTRL);
-        }
-      }
-      return false;
 
     case MT_GUI_SA:
       return handle_dual_func(record, LGUI(KC_A), KC_LEFT_GUI);
