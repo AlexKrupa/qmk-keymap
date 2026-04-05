@@ -100,10 +100,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [2] = LAYOUT_voyager(
-  KC_NO , KC_NO       , KC_NO        , KC_NO       , KC_NO         , KC_NO          ,     KC_NO , KC_NO    , KC_NO , KC_NO , KC_NO   , KC_NO,
-  KC_NO , KC_NO       , KC_PLUS      , KC_MINUS    , KC_EQUAL      , KC_NO          ,     KC_NO , DF_7_F7     , DF_8_F8  , DF_9_F9  , DF_ASTR_F12 , KC_NO,
-  KC_NO , KC_LEFT_GUI , KC_LEFT_CTRL , KC_LEFT_ALT , KC_LEFT_SHIFT , KC_NO          ,     KC_0  , DF_1_F1     , DF_2_F2  , DF_3_F3  , DF_0_F11    , KC_NO,
-  KC_NO , KC_NO       , KC_COMMA     , KC_DOT      , KC_COLN       , KC_NO          ,     KC_NO , DF_4_F4     , DF_5_F5  , DF_6_F6  , DF_SLS_F10  , KC_NO,
+  KC_NO , KC_NO       , KC_NO        , KC_NO       , KC_NO         , KC_NO          ,     KC_NO , KC_NO    , KC_NO   , KC_NO   , KC_NO       , KC_NO,
+  KC_NO , KC_NO       , KC_PLUS      , KC_MINUS    , KC_EQUAL      , KC_NO          ,     KC_NO , DF_7_F7  , DF_8_F8 , DF_9_F9 , DF_ASTR_F12 , KC_NO,
+  KC_NO , KC_LEFT_GUI , KC_LEFT_CTRL , KC_LEFT_ALT , KC_LEFT_SHIFT , KC_NO          ,     KC_0  , DF_1_F1  , DF_2_F2 , DF_3_F3 , DF_0_F11    , KC_NO,
+  KC_NO , KC_NO       , KC_COMMA     , KC_DOT      , KC_COLN       , KC_NO          ,     KC_NO , DF_4_F4  , DF_5_F5 , DF_6_F6 , DF_SLS_F10  , KC_NO,
                                                      KC_NO         , KC_TRANSPARENT ,     KC_0  , KC_SPACE
 ),
 
@@ -235,8 +235,6 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_
     case HRM_L:
     case BRM_Z:
     case BRM_X:
-    case BRM_V:
-    case BRM_M:
     case BRM_DOT:
     case BRM_SLS:
     case BRM_ASTR:
