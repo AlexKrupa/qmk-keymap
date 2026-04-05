@@ -9,21 +9,22 @@ enum custom_keycodes {
 };
 
 enum keycode_aliases {
-  // Dual function keys: number tap, function hold
-  DF_7    = LT(14, KC_W),
-  DF_8    = LT(4, KC_J),
-  DF_9    = LT(13, KC_6),
-  DF_ASTR = LT(1, KC_F13),
+  // Dual function keys: number tap, F-key hold.
+  // LT layer numbers are unused placeholders - process_record_user overrides both tap and hold.
+  DF_7_F7    = LT(14, KC_W),
+  DF_8_F8    = LT(4, KC_J),
+  DF_9_F9    = LT(13, KC_6),
+  DF_ASTR_F12 = LT(1, KC_F13),
 
-  DF_1    = LT(6, KC_F6),
-  DF_2    = LT(9, KC_P),
-  DF_3    = LT(14, KC_F21),
-  DF_0    = LT(14, KC_Z),
+  DF_1_F1    = LT(6, KC_F6),
+  DF_2_F2    = LT(9, KC_P),
+  DF_3_F3    = LT(14, KC_F21),
+  DF_0_F11    = LT(14, KC_Z),
 
-  DF_4    = LT(13, KC_P),
-  DF_5    = LT(15, KC_F20),
-  DF_6    = LT(7, KC_K),
-  DF_SLS  = LT(9, KC_T),
+  DF_4_F4    = LT(13, KC_P),
+  DF_5_F5    = LT(15, KC_F20),
+  DF_6_F6    = LT(7, KC_K),
+  DF_SLS_F10  = LT(9, KC_T),
 
   // Home row mods
   HRM_A   = MT(MOD_LGUI, KC_A),
@@ -100,9 +101,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [2] = LAYOUT_voyager(
   KC_NO , KC_NO       , KC_NO        , KC_NO       , KC_NO         , KC_NO          ,     KC_NO , KC_NO    , KC_NO , KC_NO , KC_NO   , KC_NO,
-  KC_NO , KC_NO       , KC_PLUS      , KC_MINUS    , KC_EQUAL      , KC_NO          ,     KC_NO , DF_7     , DF_8  , DF_9  , DF_ASTR , KC_NO,
-  KC_NO , KC_LEFT_GUI , KC_LEFT_CTRL , KC_LEFT_ALT , KC_LEFT_SHIFT , KC_NO          ,     KC_0  , DF_1     , DF_2  , DF_3  , DF_0    , KC_NO,
-  KC_NO , KC_NO       , KC_COMMA     , KC_DOT      , KC_COLN       , KC_NO          ,     KC_NO , DF_4     , DF_5  , DF_6  , DF_SLS  , KC_NO,
+  KC_NO , KC_NO       , KC_PLUS      , KC_MINUS    , KC_EQUAL      , KC_NO          ,     KC_NO , DF_7_F7     , DF_8_F8  , DF_9_F9  , DF_ASTR_F12 , KC_NO,
+  KC_NO , KC_LEFT_GUI , KC_LEFT_CTRL , KC_LEFT_ALT , KC_LEFT_SHIFT , KC_NO          ,     KC_0  , DF_1_F1     , DF_2_F2  , DF_3_F3  , DF_0_F11    , KC_NO,
+  KC_NO , KC_NO       , KC_COMMA     , KC_DOT      , KC_COLN       , KC_NO          ,     KC_NO , DF_4_F4     , DF_5_F5  , DF_6_F6  , DF_SLS_F10  , KC_NO,
                                                      KC_NO         , KC_TRANSPARENT ,     KC_0  , KC_SPACE
 ),
 
@@ -139,10 +140,10 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
   '*', '*', '*', '*'
 );
 
-const uint16_t PROGMEM combo0[] = { KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM combo_qw_tab[] = { KC_Q, KC_W, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
-    COMBO(combo0, KC_TAB),
+combo_t key_combos[] = {
+    COMBO(combo_qw_tab, KC_TAB),
 };
 
 #ifdef SPECULATIVE_HOLD
@@ -224,14 +225,14 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_
   // Disable flow tap when hotkey modifiers are held (Cmd+A, Ctrl+C, etc.)
   // Excludes Alt so diacritics (Alt+letter) still benefit from flow tap.
   if (get_mods() & MOD_MASK_CG) return 0;
+  // Shift and Alt mod-taps are excluded so they can be held while typing
+  // (uppercase letters, Polish diacritics via Alt). Meh/Hyper stay in
+  // because they're only used for shortcuts, never during normal typing.
   switch (keycode) {
-    // Home row
     case HRM_A:
     case HRM_QUO:
     case HRM_S:
     case HRM_L:
-
-    // Bottom row
     case BRM_Z:
     case BRM_X:
     case BRM_V:
@@ -281,33 +282,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
     }
     break;
-    case MCR_ARR:
+  case MCR_ARR:
     if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_MINUS)SS_DELAY(1)  SS_LSFT(SS_TAP(X_DOT))SS_DELAY(1)  SS_TAP(X_SPACE));
     }
     return false;
-    case MCR_DLR_BRC:
+  case MCR_DLR_BRC:
     if (record->event.pressed) {
       SEND_STRING(SS_LSFT(SS_TAP(X_4))SS_DELAY(1)  SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(1)  SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(1)  SS_TAP(X_LEFT));
     }
     return false;
-    case MAC_DND:
-      HSS(0x9B);
-    case MAC_LOCK:
-      HCS(0x19E);
+  case MAC_DND:
+    HSS(0x9B);
+  case MAC_LOCK:
+    HCS(0x19E);
 
-    case DF_7:     return handle_dual_func(record, KC_7,     KC_F7);
-    case DF_8:     return handle_dual_func(record, KC_8,     KC_F8);
-    case DF_9:     return handle_dual_func(record, KC_9,     KC_F9);
-    case DF_ASTR:  return handle_dual_func(record, KC_ASTR,  KC_F12);
-    case DF_1:     return handle_dual_func(record, KC_1,     KC_F1);
-    case DF_2:     return handle_dual_func(record, KC_2,     KC_F2);
-    case DF_3:     return handle_dual_func(record, KC_3,     KC_F3);
-    case DF_0:     return handle_dual_func(record, KC_0,     KC_F11);
-    case DF_4:     return handle_dual_func(record, KC_4,     KC_F4);
-    case DF_5:     return handle_dual_func(record, KC_5,     KC_F5);
-    case DF_6:     return handle_dual_func(record, KC_6,     KC_F6);
-    case DF_SLS:   return handle_dual_func(record, KC_SLASH, KC_F10);
+    case DF_7_F7:     return handle_dual_func(record, KC_7,     KC_F7);
+    case DF_8_F8:     return handle_dual_func(record, KC_8,     KC_F8);
+    case DF_9_F9:     return handle_dual_func(record, KC_9,     KC_F9);
+    case DF_ASTR_F12:  return handle_dual_func(record, KC_ASTR,  KC_F12);
+    case DF_1_F1:     return handle_dual_func(record, KC_1,     KC_F1);
+    case DF_2_F2:     return handle_dual_func(record, KC_2,     KC_F2);
+    case DF_3_F3:     return handle_dual_func(record, KC_3,     KC_F3);
+    case DF_0_F11:     return handle_dual_func(record, KC_0,     KC_F11);
+    case DF_4_F4:     return handle_dual_func(record, KC_4,     KC_F4);
+    case DF_5_F5:     return handle_dual_func(record, KC_5,     KC_F5);
+    case DF_6_F6:     return handle_dual_func(record, KC_6,     KC_F6);
+    case DF_SLS_F10:   return handle_dual_func(record, KC_SLASH, KC_F10);
 
     // Override LT tap: KC_F16 placeholder -> KC_ASTR (shifted case handled by custom_shift_keys module)
     case BRM_ASTR:
@@ -322,13 +323,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
 
     case MT_GUI_SA:
-      return handle_dual_func(record, LGUI(KC_A), KC_LEFT_GUI);
+      return handle_dual_func(record, SEL_ALL, KC_LEFT_GUI);
 
     case MT_ALT_DL:
-      return handle_dual_func(record, LGUI(KC_BSPC), KC_LEFT_ALT);
+      return handle_dual_func(record, MAC_DEL, KC_LEFT_ALT);
 
     case MT_SFT_FD:
-      return handle_dual_func(record, LGUI(KC_F), KC_LEFT_SHIFT);
+      return handle_dual_func(record, MAC_FIND, KC_LEFT_SHIFT);
   }
   return true;
 }
