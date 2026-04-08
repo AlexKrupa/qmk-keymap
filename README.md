@@ -1,6 +1,31 @@
 # ZSA Voyager QMK keymap
 
-Custom QMK keymap for the ZSA Voyager, using the [external userspace](https://docs.qmk.fm/newbs_external_userspace) pattern. Uses mainline QMK firmware (not ZSA's fork) with ZSA-specific features pulled in as [community modules](https://github.com/zsa/qmk_modules). The firmware repo is cloned separately and never modified; this repo contains only the keymap and community modules.
+Custom QMK keymap for the ZSA Voyager, using the
+[external userspace](https://docs.qmk.fm/newbs_external_userspace) pattern. Uses mainline QMK
+firmware (not [ZSA's fork](https://github.com/zsa/qmk_firmware)) with ZSA-specific features pulled
+in as [community modules](https://github.com/zsa/qmk_modules). The firmware repo is cloned
+separately and never modified; this repo contains only the keymap and community modules.
+
+## Overview
+
+![Keymap](keymap.svg)
+
+6 layers, QWERTY base. The Voyager has 4 rows and 6 columns per half; this keymap uses 3 rows (top
+row unused) and 5 columns, plus an outer 6th column for `` ` ``, `=`, Tab, `-`, and RGB controls on
+layer 5. With both thumb clusters that's 40 keys total (36 main + 4 thumbs).
+
+Layers:
+
+- **BASE** - letters, home-row mods, bottom-row mods. Thumbs hold into the other layers.
+- **NAV** - arrows, macOS app/tab shortcuts, clipboard, brackets.
+- **NUM** - operators and modifiers on the left, numpad on the right where hold = F1-F12.
+- **SYM** - symbols for typing code, plus vim (`:w`, `:wq`, `:q!`), markdown code fence, and `~/`
+  macros.
+- **MOUSE** - pointer, buttons, scroll.
+- **SYS** - RGB, volume, brightness, media, lock, DND, jiggler, bootloader.
+
+RGB uses [Lumino](https://getreuer.info/posts/keyboards/lumino/) for brightness and
+[PaletteFx](https://getreuer.info/posts/keyboards/palettefx/) for effects and palettes.
 
 ## Setup
 
@@ -11,7 +36,7 @@ brew install qmk/qmk/qmk
 brew install dos2unix
 ```
 
-Clone mainline QMK firmware and init its submodules (ChibiOS, etc.):
+Clone mainline QMK firmware and init its submodules:
 
 ```fish
 qmk setup -H ~/<path-to>/qmk-firmware
@@ -19,7 +44,7 @@ cd ~/<path-to>/qmk-firmware
 make git-submodule
 ```
 
-Clone this repo with submodules (ZSA modules, getreuer modules):
+Clone this repo with submodules:
 
 ```fish
 git clone --recurse-submodules <this-repo> ~/<path-to>/qmk-keymap
@@ -32,14 +57,14 @@ cd ~/<path-to>/qmk-keymap
 git submodule update --init --recursive
 ```
 
-Point QMK at both directories. On macOS the config lives at `~/Library/Application Support/qmk/qmk.ini`.
+Point QMK at both directories (config at `~/Library/Application Support/qmk/qmk.ini` on macOS).
 
 ```fish
 qmk config user.qmk_home=~/<path-to>/qmk-firmware
 qmk config user.overlay_dir=~/<path-to>/qmk-keymap
 ```
 
-The ARM and AVR compilers from Homebrew are keg-only and need to be on PATH. Add to `~/.config/fish/conf.d/qmk.fish`:
+Homebrew's ARM and AVR compilers aren't on PATH by default:
 
 ```fish
 fish_add_path /opt/homebrew/opt/arm-none-eabi-gcc@8/bin
@@ -52,16 +77,12 @@ Verify with `qmk doctor`.
 
 ## Usage
 
-Compile:
+Bare `make` does not work with external userspace. Always use `qmk compile` / `qmk flash`.
+
+Compile (add `--compiledb` to generate `compile_commands.json` for LSP cross-file navigation):
 
 ```fish
 qmk compile -kb zsa/voyager -km alexkrupa
-```
-
-Compile with `--compiledb` to make LSP cross-file navigation work:
-
-```fish
-qmk compile --compiledb -kb zsa/voyager -km alexkrupa
 ```
 
 Compile and flash:
@@ -70,9 +91,8 @@ Compile and flash:
 qmk flash -kb zsa/voyager -km alexkrupa
 ```
 
-Then enter bootloader mode: hold `-` (activates layer 5) and press the top-right key (`QK_BOOT`). Alternatively, press the physical reset button on the bottom of the left half.
-
-Note: bare `make` does not work with external userspace. Always use `qmk compile` / `qmk flash`.
+Then enter bootloader mode: press the physical reset button on the bottom of the left half.
+Alternatively, hold `*` (activates layer 5) and press the top-right key (`QK_BOOT`).
 
 ### Updating QMK firmware
 
@@ -86,68 +106,41 @@ Then rebuild.
 
 ## Where to change what
 
-| I want to... | File | What to edit |
-|---|---|---|
-| Change key positions / layers | `keymap.c` | `keymaps[]` array |
-| Add custom shift mappings | `keymap.c` | `custom_shift_keys[]` array |
-| Add macros | `keymap.c` | `enum custom_keycodes` + `process_record_user()` |
-| Tune tapping term per key | `keymap.c` | `get_tapping_term()` |
-| Add/change combos | `keymap.c` | `combo` arrays + `key_combos[]` |
-| Enable/disable QMK features | `rules.mk` | e.g. `COMBO_ENABLE = yes` |
-| Tune timing, mouse speed, RGB | `config.h` | `#define` overrides |
-| Add/remove community modules | `keymap.json` | `"modules"` array |
+| I want to...                  | File          | What to edit                                     |
+| ----------------------------- | ------------- | ------------------------------------------------ |
+| Change key positions / layers | `keymap.c`    | `keymaps[]` array                                |
+| Add custom shift mappings     | `keymap.c`    | `custom_shift_keys[]` array                      |
+| Add macros                    | `keymap.c`    | `enum custom_keycodes` + `process_record_user()` |
+| Tune tapping term per key     | `keymap.c`    | `get_tapping_term()`                             |
+| Add/change combos             | `keymap.c`    | `combo` arrays + `key_combos[]`                  |
+| Enable/disable QMK features   | `rules.mk`    | e.g. `COMBO_ENABLE = yes`                        |
+| Tune timing, mouse speed, RGB | `config.h`    | `#define` overrides                              |
+| Add/remove community modules  | `keymap.json` | `"modules"` array                                |
 
 All keymap files are in `keyboards/zsa/voyager/keymaps/alexkrupa/`.
 
-## Keymap overview
-
-![Keymap](keymap.svg)
-
-6 layers, QWERTY base. Top row is unused (Voyager 3x6 config).
-
-### Layer 0 - Base
-
-QWERTY with home row mods mirrored on both halves:
-
-- Home row: GUI / Ctrl / Alt / Shift (left), Shift / Alt / Ctrl / GUI (right)
-- Bottom row: Hyper(Z) / Meh(X) / AltGr(C) on left, AltGr(,) / Meh(.) / Hyper(/) on right
-- Thumbs: Bksp(hold=L1) / Esc(hold=L2) on left, Enter(hold=L3) / Space(hold=L4) on right
-- Chordal hold and permissive hold enabled
-- Per-key tapping terms: outer columns slower, inner columns faster
-
-### Layer 1 - Nav (hold Bksp)
-
-- Left: app shortcuts (Cmd+Q/W/T/A/F, Cmd+Bksp, undo/cut/copy/paste, tab switching, Caps Word)
-- Right: arrows, brackets `(){}[]<>`, colon, `-> ` macro
-
-### Layer 2 - Num (hold Esc)
-
-- Left: `+`, `-`, `=`, `,`, `.`, `:` and bare modifiers
-- Right: numpad where tap = digit, hold = F-key (F1-F12), plus `0` and `*`/`/`
-
-### Layer 3 - Sym (hold Enter, or V/M)
-
-- Left: `~ @ # % ^ ! = $ \ | & *` and macros (`-> `, `${}` with cursor inside)
-- Right: `! { } = + \` ( ) ' " [ ] - _`
-
-### Layer 4 - Mouse (hold Space)
-
-Mouse movement, buttons (1-5), scroll (all directions), acceleration (0/1/2).
-
-### Layer 5 - Media (hold `-`)
-
-- Left: RGB controls, media prev/next, volume, brightness
-- Right: MAC_LOCK, MAC_DND, mouse jiggler toggle, QK_BOOT (top-right)
-
-## Combos
-
-- F + J = Caps Word (`CW_TOGG`)
-- Q + W = Tab
-
 ## Modules
 
-| Module | Purpose |
-|---|---|
-| `zsa/oryx` | Keymapp live view and Oryx live training |
-| `zsa/mousejiggler` | Mouse jiggler toggle |
-| `getreuer/custom_shift_keys` | Custom Shift+key behavior (placeholder, not yet configured) |
+| Module                       | Purpose                                            |
+| ---------------------------- | -------------------------------------------------- |
+| `zsa/oryx`                   | Keymapp live view and Oryx live training           |
+| `zsa/mousejiggler`           | Mouse jiggler toggle                               |
+| `getreuer/cyclotab`          | Cmd+Tab cycling that auto-releases on layer change |
+| `getreuer/custom_shift_keys` | Custom Shift+key behavior (`,;` `.:` `*!`)         |
+| `getreuer/lumino`            | Brightness cycling (0 / 40 / 100%)                 |
+| `getreuer/palettefx`         | RGB effects and palettes                           |
+
+## Resources
+
+- [Pascal Getreuer](https://getreuer.info/posts/keyboards/faqs/index.html) and his
+  [QMK keymap repo](https://github.com/getreuer/qmk-keymap) - a goldmine of ideas
+- [precondition's home row mods guide](https://precondition.github.io/home-row-mods) - the best
+  intro to the topic
+- [urob's timeless home row mods](https://github.com/urob/zmk-config#timeless-homerow-mods) - the
+  standard for home row mod timing
+- [sunaku's Glove80 keymap](https://sunaku.github.io/moergo-glove80-keyboard.html) - a deep dive
+  into layers, combos and philosophy that got me down this rabbit hole, even though I don't really
+  use the Glove80 anymore
+- [Moosy's TailorKey](https://sites.google.com/view/tailorkey/) - sunaku's ideas made approachable
+- [r/ErgoMechKeyboards](https://reddit.com/r/ErgoMechKeyboards) - a steady stream of ideas and
+  discussion
