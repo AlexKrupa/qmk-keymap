@@ -1,9 +1,15 @@
+#include "keycodes.h"
 #include QMK_KEYBOARD_H
 #include "i18n.h"
 
 enum custom_keycodes {
   MCR_ARR = SAFE_RANGE,
   MCR_DLR_BRC,
+  MCR_HOME,
+  MCR_VQ,
+  MCR_VW,
+  MCR_VWQ,
+  MCR_MDCODE,
   MAC_DND,
   MAC_LOCK,
 };
@@ -92,27 +98,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [1] = LAYOUT_voyager(
-  KC_NO    , KC_NO       , KC_NO        , KC_NO       , KC_NO          , KC_NO    ,     KC_NO    , KC_NO    , KC_NO   , KC_NO    , KC_NO   , KC_NO  ,
-  KC_NO    , MAC_QUIT    , TAB_CLS      , TAB_PRV     , TAB_NXT        , TAB_OPN  ,     KC_NO    , KC_LPRN  , KC_RPRN , KC_LCBR  , KC_RCBR , KC_NO  ,
-  CYCLOTAB , MT_GUI_SA   , KC_LEFT_CTRL , MT_ALT_DL   , MT_SFT_FD      , CW_TOGG  ,     KC_LEFT  , KC_DOWN  , KC_UP   , KC_RIGHT , KC_COLN , MCR_ARR,
-  KC_NO    , KC_MAC_UNDO , KC_MAC_CUT   , KC_MAC_COPY , KC_MAC_PASTE   , MAC_FIND ,     KC_NO    , KC_LBRC  , KC_RBRC , KC_LABK  , KC_RABK , KC_NO  ,
+  KC_NO    , KC_NO       , KC_NO        , KC_NO       , KC_NO          , KC_NO    ,     KC_NO    , KC_NO    , KC_NO , KC_NO    , KC_NO , KC_NO,
+  KC_NO    , MAC_QUIT    , TAB_CLS      , TAB_PRV     , TAB_NXT        , TAB_OPN  ,     KC_NO    , KC_NO    , KC_NO , KC_NO    , KC_NO , KC_NO,
+  CYCLOTAB , MT_GUI_SA   , KC_LEFT_CTRL , MT_ALT_DL   , MT_SFT_FD      , CW_TOGG  ,     KC_LEFT  , KC_DOWN  , KC_UP , KC_RIGHT , KC_NO , KC_NO,
+  KC_NO    , KC_MAC_UNDO , KC_MAC_CUT   , KC_MAC_COPY , KC_MAC_PASTE   , MAC_FIND ,     KC_NO    , KC_NO    , KC_NO , KC_NO    , KC_NO , KC_NO,
                                                         KC_TRANSPARENT , KC_NO    ,     KC_ENTER , KC_SPACE
 ),
 
 [2] = LAYOUT_voyager(
-  KC_NO , KC_NO       , KC_NO        , KC_NO       , KC_NO         , KC_NO          ,     KC_NO , KC_NO    , KC_NO   , KC_NO   , KC_NO       , KC_NO,
-  KC_NO , KC_NO       , KC_PLUS      , KC_MINUS    , KC_EQUAL      , KC_NO          ,     KC_NO , DF_7_F7  , DF_8_F8 , DF_9_F9 , DF_ASTR_F12 , KC_NO,
-  KC_NO , KC_LEFT_GUI , KC_LEFT_CTRL , KC_LEFT_ALT , KC_LEFT_SHIFT , KC_NO          ,     KC_0  , DF_1_F1  , DF_2_F2 , DF_3_F3 , DF_0_F11    , KC_NO,
-  KC_NO , KC_NO       , KC_COMMA     , KC_DOT      , KC_COLN       , KC_NO          ,     KC_NO , DF_4_F4  , DF_5_F5 , DF_6_F6 , DF_SLS_F10  , KC_NO,
-                                                     KC_NO         , KC_TRANSPARENT ,     KC_0  , KC_SPACE
+  KC_NO , KC_NO       , KC_NO        , KC_NO       , KC_NO         , KC_NO          ,     KC_NO    , KC_NO    , KC_NO   , KC_NO   , KC_NO       , KC_NO,
+  KC_NO , KC_NO       , KC_PLUS      , KC_MINUS    , KC_EQUAL      , KC_NO          ,     KC_NO    , DF_7_F7  , DF_8_F8 , DF_9_F9 , DF_ASTR_F12 , KC_NO,
+  KC_NO , KC_LEFT_GUI , KC_LEFT_CTRL , KC_LEFT_ALT , KC_LEFT_SHIFT , KC_NO          ,     KC_NO    , DF_1_F1  , DF_2_F2 , DF_3_F3 , DF_0_F11    , KC_NO,
+  KC_NO , KC_NO       , KC_COMMA     , KC_DOT      , KC_COLN       , KC_NO          ,     KC_NO    , DF_4_F4  , DF_5_F5 , DF_6_F6 , DF_SLS_F10  , KC_NO,
+                                                     KC_NO         , KC_TRANSPARENT ,     KC_ENTER , KC_SPACE
 ),
 
 [3] = LAYOUT_voyager(
-  KC_NO , KC_NO   , KC_NO   , KC_NO   , KC_NO     , KC_NO       ,     KC_NO    , KC_NO    , KC_NO   , KC_NO       , KC_NO    , KC_NO,
-  KC_NO , KC_TILD , KC_LABK , KC_RABK , KC_PERC   , MCR_ARR     ,     KC_NO    , KC_LCBR  , KC_RCBR , KC_EQUAL    , KC_PLUS  , KC_NO,
-  KC_NO , KC_CIRC , KC_AT   , KC_HASH , KC_DLR    , MCR_DLR_BRC ,     KC_NO    , KC_LPRN  , KC_RPRN , KC_KP_MINUS , KC_GRAVE , KC_NO,
-  KC_NO , KC_BSLS , KC_PIPE , KC_AMPR , KC_ASTR   , KC_NO       ,     KC_NO    , KC_LBRC  , KC_RBRC , KC_UNDS     , KC_EXLM  , KC_NO,
-                                        KC_DELETE , KC_TAB      ,     KC_ENTER , KC_SPACE
+  KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO     , KC_NO       ,     KC_NO    , KC_NO    , KC_NO   , KC_NO       , KC_NO    , KC_NO     ,
+  MCR_VQ  , KC_TILD , KC_LABK , KC_RABK , KC_PERC   , MCR_ARR     ,     KC_NO    , KC_LCBR  , KC_RCBR , KC_EQUAL    , KC_PLUS  , KC_NO     ,
+  MCR_VWQ , KC_CIRC , KC_AT   , KC_HASH , KC_DLR    , MCR_DLR_BRC ,     KC_NO    , KC_LPRN  , KC_RPRN , KC_KP_MINUS , KC_GRAVE , MCR_MDCODE,
+  MCR_VW  , KC_BSLS , KC_PIPE , KC_AMPR , KC_ASTR   , KC_NO       ,     KC_NO    , KC_LBRC  , KC_RBRC , KC_UNDS     , KC_EXLM  , MCR_HOME  ,
+                                          KC_DELETE , KC_TAB      ,     KC_ENTER , KC_SPACE
 ),
 
 [4] = LAYOUT_voyager(
@@ -290,22 +296,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(SS_LSFT(SS_TAP(X_4))SS_DELAY(1)  SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(1)  SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(1)  SS_TAP(X_LEFT));
     }
     return false;
+  case MCR_HOME:
+    if (record->event.pressed) {
+      SEND_STRING("~/");
+    }
+    return false;
+  case MCR_VQ:
+    if (record->event.pressed) {
+      SEND_STRING(":q" SS_TAP(X_ENTER));
+    }
+    return false;
+  case MCR_VW:
+    if (record->event.pressed) {
+      SEND_STRING(":w" SS_TAP(X_ENTER));
+    }
+    return false;
+  case MCR_VWQ:
+    if (record->event.pressed) {
+      SEND_STRING(":wq" SS_TAP(X_ENTER));
+    }
+    return false;
+  case MCR_MDCODE:
+    if (record->event.pressed) {
+      SEND_STRING("```" SS_DELAY(25) SS_LSFT(SS_TAP(X_ENTER)) "```" SS_DELAY(25) SS_TAP(X_UP));
+    }
+    return false;
   case MAC_DND:
     HSS(0x9B);
   case MAC_LOCK:
     HCS(0x19E);
 
-    case DF_7_F7:     return handle_dual_func(record, KC_7,     KC_F7);
-    case DF_8_F8:     return handle_dual_func(record, KC_8,     KC_F8);
-    case DF_9_F9:     return handle_dual_func(record, KC_9,     KC_F9);
+    case DF_7_F7:      return handle_dual_func(record, KC_7,     KC_F7);
+    case DF_8_F8:      return handle_dual_func(record, KC_8,     KC_F8);
+    case DF_9_F9:      return handle_dual_func(record, KC_9,     KC_F9);
     case DF_ASTR_F12:  return handle_dual_func(record, KC_ASTR,  KC_F12);
-    case DF_1_F1:     return handle_dual_func(record, KC_1,     KC_F1);
-    case DF_2_F2:     return handle_dual_func(record, KC_2,     KC_F2);
-    case DF_3_F3:     return handle_dual_func(record, KC_3,     KC_F3);
+    case DF_1_F1:      return handle_dual_func(record, KC_1,     KC_F1);
+    case DF_2_F2:      return handle_dual_func(record, KC_2,     KC_F2);
+    case DF_3_F3:      return handle_dual_func(record, KC_3,     KC_F3);
     case DF_0_F11:     return handle_dual_func(record, KC_0,     KC_F11);
-    case DF_4_F4:     return handle_dual_func(record, KC_4,     KC_F4);
-    case DF_5_F5:     return handle_dual_func(record, KC_5,     KC_F5);
-    case DF_6_F6:     return handle_dual_func(record, KC_6,     KC_F6);
+    case DF_4_F4:      return handle_dual_func(record, KC_4,     KC_F4);
+    case DF_5_F5:      return handle_dual_func(record, KC_5,     KC_F5);
+    case DF_6_F6:      return handle_dual_func(record, KC_6,     KC_F6);
     case DF_SLS_F10:   return handle_dual_func(record, KC_SLASH, KC_F10);
 
     // Override LT tap: KC_F16 placeholder -> KC_ASTR (shifted case handled by custom_shift_keys module)
