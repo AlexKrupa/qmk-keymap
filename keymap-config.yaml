@@ -40,12 +40,12 @@ parse_config:
     MT_SFT_FD: { t: "Find",       h: "LSFT" }
     # HRM
     HRM_A: { t: "A", h: "LGUI" }
-    HRM_S: { t: "S", h: "LCTL" }
+    HRM_S: { t: "S", h: "LCTRL" }
     HRM_D: { t: "D", h: "LALT" }
-    HRM_F: { t: "F", h: "LSFT" }
-    HRM_J: { t: "J", h: "RSFT" }
+    HRM_F: { t: "F", h: "LSHIFT" }
+    HRM_J: { t: "J", h: "RSHIFT" }
     HRM_K: { t: "K", h: "LALT" }
-    HRM_L: { t: "L", h: "RCTL" }
+    HRM_L: { t: "L", h: "RCTRL" }
     HRM_QUO: { t: '''"', h: "RGUI" }
     # BRM
     BRM_Z: { t: "Z", h: "HYPER" }
@@ -60,6 +60,11 @@ parse_config:
     # Macros
     MCR_ARR: "-> "
     MCR_DLR_BRC: "${}"
+    MCR_HOME: "~/"
+    MCR_MDCODE: "```\n\n```"
+    MCR_VQ: ":q!"
+    MCR_VW: ":w"
+    MCR_VWQ: ":wq"
     # Shortcut aliases
     SEL_ALL: "Select All"
     MAC_QUIT: Quit
@@ -75,13 +80,19 @@ parse_config:
     MAC_LOCK: "Lock"
     LUMINO: "Lights"
     KC_MS_JIGGLER_TOGGLE: "Jiggler"
-    KC_MAC_UNDO: "Undo"
+    KC_MAC_UNDO: "↶ Undo"
     KC_MAC_CUT: "Cut"
     KC_MAC_COPY: "Copy"
     KC_MAC_PASTE: "Paste"
-    CW_TOGG: "CapsWord"
+    CW_TOGG: "⇪ CapsWord"
     QK_BOOT: "Bootloader"
-    RGB_SLD: "Solid"
+    RGB_SLD: "▪ Solid"
+    # Plain modifiers (used on NUM layer)
+    KC_LEFT_CTRL: "LCTRL"
+    KC_LEFT_GUI: "LGUI"
+    KC_LEFT_ALT: "LALT"
+    KC_LEFT_SHIFT: "LSHIFT"
+    KC_RIGHT_GUI: "RGUI"
     # Media / audio
     KC_MEDIA_PLAY_PAUSE: "▶ ⏸"
     KC_AUDIO_MUTE: "Mute"
