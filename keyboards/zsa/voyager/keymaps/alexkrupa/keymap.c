@@ -149,7 +149,7 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
 const uint16_t PROGMEM combo_qw_tab[] = { KC_Q, KC_W, COMBO_END};
 
 combo_t key_combos[] = {
-    COMBO(combo_qw_tab, KC_TAB),
+  COMBO(combo_qw_tab, KC_TAB),
 };
 
 #ifdef SPECULATIVE_HOLD
@@ -171,58 +171,58 @@ bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
 #endif // SPECULATIVE_HOLD
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        // Pinky - home
-        case HRM_A:
-        case HRM_QUO:
-            return TAPPING_TERM + 70;
+  switch (keycode) {
+    // Pinky - home
+    case HRM_A:
+    case HRM_QUO:
+        return TAPPING_TERM + 70;
 
-        // Ring - home
-        case HRM_S:
-        case HRM_L:
-            return TAPPING_TERM + 40;
+    // Ring - home
+    case HRM_S:
+    case HRM_L:
+        return TAPPING_TERM + 40;
 
-        // Middle - home
-        case HRM_D:
-        case HRM_K:
-            return TAPPING_TERM - 10;
+    // Middle - home
+    case HRM_D:
+    case HRM_K:
+        return TAPPING_TERM - 10;
 
-        // Index - home
-        case HRM_F:
-        case HRM_J:
-            return TAPPING_TERM - 20;
+    // Index - home
+    case HRM_F:
+    case HRM_J:
+        return TAPPING_TERM - 20;
 
-        // Pinky - bottom
-        case BRM_Z:
-        case BRM_SLS:
-        case BRM_ASTR:
-            return TAPPING_TERM + 80;
+    // Pinky - bottom
+    case BRM_Z:
+    case BRM_SLS:
+    case BRM_ASTR:
+        return TAPPING_TERM + 80;
 
-        // Ring - bottom
-        case BRM_X:
-        case BRM_DOT:
-            return TAPPING_TERM + 50;
+    // Ring - bottom
+    case BRM_X:
+    case BRM_DOT:
+        return TAPPING_TERM + 50;
 
-        // Middle - bottom
-        case BRM_C:
-        case BRM_COM:
-            return TAPPING_TERM + 20;
+    // Middle - bottom
+    case BRM_C:
+    case BRM_COM:
+        return TAPPING_TERM + 20;
 
-        // Index - bottom
-        case BRM_V:
-        case BRM_M:
-            return TAPPING_TERM + 10;
+    // Index - bottom
+    case BRM_V:
+    case BRM_M:
+        return TAPPING_TERM + 10;
 
-        // Thumbs
-        case TMB_BSP:
-        case TMB_ESC:
-        case TMB_ENT:
-        case TMB_SPC:
-            return TAPPING_TERM;
+    // Thumbs
+    case TMB_BSP:
+    case TMB_ESC:
+    case TMB_ENT:
+    case TMB_SPC:
+        return TAPPING_TERM;
 
-        default:
-            return TAPPING_TERM;
-    }
+    default:
+        return TAPPING_TERM;
+  }
 }
 
 #ifdef FLOW_TAP_TERM
@@ -270,61 +270,63 @@ static bool handle_dual_func(keyrecord_t *record, uint16_t tap_kc, uint16_t hold
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-  case QK_MODS ... QK_MODS_MAX:
-    // Mouse and consumer keys (volume, media) with modifiers work inconsistently across operating systems,
-    // this makes sure that modifiers are always applied to the key that was pressed.
-    if (IS_MOUSE_KEYCODE(QK_MODS_GET_BASIC_KEYCODE(keycode)) || IS_CONSUMER_KEYCODE(QK_MODS_GET_BASIC_KEYCODE(keycode))) {
-      if (record->event.pressed) {
-        add_mods(QK_MODS_GET_MODS(keycode));
-        send_keyboard_report();
-        wait_ms(2);
-        register_code(QK_MODS_GET_BASIC_KEYCODE(keycode));
-        return false;
-      } else {
-        wait_ms(2);
-        del_mods(QK_MODS_GET_MODS(keycode));
+    case QK_MODS ... QK_MODS_MAX:
+      // Mouse and consumer keys (volume, media) with modifiers work inconsistently across operating systems,
+      // this makes sure that modifiers are always applied to the key that was pressed.
+      if (IS_MOUSE_KEYCODE(QK_MODS_GET_BASIC_KEYCODE(keycode)) || IS_CONSUMER_KEYCODE(QK_MODS_GET_BASIC_KEYCODE(keycode))) {
+        if (record->event.pressed) {
+          add_mods(QK_MODS_GET_MODS(keycode));
+          send_keyboard_report();
+          wait_ms(2);
+          register_code(QK_MODS_GET_BASIC_KEYCODE(keycode));
+          return false;
+        } else {
+          wait_ms(2);
+          del_mods(QK_MODS_GET_MODS(keycode));
+        }
       }
-    }
-    break;
-  case MCR_ARR:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_MINUS)SS_DELAY(1)  SS_LSFT(SS_TAP(X_DOT))SS_DELAY(1)  SS_TAP(X_SPACE));
-    }
-    return false;
-  case MCR_DLR_BRC:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_4))SS_DELAY(1)  SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(1)  SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(1)  SS_TAP(X_LEFT));
-    }
-    return false;
-  case MCR_HOME:
-    if (record->event.pressed) {
-      SEND_STRING("~/");
-    }
-    return false;
-  case MCR_VQ:
-    if (record->event.pressed) {
-      SEND_STRING(":q" SS_TAP(X_ENTER));
-    }
-    return false;
-  case MCR_VW:
-    if (record->event.pressed) {
-      SEND_STRING(":w" SS_TAP(X_ENTER));
-    }
-    return false;
-  case MCR_VWQ:
-    if (record->event.pressed) {
-      SEND_STRING(":wq" SS_TAP(X_ENTER));
-    }
-    return false;
-  case MCR_MDCODE:
-    if (record->event.pressed) {
-      SEND_STRING("```" SS_DELAY(25) SS_LSFT(SS_TAP(X_ENTER)) "```" SS_DELAY(25) SS_TAP(X_UP));
-    }
-    return false;
-  case MAC_DND:
-    HSS(0x9B);
-  case MAC_LOCK:
-    HCS(0x19E);
+      break;
+    case MCR_ARR:
+      if (record->event.pressed) {
+        SEND_STRING(SS_TAP(X_MINUS)SS_DELAY(1)  SS_LSFT(SS_TAP(X_DOT))SS_DELAY(1)  SS_TAP(X_SPACE));
+      }
+      return false;
+    case MCR_DLR_BRC:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_4))SS_DELAY(1)  SS_LSFT(SS_TAP(X_LBRC))SS_DELAY(1)  SS_LSFT(SS_TAP(X_RBRC))SS_DELAY(1)  SS_TAP(X_LEFT));
+      }
+      return false;
+    case MCR_HOME:
+      if (record->event.pressed) {
+        SEND_STRING("~/");
+      }
+      return false;
+    case MCR_VQ:
+      if (record->event.pressed) {
+        SEND_STRING(":q!" SS_TAP(X_ENTER));
+      }
+      return false;
+    case MCR_VW:
+      if (record->event.pressed) {
+        SEND_STRING(":w" SS_TAP(X_ENTER));
+      }
+      return false;
+    case MCR_VWQ:
+      if (record->event.pressed) {
+        SEND_STRING(":wq" SS_TAP(X_ENTER));
+      }
+      return false;
+    case MCR_MDCODE:
+      if (record->event.pressed) {
+        SEND_STRING("```" SS_DELAY(25) SS_LSFT(SS_TAP(X_ENTER)) "```" SS_DELAY(25) SS_TAP(X_UP));
+      }
+      return false;
+    case MAC_DND:
+      HSS(0x9B);
+      return false;
+    case MAC_LOCK:
+      HCS(0x19E);
+      return false;
 
     case DF_7_F7:      return handle_dual_func(record, KC_7,     KC_F7);
     case DF_8_F8:      return handle_dual_func(record, KC_8,     KC_F8);
