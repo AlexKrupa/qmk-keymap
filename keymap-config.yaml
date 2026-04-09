@@ -16,48 +16,57 @@ parse_config:
     - SYS
   raw_binding_map:
     # Thumbs: LT() layer-tap, hold = layer, tap = key
-    TMB_BSP: { t: "⌫", h: "NAV" }
-    TMB_ESC: { t: "Esc", h: "NUM" }
-    TMB_ENT: { t: "↵", h: "SYM" }
-    TMB_SPC: { t: "␣", h: "MOUSE" }
+    TMB_BSP: { t: "$$mdi:backspace$$", h: "NAV" }
+    TMB_ESC: { t: "$$mdi:keyboard-esc$$", h: "NUM" }
+    TMB_ENT: { t: "$$mdi:keyboard-return$$", h: "SYM" }
+    TMB_SPC: { t: "$$mdi:keyboard-space$$", h: "MOUSE" }
     # Dual-function numpad keys: tap = digit/symbol, hold = F-key
     # (LT() layer placeholders are overridden in process_record_user)
-    DF_0_F11:    { t: "0", h: F11 }
-    DF_1_F1:     { t: "1", h: F1 }
-    DF_2_F2:     { t: "2", h: F2 }
-    DF_3_F3:     { t: "3", h: F3 }
-    DF_4_F4:     { t: "4", h: F4 }
-    DF_5_F5:     { t: "5", h: F5 }
-    DF_6_F6:     { t: "6", h: F6 }
-    DF_7_F7:     { t: "7", h: F7 }
-    DF_8_F8:     { t: "8", h: F8 }
-    DF_9_F9:     { t: "9", h: F9 }
+    DF_0_F11: { t: "0", h: F11 }
+    DF_1_F1: { t: "1", h: F1 }
+    DF_2_F2: { t: "2", h: F2 }
+    DF_3_F3: { t: "3", h: F3 }
+    DF_4_F4: { t: "4", h: F4 }
+    DF_5_F5: { t: "5", h: F5 }
+    DF_6_F6: { t: "6", h: F6 }
+    DF_7_F7: { t: "7", h: F7 }
+    DF_8_F8: { t: "8", h: F8 }
+    DF_9_F9: { t: "9", h: F9 }
     DF_ASTR_F12: { t: "*", h: F12 }
-    DF_SLS_F10:  { t: "/", h: F10 }
+    DF_SLS_F10: { t: "/", h: F10 }
     # Layer 1 mod-taps: modifier on hold, macOS shortcut on tap
-    MT_GUI_SA: { t: "Select All", h: "LGUI" }
-    MT_ALT_DL: { t: "⌘⌫",       h: "LALT" }
-    MT_SFT_FD: { t: "Find",       h: "LSFT" }
-    # HRM
-    HRM_A: { t: "A", h: "LGUI" }
-    HRM_S: { t: "S", h: "LCTRL" }
-    HRM_D: { t: "D", h: "LALT" }
-    HRM_F: { t: "F", h: "LSHIFT" }
-    HRM_J: { t: "J", h: "RSHIFT" }
-    HRM_K: { t: "K", h: "LALT" }
-    HRM_L: { t: "L", h: "RCTRL" }
-    HRM_QUO: { t: '''"', h: "RGUI" }
-    # BRM
+    MT_GUI_SA: { t: "Select All", h: "$$mdi:apple-keyboard-command$$" }
+    MT_ALT_DL: { t: "⌘⌫", h: "$$mdi:apple-keyboard-option$$" }
+    MT_SFT_FD: { t: "Find", h: "$$mdi:apple-keyboard-shift$$" }
+    # Home-row mods (HRM)
+    HRM_A: { t: "A", h: "$$mdi:apple-keyboard-command$$" }
+    HRM_S: { t: "S", h: "$$mdi:apple-keyboard-control$$" }
+    HRM_D: { t: "D", h: "$$mdi:apple-keyboard-option$$" }
+    HRM_F: { t: "F", h: "$$mdi:apple-keyboard-shift$$" }
+    HRM_J: { t: "J", h: "$$mdi:apple-keyboard-shift$$" }
+    HRM_K: { t: "K", h: "$$mdi:apple-keyboard-option$$" }
+    HRM_L: { t: "L", h: "$$mdi:apple-keyboard-control$$" }
+    HRM_QUO: { t: '''"', h: "$$mdi:apple-keyboard-command$$" }
+    # Bottom-row mods (BRM)
     BRM_Z: { t: "Z", h: "HYPER" }
     BRM_X: { t: "X", h: "MEH" }
-    BRM_C: { t: "C", h: "RALT" }
+    BRM_C: { t: "C", h: "R⌥" }
     BRM_V: { t: "V", h: "SYM" }
     BRM_M: { t: "M", h: "SYM" }
-    BRM_COM: { t: ",;", h: "RALT" }
+    BRM_COM: { t: ",;", h: "R⌥" }
     BRM_DOT: { t: ".:", h: "MEH" }
     BRM_SLS: { t: "/?", h: "HYPER" }
     BRM_ASTR: { t: "*!", h: "SYS" }
-    # Macros
+    # Plain modifiers (used on NUM layer)
+    KC_LEFT_CTRL: "$$mdi:apple-keyboard-control$$"
+    KC_LEFT_GUI: "$$mdi:apple-keyboard-command$$"
+    KC_LEFT_ALT: "$$mdi:apple-keyboard-option$$"
+    KC_LEFT_SHIFT: "$$mdi:apple-keyboard-shift$$"
+    KC_RIGHT_CTRL: "$$mdi:apple-keyboard-control$$"
+    KC_RIGHT_GUI: "$$mdi:apple-keyboard-command$$"
+    KC_RIGHT_ALT: "R⌥"
+    KC_RIGHT_SHIFT: "$$mdi:apple-keyboard-shift$$"
+    # Text macros
     MCR_ARR: "-> "
     MCR_DLR_BRC: "${}"
     MCR_HOME: "~/"
@@ -65,57 +74,51 @@ parse_config:
     MCR_VQ: ":q!"
     MCR_VW: ":w"
     MCR_VWQ: ":wq"
-    # Shortcut aliases
+    # macOS shortcut aliases
     SEL_ALL: "Select All"
+    MAC_FIND: Find
     MAC_QUIT: Quit
+    MAC_DEL: "⌘⌫"
+    CYCLOTAB: "⌘Tab"
+    TAB_OPN: "Tab +"
     TAB_CLS: "Tab ✕"
     TAB_PRV: "Tab ←"
     TAB_NXT: "Tab →"
-    TAB_OPN: "Tab +"
-    MAC_FIND: Find
-    CYCLOTAB: "⌘Tab"
-    MAC_DEL: "⌘⌫"
-    # System keys
-    MAC_DND: "DND"
-    MAC_LOCK: "Lock"
-    LUMINO: "Lights"
-    KC_MS_JIGGLER_TOGGLE: "Jiggler"
     KC_MAC_UNDO: "↶ Undo"
     KC_MAC_CUT: "Cut"
     KC_MAC_COPY: "Copy"
     KC_MAC_PASTE: "Paste"
+    # System / misc
+    MAC_DND: "DND"
+    MAC_LOCK: "$$mdi:lock$$"
+    LUMINO: "Lights"
+    KC_MS_JIGGLER_TOGGLE: "Jiggler"
     CW_TOGG: "⇪ CapsWord"
-    QK_BOOT: "Bootloader"
+    QK_BOOT: "$$mdi:progress-download$$ Boot"
     RGB_SLD: "▪ Solid"
-    # Plain modifiers (used on NUM layer)
-    KC_LEFT_CTRL: "LCTRL"
-    KC_LEFT_GUI: "LGUI"
-    KC_LEFT_ALT: "LALT"
-    KC_LEFT_SHIFT: "LSHIFT"
-    KC_RIGHT_GUI: "RGUI"
     # Media / audio
-    KC_MEDIA_PLAY_PAUSE: "▶ ⏸"
-    KC_AUDIO_MUTE: "Mute"
-    KC_AUDIO_VOL_UP: "Vol +"
-    KC_AUDIO_VOL_DOWN: "Vol −"
-    KC_MEDIA_NEXT_TRACK: "Track ⏭"
-    KC_MEDIA_PREV_TRACK: "Track ⏮"
+    KC_MEDIA_PLAY_PAUSE: "$$mdi:play-pause$$"
+    KC_AUDIO_MUTE: "$$mdi:volume-off$$"
+    KC_AUDIO_VOL_UP: "$$mdi:volume-high$$"
+    KC_AUDIO_VOL_DOWN: "$$mdi:volume-low$$"
+    KC_MEDIA_NEXT_TRACK: "$$mdi:skip-next$$"
+    KC_MEDIA_PREV_TRACK: "$$mdi:skip-previous$$"
     # RGB matrix (PaletteFx)
-    RM_NEXT: "Effect →"
-    RM_PREV: "Effect ←"
-    RM_HUEU: "Palette →"
-    RM_HUED: "Palette ←"
-    RM_SATU: "Sat +"
-    RM_SATD: "Sat −"
-    RM_VALU: "Bright +"
-    RM_VALD: "Bright −"
-    RM_SPDU: "Speed +"
-    RM_SPDD: "Speed −"
+    RM_NEXT: "Effect→"
+    RM_PREV: "Effect←"
+    RM_HUEU: "Palette→"
+    RM_HUED: "Palette←"
+    RM_SATU: "Sat+"
+    RM_SATD: "Sat−"
+    RM_VALU: "$$mdi:brightness-5$$"
+    RM_VALD: "$$mdi:brightness-7$$"
+    RM_SPDU: "Speed+"
+    RM_SPDD: "Speed−"
     # Mouse keys
-    MS_UP:   "🖱 ↑"
-    MS_DOWN: "🖱 ↓"
-    MS_LEFT: "🖱 ←"
-    MS_RGHT: "🖱 →"
+    MS_UP: "🖱↑"
+    MS_DOWN: "🖱↓"
+    MS_LEFT: "🖱←"
+    MS_RGHT: "🖱→"
     MS_BTN1: "L click"
     MS_BTN2: "R click"
     MS_BTN3: "M click"
@@ -128,10 +131,23 @@ parse_config:
     MS_ACL0: "Slow"
     MS_ACL1: "Med"
     MS_ACL2: "Fast"
-    KC_KP_MINUS: "-"
-    # Other
+    # Arrows & navigation
+    KC_UP: $$mdi:arrow-up-bold$$
+    KC_DOWN: $$mdi:arrow-down-bold$$
+    KC_LEFT: $$mdi:arrow-left-bold$$
+    KC_RIGHT: $$mdi:arrow-right-bold$$
+    KC_DELETE: "⌦"
+    # Basic keys
+    KC_SPACE: "$$mdi:keyboard-space$$"
+    KC_BSPC: "$$mdi:backspace$$"
+    KC_DEL: "$$mdi:backspace-reverse$$"
+    KC_ENTER: $$mdi:keyboard-return$$
+    KC_ESC: $$mdi:keyboard-esc$$
+    KC_TAB: $$mdi:keyboard-tab$$
     XXXXXXX: ""
     "NO": ""
+    # Symbols / punctuation
+    KC_KP_MINUS: "-"
     MINUS: "-"
     MINS: "-"
     EQUAL: "="
