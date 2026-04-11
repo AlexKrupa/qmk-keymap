@@ -9,11 +9,11 @@ parse_config:
     type: trans
   layer_names:
     - BASE
-    - NAV
     - NUM
     - SYM
+    - NAV
     - MOUSE
-    - SYS
+    - SYSTEM
   raw_binding_map:
     # Thumbs: LT() layer-tap, hold = layer, tap = key
     TMB_BSP: { t: "$$mdi:backspace$$", h: "NAV" }
@@ -35,9 +35,9 @@ parse_config:
     DF_ASTR_F12: { t: "*", h: F12 }
     DF_SLS_F10: { t: "/", h: F10 }
     # Layer 1 mod-taps: modifier on hold, macOS shortcut on tap
-    MT_GUI_SA: { t: "Select All", h: "$$mdi:apple-keyboard-command$$" }
-    MT_ALT_DL: { t: "⌘⌫", h: "$$mdi:apple-keyboard-option$$" }
-    MT_SFT_FD: { t: "Find", h: "$$mdi:apple-keyboard-shift$$" }
+    MT_GUI_SA: { t: "$$mdi:select-all$$", h: "$$mdi:apple-keyboard-command$$" }
+    MT_ALT_DL: { t: "$$mdi:delete$$", h: "$$mdi:apple-keyboard-option$$" }
+    MT_SFT_FD: { t: "$$mdi:file-find$$", h: "$$mdi:apple-keyboard-shift$$" }
     # Home-row mods (HRM)
     HRM_A: { t: "A", h: "$$mdi:apple-keyboard-command$$" }
     HRM_S: { t: "S", h: "$$mdi:apple-keyboard-control$$" }
@@ -46,17 +46,17 @@ parse_config:
     HRM_J: { t: "J", h: "$$mdi:apple-keyboard-shift$$" }
     HRM_K: { t: "K", h: "$$mdi:apple-keyboard-option$$" }
     HRM_L: { t: "L", h: "$$mdi:apple-keyboard-control$$" }
-    HRM_QUO: { t: '''"', h: "$$mdi:apple-keyboard-command$$" }
+    HRM_QUO: { t: "'", s: '"', h: "$$mdi:apple-keyboard-command$$" }
     # Bottom-row mods (BRM)
-    BRM_Z: { t: "Z", h: "HYPER" }
-    BRM_X: { t: "X", h: "MEH" }
+    BRM_Z: { t: "Z", h: "$$mdi:star-four-points$$" }
+    BRM_X: { t: "X", h: "$$mdi:star-three-points$$" }
     BRM_C: { t: "C", h: "R⌥" }
     BRM_V: { t: "V", h: "SYM" }
     BRM_M: { t: "M", h: "SYM" }
-    BRM_COM: { t: ",;", h: "R⌥" }
-    BRM_DOT: { t: ".:", h: "MEH" }
-    BRM_SLS: { t: "/?", h: "HYPER" }
-    BRM_ASTR: { t: "*!", h: "SYS" }
+    BRM_COM: { t: ",", s: ";", h: "R⌥" }
+    BRM_DOT: { t: ".", s: ":", h: "$$mdi:star-three-points$$" }
+    BRM_SLS: { t: "/", s: "?", h: "$$mdi:star-four-points$$" }
+    BRM_ASTR: { t: "*", s: "!", h: "SYSTEM" }
     # Plain modifiers (used on NUM layer)
     KC_LEFT_CTRL: "$$mdi:apple-keyboard-control$$"
     KC_LEFT_GUI: "$$mdi:apple-keyboard-command$$"
@@ -75,155 +75,85 @@ parse_config:
     MCR_VW: ":w"
     MCR_VWQ: ":wq"
     # macOS shortcut aliases
-    SEL_ALL: "Select All"
-    MAC_FIND: Find
-    MAC_QUIT: Quit
-    MAC_DEL: "⌘⌫"
-    CYCLOTAB: "⌘Tab"
-    TAB_OPN: "Tab +"
-    TAB_CLS: "Tab ✕"
-    TAB_PRV: "Tab ←"
-    TAB_NXT: "Tab →"
-    KC_MAC_UNDO: "↶ Undo"
-    KC_MAC_CUT: "Cut"
-    KC_MAC_COPY: "Copy"
-    KC_MAC_PASTE: "Paste"
+    SEL_ALL: "$$mdi:form-textarea$$"
+    MAC_FIND: "$$mdi:file-find$$"
+    MAC_QUIT: "$$mdi:close-box-multiple$$"
+    MAC_DEL: "$$mdi:delete$$"
+    CYCLOTAB: "$$mdi:swap-horizontal$$"
+    TAB_OPN: "$$mdi:tab$$"
+    TAB_CLS: "$$mdi:tab-remove$$"
+    TAB_PRV: "$$mdi:tab-minus$$"
+    TAB_NXT: "$$mdi:tab-plus$$"
+    KC_MAC_UNDO: "$$mdi:undo$$"
+    KC_MAC_CUT: "$$mdi:content-cut$$"
+    KC_MAC_COPY: "$$mdi:content-copy$$"
+    KC_MAC_PASTE: "$$mdi:content-paste$$"
     # System / misc
-    MAC_DND: "DND"
+    MAC_DND: "$$mdi:bell-off$$"
     MAC_LOCK: "$$mdi:lock$$"
-    LUMINO: "Lights"
-    KC_MS_JIGGLER_TOGGLE: "Jiggler"
-    CW_TOGG: "⇪ CapsWord"
-    QK_BOOT: "$$mdi:progress-download$$ Boot"
-    RGB_SLD: "▪ Solid"
+    LUMINO: "$$mdi:led-on$$"
+    KC_MS_JIGGLER_TOGGLE: "$$mdi:rodent$$"
+    CW_TOGG: "$$mdi:apple-keyboard-caps$$"
+    QK_BOOT: "$$mdi:progress-download$$"
     # Media / audio
     KC_MEDIA_PLAY_PAUSE: "$$mdi:play-pause$$"
     KC_AUDIO_MUTE: "$$mdi:volume-off$$"
     KC_AUDIO_VOL_UP: "$$mdi:volume-high$$"
     KC_AUDIO_VOL_DOWN: "$$mdi:volume-low$$"
-    KC_MEDIA_NEXT_TRACK: "$$mdi:skip-next$$"
-    KC_MEDIA_PREV_TRACK: "$$mdi:skip-previous$$"
+    KC_MEDIA_NEXT_TRACK: "$$mdi:skip-forward$$"
+    KC_MEDIA_PREV_TRACK: "$$mdi:skip-backward$$"
     # RGB matrix (PaletteFx)
-    RM_NEXT: "Effect→"
-    RM_PREV: "Effect←"
-    RM_HUEU: "Palette→"
-    RM_HUED: "Palette←"
-    RM_SATU: "Sat+"
-    RM_SATD: "Sat−"
-    RM_VALU: "$$mdi:brightness-5$$"
-    RM_VALD: "$$mdi:brightness-7$$"
-    RM_SPDU: "Speed+"
-    RM_SPDD: "Speed−"
+    RM_NEXT: "EFFECT →"
+    RM_PREV: "EFFECT ←"
+    RM_HUEU: "PALETTE →"
+    RM_HUED: "PALETTE ←"
+    KC_F14: "$$mdi:brightness-5$$"
+    KC_F15: "$$mdi:brightness-7$$"
+    RM_SPDU: "$$mdi:speedometer$$"
+    RM_SPDD: "$$mdi:speedometer-slow$$"
     # Mouse keys
     MS_UP: "🖱↑"
     MS_DOWN: "🖱↓"
     MS_LEFT: "🖱←"
     MS_RGHT: "🖱→"
-    MS_BTN1: "L click"
-    MS_BTN2: "R click"
-    MS_BTN3: "M click"
-    MS_BTN4: "Back"
-    MS_BTN5: "Fwd"
-    MS_WHLU: "Wheel ↑"
-    MS_WHLD: "Wheel ↓"
-    MS_WHLL: "Wheel ←"
-    MS_WHLR: "Wheel →"
-    MS_ACL0: "Slow"
-    MS_ACL1: "Med"
-    MS_ACL2: "Fast"
+    MS_BTN1: "$$mdi:mouse-left-click$$"
+    MS_BTN2: "$$mdi:mouse-right-click$$"
+    MS_BTN3: "$$mdi:mouse-scroll-wheel$$"
+    MS_BTN4: "$$mdi:page-previous$$"
+    MS_BTN5: "$$mdi:page-next$$"
+    MS_WHLU: "$$mdi:gesture-swipe-up$$"
+    MS_WHLD: "$$mdi:gesture-swipe-down$$"
+    MS_WHLL: "$$mdi:gesture-swipe-left$$"
+    MS_WHLR: "$$mdi:gesture-swipe-right$$"
+    MS_ACL0: "$$mdi:speedometer-slow$$"
+    MS_ACL1: "$$mdi:speedometer-medium$$"
+    MS_ACL2: "$$mdi:speedometer$$"
     # Arrows & navigation
     KC_UP: $$mdi:arrow-up-bold$$
     KC_DOWN: $$mdi:arrow-down-bold$$
     KC_LEFT: $$mdi:arrow-left-bold$$
     KC_RIGHT: $$mdi:arrow-right-bold$$
-    KC_DELETE: "⌦"
     # Basic keys
     KC_SPACE: "$$mdi:keyboard-space$$"
     KC_BSPC: "$$mdi:backspace$$"
     KC_DEL: "$$mdi:backspace-reverse$$"
-    KC_ENTER: $$mdi:keyboard-return$$
-    KC_ESC: $$mdi:keyboard-esc$$
-    KC_TAB: $$mdi:keyboard-tab$$
-    XXXXXXX: ""
-    "NO": ""
+    KC_DELETE: "$$mdi:backspace-reverse$$"
+    KC_ENTER: "$$mdi:keyboard-return$$"
+    KC_ESC: "$$mdi:keyboard-esc$$"
+    KC_TAB: "$$mdi:keyboard-tab$$"
+    KC_NO: ""
     # Symbols / punctuation
     KC_KP_MINUS: "-"
-    MINUS: "-"
-    MINS: "-"
-    EQUAL: "="
-    EQL: "="
-    LEFT_BRACKET: "["
-    LBRC: "["
-    RIGHT_BRACKET: "]"
-    RBRC: "]"
-    BACKSLASH: \
-    BSLS: \
-    NONUS_HASH: "#"
-    NUHS: "#"
-    SEMICOLON: ;
-    SCLN: ;
-    QUOTE: "'"
-    QUOT: "'"
-    GRAVE: "`"
-    GRV: "`"
-    COMMA: ","
-    COMM: ","
-    DOT: .
-    SLASH: /
-    SLSH: /
-    TILDE: "~"
-    TILD: "~"
-    EXCLAIM: "!"
-    EXLM: "!"
-    AT: "@"
-    HASH: "#"
-    DOLLAR: $
-    DLR: $
-    PERCENT: "%"
-    PERC: "%"
-    CIRCUMFLEX: ^
-    CIRC: ^
-    AMPERSAND: "&"
-    AMPR: "&"
-    ASTERISK: "*"
-    ASTR: "*"
-    LEFT_PAREN: (
-    LPRN: (
-    RIGHT_PAREN: )
-    RPRN: )
-    UNDERSCORE: _
-    UNDS: _
-    PLUS: +
-    LEFT_CURLY_BRACE: "{"
-    LCBR: "{"
-    RIGHT_CURLY_BRACE: "}"
-    RCBR: "}"
-    PIPE: "|"
-    COLON: ":"
-    COLN: ":"
-    DOUBLE_QUOTE: '"'
-    DQUO: '"'
-    DQT: '"'
-    LEFT_ANGLE_BRACKET: <
-    LABK: <
-    LT: <
-    RIGHT_ANGLE_BRACKET: ">"
-    RABK: ">"
-    GT: ">"
-    QUESTION: "?"
-    QUES: "?"
+    KC_KP_PLUS: "+"
+    KC_KP_EQUAL: "="
+    KC_KP_COMMA: ","
+    KC_KP_DOT: "."
+    KC_MINUS: { t: "-", s: "_" }
+    KC_EQUAL: { t: "=", s: "+" }
+    KC_GRAVE: { t: "`", s: "~" }
 
 draw_config:
   append_colon_to_layer_header: false
   dark_mode: auto
-  footer_text: "ZSA Voyager - alexkrupa"
-  shrink_wide_legends: 6
-
-# Combos can't be parsed from keymap.c (qmk c2json limitation) - maintain here.
-# p: key positions (0-indexed per LAYOUT_voyager matrix order)
-#    0-11 top row, 12-23 row 2, 24-35 home row, 36-47 bottom row, 48-49 L thumbs, 50-51 R thumbs
-combos:
-  - p: [13, 14] # Q + W
-    k: Tab
-    l: [BASE]
-    a: top
+  footer_text: "ZSA Voyager - Alex Krupa"
+  shrink_wide_legends: 5

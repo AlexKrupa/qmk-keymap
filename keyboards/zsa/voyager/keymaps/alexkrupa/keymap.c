@@ -47,18 +47,18 @@ enum keycode_aliases {
   BRM_Z   = ALL_T(KC_Z),
   BRM_X   = MEH_T(KC_X),
   BRM_C   = MT(MOD_RALT, KC_C),
-  BRM_V   = LT(3, KC_V),
+  BRM_V   = LT(2, KC_V),
 
-  BRM_M   = LT(3, KC_M),
+  BRM_M   = LT(2, KC_M),
   BRM_COM = MT(MOD_RALT, KC_COMMA),
   BRM_DOT = MEH_T(KC_DOT),
   BRM_SLS = ALL_T(KC_SLASH),
   BRM_ASTR = LT(5, KC_F16),  // KC_ASTR is S(KC_8), too wide for LT(); tap overridden in process_record_user
 
   // Thumbs
-  TMB_BSP = LT(1, KC_BSPC),
+  TMB_BSP = LT(3, KC_BSPC),
   TMB_ESC = LT(2, KC_ESCAPE),
-  TMB_ENT = LT(3, KC_ENTER),
+  TMB_ENT = LT(1, KC_ENTER),
   TMB_SPC = LT(4, KC_SPACE),
 
   // Layer 1 mod-taps: modifier on hold, action on tap
@@ -98,27 +98,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [1] = LAYOUT_voyager(
-  KC_NO    , KC_NO       , KC_NO        , KC_NO       , KC_NO          , KC_NO    ,     KC_NO    , KC_NO    , KC_NO , KC_NO    , KC_NO , KC_NO,
-  KC_NO    , MAC_QUIT    , TAB_CLS      , TAB_PRV     , TAB_NXT        , TAB_OPN  ,     KC_NO    , KC_NO    , KC_NO , KC_NO    , KC_NO , KC_NO,
-  CYCLOTAB , MT_GUI_SA   , KC_LEFT_CTRL , MT_ALT_DL   , MT_SFT_FD      , CW_TOGG  ,     KC_LEFT  , KC_DOWN  , KC_UP , KC_RIGHT , KC_NO , KC_NO,
-  KC_NO    , KC_MAC_UNDO , KC_MAC_CUT   , KC_MAC_COPY , KC_MAC_PASTE   , MAC_FIND ,     KC_NO    , KC_NO    , KC_NO , KC_NO    , KC_NO , KC_NO,
-                                                        KC_TRANSPARENT , KC_NO    ,     KC_ENTER , KC_SPACE
-),
-
-[2] = LAYOUT_voyager(
   KC_NO , KC_NO       , KC_NO        , KC_NO       , KC_NO         , KC_NO          ,     KC_NO    , KC_NO    , KC_NO   , KC_NO   , KC_NO       , KC_NO,
-  KC_NO , KC_NO       , KC_PLUS      , KC_MINUS    , KC_EQUAL      , KC_NO          ,     KC_NO    , DF_7_F7  , DF_8_F8 , DF_9_F9 , DF_ASTR_F12 , KC_NO,
+  KC_NO , KC_NO       , KC_KP_PLUS   , KC_KP_MINUS , KC_KP_EQUAL   , KC_NO          ,     KC_NO    , DF_7_F7  , DF_8_F8 , DF_9_F9 , DF_ASTR_F12 , KC_NO,
   KC_NO , KC_LEFT_GUI , KC_LEFT_CTRL , KC_LEFT_ALT , KC_LEFT_SHIFT , KC_NO          ,     KC_NO    , DF_1_F1  , DF_2_F2 , DF_3_F3 , DF_0_F11    , KC_NO,
-  KC_NO , KC_NO       , KC_COMMA     , KC_DOT      , KC_COLN       , KC_NO          ,     KC_NO    , DF_4_F4  , DF_5_F5 , DF_6_F6 , DF_SLS_F10  , KC_NO,
+  KC_NO , KC_NO       , KC_KP_COMMA  , KC_KP_DOT   , KC_COLN       , KC_NO          ,     KC_NO    , DF_4_F4  , DF_5_F5 , DF_6_F6 , DF_SLS_F10  , KC_NO,
                                                      KC_NO         , KC_TRANSPARENT ,     KC_ENTER , KC_SPACE
 ),
 
-[3] = LAYOUT_voyager(
-  KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO     , KC_NO       ,     KC_NO    , KC_NO    , KC_NO   , KC_NO       , KC_NO    , KC_NO     ,
-  MCR_VQ  , KC_TILD , KC_LABK , KC_RABK , KC_PERC   , MCR_ARR     ,     KC_NO    , KC_LCBR  , KC_RCBR , KC_EQUAL    , KC_PLUS  , KC_NO     ,
-  MCR_VWQ , KC_CIRC , KC_AT   , KC_HASH , KC_DLR    , MCR_DLR_BRC ,     KC_NO    , KC_LPRN  , KC_RPRN , KC_KP_MINUS , KC_GRAVE , MCR_MDCODE,
-  MCR_VW  , KC_BSLS , KC_PIPE , KC_AMPR , KC_ASTR   , KC_NO       ,     KC_NO    , KC_LBRC  , KC_RBRC , KC_UNDS     , KC_EXLM  , MCR_HOME  ,
+[2] = LAYOUT_voyager(
+  KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO     , KC_NO       ,     KC_NO    , KC_NO    , KC_NO   , KC_NO       , KC_NO      , KC_NO     ,
+  MCR_VQ  , KC_TILD , KC_LABK , KC_RABK , KC_PERC   , MCR_ARR     ,     KC_NO    , KC_LCBR  , KC_RCBR , KC_KP_EQUAL , KC_KP_PLUS , KC_NO     ,
+  MCR_VWQ , KC_CIRC , KC_AT   , KC_HASH , KC_DLR    , MCR_DLR_BRC ,     KC_NO    , KC_LPRN  , KC_RPRN , KC_KP_MINUS , KC_GRAVE   , MCR_MDCODE,
+  MCR_VW  , KC_BSLS , KC_PIPE , KC_AMPR , KC_ASTR   , KC_NO       ,     KC_NO    , KC_LBRC  , KC_RBRC , KC_UNDS     , KC_EXLM    , MCR_HOME  ,
                                           KC_DELETE , KC_TAB      ,     KC_ENTER , KC_SPACE
+),
+
+[3] = LAYOUT_voyager(
+  KC_NO    , KC_NO       , KC_NO        , KC_NO       , KC_NO          , KC_NO   ,     KC_NO    , KC_NO    , KC_NO , KC_NO    , KC_NO , KC_NO,
+  KC_NO    , MAC_QUIT    , TAB_CLS      , TAB_PRV     , TAB_NXT        , TAB_OPN ,     KC_NO    , KC_NO    , KC_NO , KC_NO    , KC_NO , KC_NO,
+  CYCLOTAB , MT_GUI_SA   , KC_LEFT_CTRL , MT_ALT_DL   , MT_SFT_FD      , CW_TOGG ,     KC_LEFT  , KC_DOWN  , KC_UP , KC_RIGHT , KC_NO , KC_NO,
+  KC_NO    , KC_MAC_UNDO , KC_MAC_CUT   , KC_MAC_COPY , KC_MAC_PASTE   , KC_NO   ,     KC_NO    , KC_NO    , KC_NO , KC_NO    , KC_NO , KC_NO,
+                                                        KC_TRANSPARENT , KC_NO   ,     KC_ENTER , KC_SPACE
 ),
 
 [4] = LAYOUT_voyager(
@@ -130,11 +130,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [5] = LAYOUT_voyager(
-  KC_NO   , KC_NO               , KC_NO               , KC_NO             , KC_NO               , KC_NO         ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , KC_NO         ,
-  RM_NEXT , RM_SPDD             , RM_SPDU             , RM_VALD           , RM_VALU             , KC_NO         ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , QK_BOOT       ,
-  RM_PREV , KC_MEDIA_PREV_TRACK , KC_MEDIA_NEXT_TRACK , KC_AUDIO_VOL_DOWN , KC_AUDIO_VOL_UP     , KC_NO         ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , KC_NO         ,
-  LUMINO  , RM_SATD             , RM_SATU             , RM_HUED           , RM_HUEU             , KC_NO         ,     KC_NO , KC_NO , MAC_LOCK , MAC_DND , KC_MS_JIGGLER_TOGGLE , KC_TRANSPARENT,
-                                                                            KC_MEDIA_PLAY_PAUSE , KC_AUDIO_MUTE ,     KC_NO , KC_NO
+  KC_NO  , KC_NO               , KC_NO               , KC_NO             , KC_NO               , KC_NO         ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , KC_NO         ,
+  KC_NO  , RM_SPDD             , RM_SPDU             , KC_F14            , KC_F15              , KC_NO         ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , QK_BOOT       ,
+  KC_NO  , KC_MEDIA_PREV_TRACK , KC_MEDIA_NEXT_TRACK , KC_AUDIO_VOL_DOWN , KC_AUDIO_VOL_UP     , KC_NO         ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , KC_NO         ,
+  LUMINO , RM_PREV             , RM_NEXT             , RM_HUED           , RM_HUEU             , KC_NO         ,     KC_NO , KC_NO , MAC_LOCK , MAC_DND , KC_MS_JIGGLER_TOGGLE , KC_TRANSPARENT,
+                                                                           KC_MEDIA_PLAY_PAUSE , KC_AUDIO_MUTE ,     KC_NO , KC_NO
 )
 };
 
