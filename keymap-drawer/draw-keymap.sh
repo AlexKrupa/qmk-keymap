@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-KEYMAP_C="$SCRIPT_DIR/keyboards/zsa/voyager/keymaps/alexkrupa/keymap.c"
+KEYMAP_C="$SCRIPT_DIR/../keyboards/zsa/voyager/keymaps/alexkrupa/keymap.c"
 CONFIG="$SCRIPT_DIR/keymap-config.yaml"
 COMBOS="$SCRIPT_DIR/combos.yaml"
 LAYOUT_JSON="$SCRIPT_DIR/voyager-3x6.json"

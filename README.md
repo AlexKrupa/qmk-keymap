@@ -8,7 +8,7 @@ separately and never modified; this repo contains only the keymap and community 
 
 ## Overview
 
-![Keymap](keymap.svg)
+![Keymap](keymap-drawer/keymap.svg)
 
 6 layers, QWERTY base. The Voyager has 4 rows and 6 columns per half; this keymap uses 3 rows (top
 row unused) and 5 columns, plus an outer 6th column for `` ` ``, `=`, Tab, `-`, and RGB controls on

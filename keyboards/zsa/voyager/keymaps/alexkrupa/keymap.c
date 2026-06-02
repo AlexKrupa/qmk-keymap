@@ -57,8 +57,8 @@ enum keycode_aliases {
 
   // Thumbs
   TMB_BSP = LT(3, KC_BSPC),
-  TMB_ESC = LT(2, KC_ESCAPE),
-  TMB_ENT = LT(1, KC_ENTER),
+  TMB_ESC = LT(1, KC_ESCAPE),
+  TMB_ENT = LT(2, KC_ENTER),
   TMB_SPC = LT(4, KC_SPACE),
 
   // Layer 1 mod-taps: modifier on hold, action on tap
@@ -68,6 +68,7 @@ enum keycode_aliases {
 
   // Shortcuts
   CYCLOTAB = LGUI(KC_TAB),
+  LAUNCHER = LGUI(KC_SPACE),
   MAC_DEL  = LGUI(KC_BSPC),
   MAC_FIND = LGUI(KC_F),
   MAC_QUIT = LGUI(KC_Q),
@@ -101,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO , KC_NO       , KC_NO        , KC_NO       , KC_NO         , KC_NO          ,     KC_NO    , KC_NO    , KC_NO   , KC_NO   , KC_NO       , KC_NO,
   KC_NO , KC_NO       , KC_KP_PLUS   , KC_KP_MINUS , KC_KP_EQUAL   , KC_NO          ,     KC_NO    , DF_7_F7  , DF_8_F8 , DF_9_F9 , DF_ASTR_F12 , KC_NO,
   KC_NO , KC_LEFT_GUI , KC_LEFT_CTRL , KC_LEFT_ALT , KC_LEFT_SHIFT , KC_NO          ,     KC_NO    , DF_1_F1  , DF_2_F2 , DF_3_F3 , DF_0_F11    , KC_NO,
-  KC_NO , KC_NO       , KC_KP_COMMA  , KC_KP_DOT   , KC_COLN       , KC_NO          ,     KC_NO    , DF_4_F4  , DF_5_F5 , DF_6_F6 , DF_SLS_F10  , KC_NO,
+  KC_NO , KC_NO       , KC_COMMA     , KC_KP_DOT   , KC_COLN       , KC_NO          ,     KC_NO    , DF_4_F4  , DF_5_F5 , DF_6_F6 , DF_SLS_F10  , KC_NO,
                                                      KC_NO         , KC_TRANSPARENT ,     KC_ENTER , KC_SPACE
 ),
 
@@ -118,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO    , MAC_QUIT    , TAB_CLS      , TAB_PRV     , TAB_NXT        , TAB_OPN ,     KC_NO    , KC_NO    , KC_NO , KC_NO    , KC_NO , KC_NO,
   CYCLOTAB , MT_GUI_SA   , KC_LEFT_CTRL , MT_ALT_DL   , MT_SFT_FD      , CW_TOGG ,     KC_LEFT  , KC_DOWN  , KC_UP , KC_RIGHT , KC_NO , KC_NO,
   KC_NO    , KC_MAC_UNDO , KC_MAC_CUT   , KC_MAC_COPY , KC_MAC_PASTE   , KC_NO   ,     KC_NO    , KC_NO    , KC_NO , KC_NO    , KC_NO , KC_NO,
-                                                        KC_TRANSPARENT , KC_NO   ,     KC_ENTER , KC_SPACE
+                                                        KC_TRANSPARENT , KC_NO   ,     KC_ENTER , LAUNCHER
 ),
 
 [4] = LAYOUT_voyager(

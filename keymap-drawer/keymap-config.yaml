@@ -80,6 +80,7 @@ parse_config:
     MAC_QUIT: "$$mdi:close-box-multiple$$"
     MAC_DEL: "$$mdi:delete$$"
     CYCLOTAB: "$$mdi:swap-horizontal$$"
+    LAUNCHER: "$$mdi:magnify$$"
     TAB_OPN: "$$mdi:tab$$"
     TAB_CLS: "$$mdi:tab-remove$$"
     TAB_PRV: "$$mdi:tab-minus$$"
