@@ -1,6 +1,6 @@
 #define CHORDAL_HOLD
 #define PERMISSIVE_HOLD
-// #define SPECULATIVE_HOLD
+#define SPECULATIVE_HOLD
 
 // Speculative hold: neutralize flashing mods on tap rollback
 #define DUMMY_MOD_NEUTRALIZER_KEYCODE KC_RIGHT_CTRL

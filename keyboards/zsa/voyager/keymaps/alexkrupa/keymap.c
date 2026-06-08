@@ -1,6 +1,22 @@
+#include <stdio.h>
 #include "keycodes.h"
 #include QMK_KEYBOARD_H
 #include "i18n.h"
+
+// Runtime-adjustable home row mod tapping terms, persisted in the 32-bit keymap
+// EEPROM block. Five signed deltas in 10ms-step units (6 bits each, -31..31):
+// a global offset added to every HRM, plus one per finger pair (symmetric L/R).
+typedef union {
+  uint32_t raw;
+  struct {
+    int32_t global : 6;
+    int32_t pinky  : 6;
+    int32_t ring   : 6;
+    int32_t middle : 6;
+    int32_t index  : 6;
+  };
+} user_config_t;
+static user_config_t user_config;
 
 enum custom_keycodes {
   MCR_ARR = SAFE_RANGE,
@@ -12,6 +28,13 @@ enum custom_keycodes {
   MCR_MDCODE,
   MAC_DND,
   MAC_LOCK,
+
+  // Home row mod tapping-term tuning (SYS layer). FAST = shorter term, SLOW = longer.
+  TT_G_FAST, TT_G_SLOW,                          // global (Y / H)
+  TT_I_FAST, TT_M_FAST, TT_R_FAST, TT_P_FAST,    // per-finger faster (top row U I O P)
+  TT_I_SLOW, TT_M_SLOW, TT_R_SLOW, TT_P_SLOW,    // per-finger slower (home J K L QUO)
+  TT_RESET,                                      // zero all (MINUS)
+  TT_DUMP,                                       // type effective terms (N)
 };
 
 enum keycode_aliases {
@@ -131,11 +154,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [5] = LAYOUT_voyager(
-  KC_NO  , KC_NO               , KC_NO               , KC_NO             , KC_NO               , KC_NO         ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , KC_NO         ,
-  KC_NO  , RM_SPDD             , RM_SPDU             , KC_F14            , KC_F15              , KC_NO         ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , QK_BOOT       ,
-  KC_NO  , KC_MEDIA_PREV_TRACK , KC_MEDIA_NEXT_TRACK , KC_AUDIO_VOL_DOWN , KC_AUDIO_VOL_UP     , KC_NO         ,     KC_NO , KC_NO , KC_NO    , KC_NO   , KC_NO                , KC_NO         ,
-  LUMINO , RM_PREV             , RM_NEXT             , RM_HUED           , RM_HUEU             , KC_NO         ,     KC_NO , KC_NO , MAC_LOCK , MAC_DND , KC_MS_JIGGLER_TOGGLE , KC_TRANSPARENT,
-                                                                           KC_MEDIA_PLAY_PAUSE , KC_AUDIO_MUTE ,     KC_NO , KC_NO
+  KC_NO  , KC_NO               , KC_NO               , KC_NO             , KC_NO               , KC_NO         ,     KC_NO     , KC_NO     , KC_NO     , KC_NO     , KC_NO                , KC_NO         ,
+  KC_NO  , RM_SPDD             , RM_SPDU             , KC_F14            , KC_F15              , KC_NO         ,     TT_G_SLOW , TT_I_SLOW , TT_M_SLOW , TT_R_SLOW , TT_P_SLOW            , QK_BOOT       ,
+  KC_NO  , KC_MEDIA_PREV_TRACK , KC_MEDIA_NEXT_TRACK , KC_AUDIO_VOL_DOWN , KC_AUDIO_VOL_UP     , KC_NO         ,     TT_G_FAST , TT_I_FAST , TT_M_FAST , TT_R_FAST , TT_P_FAST            , TT_RESET      ,
+  LUMINO , RM_PREV             , RM_NEXT             , RM_HUED           , RM_HUEU             , KC_NO         ,     TT_DUMP   , KC_NO     , MAC_LOCK  , MAC_DND   , KC_MS_JIGGLER_TOGGLE , KC_TRANSPARENT,
+                                                                           KC_MEDIA_PLAY_PAUSE , KC_AUDIO_MUTE ,     KC_NO     , KC_NO
 )
 };
 
@@ -171,27 +194,36 @@ bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
 }
 #endif // SPECULATIVE_HOLD
 
+void keyboard_post_init_user(void) {
+  user_config.raw = eeconfig_read_user();
+}
+
+void eeconfig_init_user(void) {
+  user_config.raw = 0;
+  eeconfig_update_user(user_config.raw);
+}
+
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // Pinky - home
     case HRM_A:
     case HRM_QUO:
-        return TAPPING_TERM + 70;
+        return TAPPING_TERM + 70 + 10 * (user_config.global + user_config.pinky);
 
     // Ring - home
     case HRM_S:
     case HRM_L:
-        return TAPPING_TERM + 40;
+        return TAPPING_TERM + 40 + 10 * (user_config.global + user_config.ring);
 
     // Middle - home
     case HRM_D:
     case HRM_K:
-        return TAPPING_TERM - 10;
+        return TAPPING_TERM - 10 + 10 * (user_config.global + user_config.middle);
 
     // Index - home
     case HRM_F:
     case HRM_J:
-        return TAPPING_TERM - 20;
+        return TAPPING_TERM - 20 + 10 * (user_config.global + user_config.index);
 
     // Pinky - bottom
     case BRM_Z:
@@ -268,6 +300,18 @@ static bool handle_dual_func(keyrecord_t *record, uint16_t tap_kc, uint16_t hold
   }
   return false;
 }
+
+// Clamp a tapping-term delta to the 6-bit signed bitfield range.
+static int8_t tt_clamp(int8_t v) { return v > 31 ? 31 : (v < -31 ? -31 : v); }
+
+// Adjust one HRM delta by `step` (10ms units), clamp, persist. Embeds `return false`
+// like the HSS/HCS macros in config.h - bitfields can't be passed by pointer.
+#define TT_ADJUST(field, step)                                  \
+  if (record->event.pressed) {                                  \
+    user_config.field = tt_clamp(user_config.field + (step));   \
+    eeconfig_update_user(user_config.raw);                      \
+  }                                                             \
+  return false
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -362,6 +406,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case MT_SFT_FD:
       return handle_dual_func(record, MAC_FIND, KC_LEFT_SHIFT);
+
+    // Home row mod tapping-term tuning. FAST shortens (-1 step), SLOW lengthens (+1).
+    case TT_G_FAST: TT_ADJUST(global, -1);
+    case TT_G_SLOW: TT_ADJUST(global, +1);
+    case TT_I_FAST: TT_ADJUST(index,  -1);
+    case TT_I_SLOW: TT_ADJUST(index,  +1);
+    case TT_M_FAST: TT_ADJUST(middle, -1);
+    case TT_M_SLOW: TT_ADJUST(middle, +1);
+    case TT_R_FAST: TT_ADJUST(ring,   -1);
+    case TT_R_SLOW: TT_ADJUST(ring,   +1);
+    case TT_P_FAST: TT_ADJUST(pinky,  -1);
+    case TT_P_SLOW: TT_ADJUST(pinky,  +1);
+
+    case TT_RESET:
+      if (record->event.pressed) { user_config.raw = 0; eeconfig_update_user(user_config.raw); }
+      return false;
+
+    case TT_DUMP:
+      // Reuse get_tapping_term so the readout always matches the live terms.
+      // It ignores `record` for HRM keys, so NULL is safe.
+      if (record->event.pressed) {
+        char buf[64];
+        snprintf(buf, sizeof(buf), "global=%d index=%d middle=%d ring=%d pinky=%d",
+                 10 * user_config.global,
+                 get_tapping_term(HRM_F, NULL),
+                 get_tapping_term(HRM_D, NULL),
+                 get_tapping_term(HRM_S, NULL),
+                 get_tapping_term(HRM_A, NULL));
+        send_string(buf);
+      }
+      return false;
   }
   return true;
 }
