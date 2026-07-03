@@ -15,7 +15,7 @@ tmpdir=$(mktemp -d)
 trap 'rm -rf "$tmpdir"' EXIT
 
 # 1. Convert keymap.c to JSON
-qmk c2json "$KEYMAP_C" --no-cpp > "$tmpdir/keymap.json" 2>/dev/null
+qmk c2json -kb zsa/voyager -km alexkrupa "$KEYMAP_C" --no-cpp > "$tmpdir/keymap.json" 2>/dev/null
 
 # 2. Parse JSON to YAML with custom keycode labels
 keymap -c "$CONFIG" parse -q "$tmpdir/keymap.json" \

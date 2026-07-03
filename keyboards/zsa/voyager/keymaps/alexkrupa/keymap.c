@@ -170,11 +170,24 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
   '*', '*', '*', '*'
 );
 
-const uint16_t PROGMEM combo_qw_tab[] = { KC_Q, KC_W, COMBO_END};
+enum combos {
+  SD_TAB,
+  SD_CYCLOTAB,
+};
+
+const uint16_t PROGMEM combo_sd_tab[] = { HRM_S, HRM_D, COMBO_END};
+// Layer 3 S+D positions resolve to these; MT_ALT_DL is layer-3-only so no collision
+const uint16_t PROGMEM combo_sd_cyclotab[] = { KC_LEFT_CTRL, MT_ALT_DL, COMBO_END};
 
 combo_t key_combos[] = {
-  COMBO(combo_qw_tab, KC_TAB),
+  [SD_TAB] = COMBO(combo_sd_tab, KC_TAB),
+  [SD_CYCLOTAB] = COMBO(combo_sd_cyclotab, CYCLOTAB),
 };
+
+// Tap-only so holding S+D still yields the underlying mods instead of firing the combo
+bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
+  return combo_index == SD_TAB || combo_index == SD_CYCLOTAB;
+}
 
 #ifdef SPECULATIVE_HOLD
 bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {

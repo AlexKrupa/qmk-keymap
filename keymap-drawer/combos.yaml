@@ -2,7 +2,11 @@
 # p: key positions (0-indexed per 40-key layout, top row stripped)
 #    0-11 row 1, 12-23 home row, 24-35 bottom row, 36-37 L thumbs, 38-39 R thumbs
 combos:
-  - p: [1, 2] # Q + W
+  - p: [14, 15] # S + D
     k: "$$mdi:keyboard-tab$$"
     l: [BASE]
-    a: top
+    a: mid
+  - p: [14, 15] # S + D on NAV: Cmd+Tab app switcher
+    k: "$$mdi:swap-horizontal$$"
+    l: [NAV]
+    a: mid

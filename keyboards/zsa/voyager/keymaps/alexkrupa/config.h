@@ -7,6 +7,8 @@
 #define MODS_TO_NEUTRALIZE { MOD_BIT(KC_LEFT_ALT), MOD_BIT(KC_RIGHT_ALT), MOD_BIT(KC_LEFT_GUI), MOD_BIT(KC_RIGHT_GUI) }
 
 #define COMBO_TERM 25
+// Enables get_combo_must_tap() so the S+D Tab combo stays tap-only on mod-tap keys
+#define COMBO_MUST_TAP_PER_COMBO
 
 // getreuer: Unfortunately, some applications drop or misorder fast key events.
 // This is a partial fix to slow down the rate at which macros are sent.
