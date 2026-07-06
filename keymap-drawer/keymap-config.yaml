@@ -18,7 +18,7 @@ parse_config:
     # Thumbs: LT() layer-tap, hold = layer, tap = key
     TMB_BSP: { t: "$$mdi:backspace$$", h: "NAV" }
     TMB_ESC: { t: "$$mdi:keyboard-esc$$", h: "NUM" }
-    TMB_ENT: { t: "$$mdi:keyboard-return$$", h: "R⌥" }
+    TMB_ENT: { t: "$$mdi:keyboard-return$$", h: "SYM" }
     TMB_SPC: { t: "$$mdi:keyboard-space$$", h: "MOUSE" }
     # Dual-function numpad keys: tap = digit/symbol, hold = F-key
     # (LT() layer placeholders are overridden in process_record_user)
@@ -62,7 +62,6 @@ parse_config:
     KC_LEFT_GUI: "$$mdi:apple-keyboard-command$$"
     KC_LEFT_ALT: "$$mdi:apple-keyboard-option$$"
     KC_LEFT_SHIFT: "$$mdi:apple-keyboard-shift$$"
-    KC_LSFT: "$$mdi:apple-keyboard-shift$$"
     KC_RIGHT_CTRL: "$$mdi:apple-keyboard-control$$"
     KC_RIGHT_GUI: "$$mdi:apple-keyboard-command$$"
     KC_RIGHT_ALT: "R⌥"

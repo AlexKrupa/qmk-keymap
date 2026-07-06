@@ -81,7 +81,7 @@ enum keycode_aliases {
   // Thumbs
   TMB_BSP = LT(3, KC_BSPC),
   TMB_ESC = LT(1, KC_ESCAPE),
-  TMB_ENT = MT(MOD_RALT, KC_ENTER),
+  TMB_ENT = LT(2, KC_ENTER),
   TMB_SPC = LT(4, KC_SPACE),
 
   // Layer 1 mod-taps: modifier on hold, action on tap
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO    , KC_NO , KC_NO , KC_NO , KC_NO   , KC_NO   ,     KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   ,
   KC_GRAVE , KC_Q  , KC_W  , KC_E  , KC_R    , KC_T    ,     KC_Y    , KC_U    , KC_I    , KC_O    , KC_P    , KC_EQUAL,
   KC_TAB   , HRM_A , HRM_S , HRM_D , HRM_F   , KC_G    ,     KC_H    , HRM_J   , HRM_K   , HRM_L   , HRM_QUO , KC_MINUS,
-  KC_LSFT  , BRM_Z , BRM_X , BRM_C , BRM_V   , KC_B    ,     KC_N    , BRM_M   , BRM_COM , BRM_DOT , BRM_SLS , BRM_ASTR,
+  KC_NO    , BRM_Z , BRM_X , BRM_C , BRM_V   , KC_B    ,     KC_N    , BRM_M   , BRM_COM , BRM_DOT , BRM_SLS , BRM_ASTR,
                                      TMB_BSP , TMB_ESC ,     TMB_ENT , TMB_SPC
 ),
 
