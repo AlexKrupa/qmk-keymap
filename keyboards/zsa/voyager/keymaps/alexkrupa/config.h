@@ -2,6 +2,12 @@
 #define PERMISSIVE_HOLD
 #define SPECULATIVE_HOLD
 
+#define TAPPING_TERM 200
+#define TAPPING_TERM_PER_KEY
+#define QUICK_TAP_TERM 200
+#define QUICK_TAP_TERM_PER_KEY
+#define FLOW_TAP_TERM 100
+
 // Speculative hold: neutralize flashing mods on tap rollback
 #define DUMMY_MOD_NEUTRALIZER_KEYCODE KC_RIGHT_CTRL
 #define MODS_TO_NEUTRALIZE { MOD_BIT(KC_LEFT_ALT), MOD_BIT(KC_RIGHT_ALT), MOD_BIT(KC_LEFT_GUI), MOD_BIT(KC_RIGHT_GUI) }
@@ -26,16 +32,10 @@
 #define CUSTOM_SHIFT_KEYS_LAYER_MASK (1 << 0)
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#undef MOUSEKEY_INTERVAL
+
 #define MOUSEKEY_INTERVAL 10
-
-#undef MOUSEKEY_WHEEL_DELAY
 #define MOUSEKEY_WHEEL_DELAY 200
-
-#undef MOUSEKEY_WHEEL_INTERVAL
 #define MOUSEKEY_WHEEL_INTERVAL 50
-
-#undef MOUSEKEY_WHEEL_MAX_SPEED
 #define MOUSEKEY_WHEEL_MAX_SPEED 16
 
 #define SERIAL_NUMBER "amZp5/Wv7bYl"  // used by zsa/oryx module
@@ -45,13 +45,6 @@
 
 // Cyclotab: https://getreuer.info/posts/keyboards/cyclotab/index.html
 #define CYCLOTAB_KEYS LGUI(KC_TAB)
-
-#define TAPPING_TERM 200
-#define TAPPING_TERM_PER_KEY
-#define QUICK_TAP_TERM 200
-#define QUICK_TAP_TERM_PER_KEY
-#define FLOW_TAP_TERM 100
-#define RGB_MATRIX_STARTUP_SPD 60
 
 // Lumino: https://getreuer.info/posts/keyboards/lumino/index.html
 // Cycles brightness 0-40-100%
@@ -72,6 +65,7 @@
 #define PALETTEFX_VORTEX_ENABLE
 #define PALETTEFX_REACTIVE_ENABLE
 #define RGB_MATRIX_KEYREACTIVE_ENABLED  // needed for PALETTEFX_REACTIVE
+#define RGB_MATRIX_STARTUP_SPD 60
 
 // PaletteFx palettes
 #define PALETTEFX_AFTERBURN_ENABLE
