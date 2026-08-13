@@ -1,4 +1,5 @@
 #define CHORDAL_HOLD
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 #define PERMISSIVE_HOLD
 #define SPECULATIVE_HOLD
 
@@ -6,7 +7,7 @@
 #define TAPPING_TERM_PER_KEY
 #define QUICK_TAP_TERM 200
 #define QUICK_TAP_TERM_PER_KEY
-#define FLOW_TAP_TERM 100
+#define FLOW_TAP_TERM 150
 
 // Speculative hold: neutralize flashing mods on tap rollback
 #define DUMMY_MOD_NEUTRALIZER_KEYCODE KC_RIGHT_CTRL
@@ -33,9 +34,13 @@
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
 
+#undef MOUSEKEY_INTERVAL
 #define MOUSEKEY_INTERVAL 10
+#undef MOUSEKEY_WHEEL_DELAY
 #define MOUSEKEY_WHEEL_DELAY 200
+#undef MOUSEKEY_WHEEL_INTERVAL
 #define MOUSEKEY_WHEEL_INTERVAL 50
+#undef MOUSEKEY_WHEEL_MAX_SPEED
 #define MOUSEKEY_WHEEL_MAX_SPEED 16
 
 #define SERIAL_NUMBER "amZp5/Wv7bYl"  // used by zsa/oryx module
