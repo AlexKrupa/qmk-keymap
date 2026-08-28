@@ -4,7 +4,8 @@ Custom QMK keymap for the ZSA Voyager, using the
 [external userspace](https://docs.qmk.fm/newbs_external_userspace) pattern. Uses mainline QMK
 firmware (not [ZSA's fork](https://github.com/zsa/qmk_firmware)) with ZSA-specific features pulled
 in as [community modules](https://github.com/zsa/qmk_modules). The firmware repo is cloned
-separately and never modified; this repo contains only the keymap and community modules.
+separately and never modified. This repo contains the keymap, community modules and the
+`heatmap/` report tool.
 
 ## Overview
 
@@ -118,6 +119,11 @@ Then rebuild.
 | Add/remove community modules  | `keymap.json` | `"modules"` array                                |
 
 All keymap files are in `keyboards/zsa/voyager/keymaps/alexkrupa/`.
+
+## Heatmap report
+
+`heatmap/heatmap.py` reads key press counts from the Keymapp database and labels them from
+`keymap.c`. See [heatmap/README.md](heatmap/README.md).
 
 ## Modules
 

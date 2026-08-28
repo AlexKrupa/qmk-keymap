@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-QMK keymap for a ZSA Voyager keyboard, using the [external userspace](https://docs.qmk.fm/newbs_external_userspace) pattern. This repo is an overlay - it contains only the keymap and community modules, not the QMK firmware itself.
+QMK keymap for a ZSA Voyager keyboard, using the [external userspace](https://docs.qmk.fm/newbs_external_userspace) pattern. This repo is an overlay - it contains the keymap, community modules and the `heatmap/` report tool, not the QMK firmware itself.
 
 ## Build commands
 
@@ -31,6 +31,8 @@ All keymap source lives in `keyboards/zsa/voyager/keymaps/alexkrupa/`:
 - `i18n.h` - macOS shortcut aliases (`KC_MAC_UNDO`, etc.)
 
 Community modules are declared in `keymap.json` and live in `modules/`. Both `modules/zsa` and `modules/getreuer/custom_shift_keys` are git submodules.
+
+`heatmap/` is a Python tool that reports key press counts from the Keymapp database. See `heatmap/README.md`.
 
 ## Key patterns in keymap.c
 
