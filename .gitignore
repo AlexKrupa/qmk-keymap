@@ -2,4 +2,6 @@
 *.hex
 *.png
 .build/
+__pycache__/
 compile_commands.json
+/keymapp.sqlite3
