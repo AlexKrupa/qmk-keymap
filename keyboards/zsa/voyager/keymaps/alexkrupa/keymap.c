@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "community_modules.h"
 #include "keycodes.h"
 #include QMK_KEYBOARD_H
 #include "i18n.h"
@@ -8,11 +9,11 @@
 // -----------------------------------------------------------------------------
 
 enum custom_keycodes {
-  // Text macros. process_record_user indexes a string table by MCR_ARR offset,
-  // so this order must match the table there.
+  // Order must match the string table in process_record_user, which indexes by
+  // keycode - MCR_ARR.
   MCR_ARR = SAFE_RANGE,
   MCR_DLR_BRC,
-  MCR_TILDE_SLASH,
+  MCR_TILD_SLSH,
   MCR_VQ,
   MCR_VW,
   MCR_VWQ,
@@ -21,17 +22,16 @@ enum custom_keycodes {
   MAC_DND,
   MAC_LOCK,
 
-  // Home row mod tapping-term tuning (SYS layer). FAST = shorter term, SLOW = longer.
-  TT_G_FAST, TT_G_SLOW,                          // global (Y / H)
-  TT_I_FAST, TT_M_FAST, TT_R_FAST, TT_P_FAST,    // per-finger faster (top row U I O P)
-  TT_I_SLOW, TT_M_SLOW, TT_R_SLOW, TT_P_SLOW,    // per-finger slower (home J K L QUO)
-  TT_RESET,                                      // zero all (MINUS)
-  TT_DUMP,                                       // type effective terms (N)
+  // Home row mod tapping-term tuning on layer 5. FAST = shorter term, SLOW = longer.
+  TT_G_FAST, TT_G_SLOW,                          // global (H / Y)
+  TT_I_FAST, TT_M_FAST, TT_R_FAST, TT_P_FAST,    // home row J K L QUO
+  TT_I_SLOW, TT_M_SLOW, TT_R_SLOW, TT_P_SLOW,    // top row U I O P
+  TT_RESET,                                      // zero all (DOT)
+  TT_DUMP,                                       // type effective terms (COMMA)
 };
 
 enum keycode_aliases {
-  // Dual function keys: number tap, F-key hold.
-  // LT layer numbers are arbitrary placeholders - process_record_user overrides both tap and hold.
+  // The LT layer numbers are placeholders. process_record_user overrides tap and hold.
   NUM_7_F7     = LT(14, KC_W),
   NUM_8_F8     = LT(4, KC_J),
   NUM_9_F9     = LT(13, KC_6),
@@ -64,11 +64,11 @@ enum keycode_aliases {
   BRM_C   = MT(MOD_RALT, KC_C),
   BRM_V   = LT(2, KC_V),
 
+  BRM_N   = LT(5, KC_N),
   BRM_M   = LT(2, KC_M),
   BRM_COM = MT(MOD_RALT, KC_COMMA),
   BRM_DOT = MEH_T(KC_DOT),
   BRM_SLS = ALL_T(KC_SLASH),
-  BRM_ASTR = LT(5, KC_F16),  // KC_ASTR is S(KC_8), too wide for LT(); tap overridden in process_record_user
 
   // Thumbs
   TMB_BSP = LT(3, KC_BSPC),
@@ -76,7 +76,7 @@ enum keycode_aliases {
   TMB_ENT = LT(2, KC_ENTER),
   TMB_SPC = LT(4, KC_SPACE),
 
-  // Layer 1 mod-taps: modifier on hold, action on tap
+  // Layer 3 mod-taps
   MT_GUI_SALL = LT(11, KC_F23),  // Left GUI hold / SEL_ALL tap
   MT_ALT_DEL  = LT(10, KC_F24),  // Left Alt hold / MAC_DEL tap
   MT_SFT_CW   = LT(9, KC_F15),   // Left Shift hold / CW_TOGG tap
@@ -100,51 +100,51 @@ enum keycode_aliases {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT_voyager(
-  KC_NO    , KC_NO , KC_NO , KC_NO , KC_NO   , KC_NO   ,     KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   ,
-  KC_GRAVE , KC_Q  , KC_W  , KC_E  , KC_R    , KC_T    ,     KC_Y    , KC_U    , KC_I    , KC_O    , KC_P    , KC_EQUAL,
-  KC_TAB   , HRM_A , HRM_S , HRM_D , HRM_F   , KC_G    ,     KC_H    , HRM_J   , HRM_K   , HRM_L   , HRM_QUO , KC_MINUS,
-  KC_NO    , BRM_Z , BRM_X , BRM_C , BRM_V   , KC_B    ,     KC_N    , BRM_M   , BRM_COM , BRM_DOT , BRM_SLS , BRM_ASTR,
-                                     TMB_BSP , TMB_ESC ,     TMB_ENT , TMB_SPC
+  KC_NO , KC_NO , KC_NO , KC_NO , KC_NO   , KC_NO   ,     KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO,
+  KC_NO , KC_Q  , KC_W  , KC_E  , KC_R    , KC_T    ,     KC_Y    , KC_U    , KC_I    , KC_O    , KC_P    , KC_NO,
+  KC_NO , HRM_A , HRM_S , HRM_D , HRM_F   , KC_G    ,     KC_H    , HRM_J   , HRM_K   , HRM_L   , HRM_QUO , KC_NO,
+  KC_NO , BRM_Z , BRM_X , BRM_C , BRM_V   , KC_B    ,     BRM_N   , BRM_M   , BRM_COM , BRM_DOT , BRM_SLS , KC_NO,
+                                  TMB_BSP , TMB_ESC ,     TMB_ENT , TMB_SPC
 ),
 
 [1] = LAYOUT_voyager(
-  KC_NO , KC_NO       , KC_NO        , KC_NO       , KC_NO         , KC_NO          ,     KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO        , KC_NO,
-  KC_NO , KC_NO       , KC_KP_PLUS   , KC_KP_MINUS , KC_KP_EQUAL   , KC_NO          ,     KC_NO    , NUM_7_F7 , NUM_8_F8 , NUM_9_F9 , NUM_ASTR_F12 , KC_NO,
-  KC_NO , KC_LEFT_GUI , KC_LEFT_CTRL , KC_LEFT_ALT , KC_LEFT_SHIFT , KC_NO          ,     KC_NO    , NUM_1_F1 , NUM_2_F2 , NUM_3_F3 , NUM_0_F11    , KC_NO,
-  KC_NO , KC_NO       , KC_COMMA     , KC_KP_DOT   , KC_COLN       , KC_NO          ,     KC_NO    , NUM_4_F4 , NUM_5_F5 , NUM_6_F6 , NUM_SLS_F10  , KC_NO,
-                                                     KC_NO         , KC_TRANSPARENT ,     KC_ENTER , KC_SPACE
+  KC_NO , KC_NO   , KC_NO   , KC_NO     , KC_NO   , KC_NO   ,     KC_NO       , KC_NO    , KC_NO    , KC_NO    , KC_NO        , KC_NO,
+  KC_NO , MCR_VQ  , MCR_VWQ , MCR_VW    , KC_NO   , KC_NO   ,     KC_KP_EQUAL , NUM_7_F7 , NUM_8_F8 , NUM_9_F9 , NUM_ASTR_F12 , KC_NO,
+  KC_NO , KC_LGUI , KC_LCTL , KC_LALT   , KC_LSFT , KC_NO   ,     KC_KP_MINUS , NUM_1_F1 , NUM_2_F2 , NUM_3_F3 , NUM_0_F11    , KC_NO,
+  KC_NO , KC_NO   , KC_COMM , KC_KP_DOT , KC_COLN , KC_NO   ,     KC_KP_PLUS  , NUM_4_F4 , NUM_5_F5 , NUM_6_F6 , NUM_SLS_F10  , KC_NO,
+                                          KC_NO   , KC_TRNS ,     KC_ENT      , KC_SPC
 ),
 
 [2] = LAYOUT_voyager(
-  KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO     , KC_NO       ,     KC_NO    , KC_NO    , KC_NO   , KC_NO       , KC_NO      , KC_NO          ,
-  MCR_VQ  , KC_TILD , KC_LABK , KC_RABK , KC_PERC   , MCR_ARR     ,     KC_NO    , KC_LCBR  , KC_RCBR , KC_KP_EQUAL , KC_KP_PLUS , KC_NO          ,
-  MCR_VWQ , KC_CIRC , KC_AT   , KC_HASH , KC_DLR    , MCR_DLR_BRC ,     KC_NO    , KC_LPRN  , KC_RPRN , KC_KP_MINUS , KC_GRAVE   , MCR_CODE_FENCE ,
-  MCR_VW  , KC_BSLS , KC_PIPE , KC_AMPR , KC_ASTR   , KC_NO       ,     KC_NO    , KC_LBRC  , KC_RBRC , KC_UNDS     , KC_EXLM    , MCR_TILDE_SLASH,
-                                          KC_DELETE , KC_TAB      ,     KC_ENTER , KC_SPACE
+  KC_NO , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO      ,     KC_NO       , KC_NO   , KC_NO   , KC_NO    , KC_NO   , KC_NO,
+  KC_NO , KC_TILD , KC_LABK , KC_RABK , KC_PERC , MCR_ARR    ,     KC_KP_EQUAL , KC_LCBR , KC_RCBR , KC_LBRC  , KC_RBRC , KC_NO,
+  KC_NO , KC_CIRC , KC_AT   , KC_HASH , KC_DLR  , KC_KP_PLUS ,     KC_KP_MINUS , KC_LPRN , KC_RPRN , KC_GRAVE , KC_DQT  , KC_NO,
+  KC_NO , KC_BSLS , KC_PIPE , KC_AMPR , KC_ASTR , KC_NO      ,     KC_UNDS     , KC_EXLM , KC_SCLN , KC_COLN  , KC_QUES , KC_NO,
+                                        KC_DEL  , KC_NO      ,     KC_ENT      , KC_SPC
 ),
 
 [3] = LAYOUT_voyager(
-  KC_NO    , KC_NO       , KC_NO        , KC_NO       , KC_NO          , KC_NO    ,     KC_NO    , KC_NO    , KC_NO , KC_NO    , KC_NO , KC_NO,
-  KC_NO    , MAC_QUIT    , TAB_CLS      , TAB_PRV     , TAB_NXT        , TAB_OPN  ,     KC_NO    , KC_NO    , KC_NO , KC_NO    , KC_NO , KC_NO,
-  CYCLOTAB , MT_GUI_SALL , KC_LEFT_CTRL , MT_ALT_DEL  , MT_SFT_CW      , MAC_FIND ,     KC_LEFT  , KC_DOWN  , KC_UP , KC_RIGHT , KC_NO , KC_NO,
-  KC_NO    , KC_MAC_UNDO , KC_MAC_CUT   , KC_MAC_COPY , KC_MAC_PASTE   , KC_NO    ,     KC_NO    , KC_NO    , KC_NO , KC_NO    , KC_NO , KC_NO,
-                                                        KC_TRANSPARENT , KC_NO    ,     KC_ENTER , LAUNCHER
+  KC_NO , KC_NO       , KC_NO      , KC_NO       , KC_NO        , KC_NO    ,     KC_NO   , KC_NO    , KC_NO , KC_NO   , KC_NO , KC_NO,
+  KC_NO , MAC_QUIT    , TAB_CLS    , TAB_PRV     , TAB_NXT      , TAB_OPN  ,     KC_NO   , KC_NO    , KC_NO , KC_NO   , KC_NO , KC_NO,
+  KC_NO , MT_GUI_SALL , KC_LCTL    , MT_ALT_DEL  , MT_SFT_CW    , MAC_FIND ,     KC_LEFT , KC_DOWN  , KC_UP , KC_RGHT , KC_NO , KC_NO,
+  KC_NO , KC_MAC_UNDO , KC_MAC_CUT , KC_MAC_COPY , KC_MAC_PASTE , KC_NO    ,     KC_NO   , KC_NO    , KC_NO , KC_NO   , KC_NO , KC_NO,
+                                                   KC_TRNS      , KC_NO    ,     KC_ENT  , LAUNCHER
 ),
 
 [4] = LAYOUT_voyager(
-  KC_NO , KC_NO , KC_NO   , KC_NO   , KC_NO   , KC_NO ,     KC_NO , KC_NO          , KC_NO   , KC_NO   , KC_NO        , KC_NO,
-  KC_NO , KC_NO , KC_NO   , MS_UP   , KC_NO   , KC_NO ,     KC_NO , MS_BTN4        , MS_WHLU , MS_BTN5 , KC_NO        , KC_NO,
-  KC_NO , KC_NO , MS_LEFT , MS_DOWN , MS_RGHT , KC_NO ,     KC_NO , MS_BTN1        , MS_BTN3 , MS_BTN2 , KC_RIGHT_GUI , KC_NO,
-  KC_NO , KC_NO , MS_ACL0 , MS_ACL1 , MS_ACL2 , KC_NO ,     KC_NO , MS_WHLL        , MS_WHLD , MS_WHLR , KC_NO        , KC_NO,
-                                      KC_NO   , KC_NO ,     KC_NO , KC_TRANSPARENT
+  KC_NO , KC_NO , KC_NO   , KC_NO   , KC_NO   , KC_NO                ,     KC_NO , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO,
+  KC_NO , KC_NO , KC_NO   , MS_UP   , KC_NO   , KC_NO                ,     KC_NO , MS_BTN4 , MS_WHLU , MS_BTN5 , KC_NO   , KC_NO,
+  KC_NO , KC_NO , MS_LEFT , MS_DOWN , MS_RGHT , KC_NO                ,     KC_NO , MS_BTN1 , MS_BTN3 , MS_BTN2 , KC_RGUI , KC_NO,
+  KC_NO , KC_NO , MS_ACL0 , MS_ACL1 , MS_ACL2 , KC_MS_JIGGLER_TOGGLE ,     KC_NO , MS_WHLL , MS_WHLD , MS_WHLR , KC_NO   , KC_NO,
+                                      KC_DEL  , KC_NO                ,     KC_NO , KC_TRNS
 ),
 
 [5] = LAYOUT_voyager(
-  KC_NO  , KC_NO               , KC_NO               , KC_NO             , KC_NO               , KC_NO         ,     KC_NO     , KC_NO     , KC_NO     , KC_NO     , KC_NO                , KC_NO         ,
-  KC_NO  , RM_SPDD             , RM_SPDU             , KC_F14            , KC_F15              , KC_NO         ,     TT_G_SLOW , TT_I_SLOW , TT_M_SLOW , TT_R_SLOW , TT_P_SLOW            , QK_BOOT       ,
-  KC_NO  , KC_MEDIA_PREV_TRACK , KC_MEDIA_NEXT_TRACK , KC_AUDIO_VOL_DOWN , KC_AUDIO_VOL_UP     , KC_NO         ,     TT_G_FAST , TT_I_FAST , TT_M_FAST , TT_R_FAST , TT_P_FAST            , TT_RESET      ,
-  LUMINO , RM_PREV             , RM_NEXT             , RM_HUED           , RM_HUEU             , KC_NO         ,     TT_DUMP   , KC_NO     , MAC_LOCK  , MAC_DND   , KC_MS_JIGGLER_TOGGLE , KC_TRANSPARENT,
-                                                                           KC_MEDIA_PLAY_PAUSE , KC_AUDIO_MUTE ,     KC_NO     , KC_NO
+  KC_NO , KC_NO               , KC_NO               , KC_NO             , KC_NO               , KC_NO         ,     KC_NO     , KC_NO     , KC_NO     , KC_NO     , KC_NO     , KC_NO,
+  KC_NO , RM_SPDD             , RM_SPDU             , KC_F14            , KC_F15              , KC_NO         ,     TT_G_SLOW , TT_I_SLOW , TT_M_SLOW , TT_R_SLOW , TT_P_SLOW , KC_NO,
+  KC_NO , KC_MEDIA_PREV_TRACK , KC_MEDIA_NEXT_TRACK , KC_AUDIO_VOL_DOWN , KC_AUDIO_VOL_UP     , KC_NO         ,     TT_G_FAST , TT_I_FAST , TT_M_FAST , TT_R_FAST , TT_P_FAST , KC_NO,
+  KC_NO , RM_PREV             , RM_NEXT             , RM_HUED           , RM_HUEU             , LUMINO        ,     KC_TRNS   , KC_NO     , TT_DUMP   , TT_RESET  , QK_BOOT   , KC_NO,
+                                                                          KC_MEDIA_PLAY_PAUSE , KC_AUDIO_MUTE ,     MAC_LOCK  , MAC_DND
 )
 };
 
@@ -163,42 +163,45 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
 enum combos {
   SD_TAB,
   SD_CYCLOTAB,
+  KL_MINUS,
+  COMDOT_UNDS,
 };
 
 const uint16_t PROGMEM combo_sd_tab[] = { HRM_S, HRM_D, COMBO_END};
-// Layer 3 S+D positions resolve to these; MT_ALT_DEL is layer-3-only so no collision
+// MT_ALT_DEL is layer-3-only, so there is no collision with the layer 0 combo.
 const uint16_t PROGMEM combo_sd_cyclotab[] = { KC_LEFT_CTRL, MT_ALT_DEL, COMBO_END};
+const uint16_t PROGMEM combo_kl_minus[] = { HRM_K, HRM_L, COMBO_END};
+const uint16_t PROGMEM combo_comdot_unds[] = { BRM_COM, BRM_DOT, COMBO_END};
 
 combo_t key_combos[] = {
   [SD_TAB] = COMBO(combo_sd_tab, KC_TAB),
   [SD_CYCLOTAB] = COMBO(combo_sd_cyclotab, CYCLOTAB),
+  [KL_MINUS] = COMBO(combo_kl_minus, KC_KP_MINUS),
+  [COMDOT_UNDS] = COMBO(combo_comdot_unds, KC_UNDERSCORE),
 };
 
-// Tap-only so holding S+D still yields the underlying mods instead of firing the combo
+// Tap-only, so holding the keys gives the mods instead of the combo.
 bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
-  return combo_index == SD_TAB || combo_index == SD_CYCLOTAB;
+  return true;
 }
 
 // -----------------------------------------------------------------------------
 // Custom shift keys
 // -----------------------------------------------------------------------------
 
-// Custom shift keys: add entries to remap Shift+key behavior.
-// Each entry is {key, shifted_key}. Examples:
-//   {KC_DOT,  KC_QUES},  // Shift + . = ?
+// Entries are {key, shifted_key}.
 const custom_shift_key_t custom_shift_keys[] = {
   {BRM_COM, KC_SCLN},  // ,;
   {BRM_DOT, KC_COLN},   // .:
-  {BRM_ASTR, KC_EXLM}  // *!
 };
 
 // -----------------------------------------------------------------------------
 // Persisted user config
 // -----------------------------------------------------------------------------
 
-// Runtime-adjustable home row mod tapping terms, persisted in the 32-bit keymap
-// EEPROM block. Five signed deltas in 10ms-step units (6 bits each, -31..31):
-// a global offset added to every HRM, plus one per finger pair (symmetric L/R).
+// Home row mod tapping-term deltas, persisted in the 32-bit keymap EEPROM block.
+// Units are 10ms steps, range -31..31. `global` applies to every HRM. The finger
+// deltas apply to both hands.
 typedef union {
   uint32_t raw;
   struct {
@@ -254,9 +257,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     // Pinky - bottom
     case BRM_Z:
     case BRM_SLS:
-    case BRM_ASTR:
-        term = TAPPING_TERM + 80;
-        break;
 
     // Ring - bottom
     case BRM_X:
@@ -273,6 +273,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     // Index - bottom
     case BRM_V:
     case BRM_M:
+    case BRM_N:
         term = TAPPING_TERM + 10;
         break;
 
@@ -288,8 +289,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         term = TAPPING_TERM;
         break;
   }
-  // Terms outside this range aren't practical, and the runtime deltas can reach
-  // them - unclamped, an underflow would wrap into a term of ~65 seconds.
+  // The runtime deltas can underflow the term. Unclamped, it wraps to ~65 seconds.
   return MIN(MAX(term, 150), 300);
 }
 
@@ -311,10 +311,14 @@ bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
 }
 #endif // SPECULATIVE_HOLD
 
-// Thumbs are '*' in chordal_hold_layout, so chordal hold always permits their
-// hold - that exemption is what lets this callback run at all. Safe because
-// thumbs rarely roll with the fingers. The layer settles on the next key press,
-// with no tapping term wait.
+// false = tap-preferred, true = balanced
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+  return keycode != BRM_N;
+}
+
+// true = hold-preferred
+// Thumbs are '*' in chordal_hold_layout, so their hold is always permitted.
+// Safe because thumbs rarely roll with the fingers.
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case TMB_ESC:
@@ -327,18 +331,17 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 #ifdef FLOW_TAP_TERM
 uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode) {
   if (get_tap_keycode(prev_keycode) < KC_A || get_tap_keycode(prev_keycode) > KC_Z) return 0;
-  // Disable flow tap when hotkey modifiers are held (Cmd+A, Ctrl+C, etc.)
-  // Excludes Alt so diacritics (Alt+letter) still benefit from flow tap.
+  // Alt is excluded, so diacritics (Alt+letter) keep flow tap.
   if (get_mods() & MOD_MASK_CG) return 0;
 
   switch (keycode) {
-    // Shift/Alt - fast typing
+    // Used during fast typing
     case HRM_D:
     case HRM_F:
     case HRM_J:
     case HRM_K:
       return 0;
-    // Non-Shift/Alt never used during fast typing
+    // Not used during fast typing
     case HRM_A:
     case HRM_QUO:
     case HRM_S:
@@ -347,7 +350,6 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_
     case BRM_X:
     case BRM_DOT:
     case BRM_SLS:
-    case BRM_ASTR:
       return FLOW_TAP_TERM;
     default:
       return 0;
@@ -376,11 +378,11 @@ static bool tap_or_hold(keyrecord_t *record, uint16_t tap_kc, uint16_t hold_kc) 
   return false;
 }
 
-// Clamp a tapping-term delta to the 6-bit signed bitfield range.
+// The 6-bit signed bitfield range.
 static int8_t tt_clamp(int8_t v) { return v > 31 ? 31 : (v < -31 ? -31 : v); }
 
-// Adjust one HRM delta by `step` (10ms units), clamp, persist. Embeds `return false`
-// like the HSS/HCS macros in config.h - bitfields can't be passed by pointer.
+// A macro, not a function, because bitfields cannot be passed by pointer.
+// `step` is in 10ms units. Embeds `return false` like HSS/HCS in config.h.
 #define TT_ADJUST(field, step)                                  \
   if (record->event.pressed) {                                  \
     user_config.field = tt_clamp(user_config.field + (step));   \
@@ -391,8 +393,8 @@ static int8_t tt_clamp(int8_t v) { return v > 31 ? 31 : (v < -31 ? -31 : v); }
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QK_MODS ... QK_MODS_MAX:
-      // Mouse and consumer keys (volume, media) with modifiers work inconsistently across operating systems,
-      // this makes sure that modifiers are always applied to the key that was pressed.
+      // Mods on mouse and consumer keys are unreliable across operating systems.
+      // This applies the mods to the pressed key.
       if (IS_MOUSE_KEYCODE(QK_MODS_GET_BASIC_KEYCODE(keycode)) || IS_CONSUMER_KEYCODE(QK_MODS_GET_BASIC_KEYCODE(keycode))) {
         if (record->event.pressed) {
           add_mods(QK_MODS_GET_MODS(keycode));
@@ -408,7 +410,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
     case MCR_ARR ... MCR_CODE_FENCE: {
-      // Indexed by keycode - MCR_ARR; order must match the MCR_* enum.
+      // Order must match the MCR_* enum.
       static const char *const macros[] = {
         "-> ",
         "${}" SS_TAP(X_LEFT),
@@ -446,7 +448,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case MT_GUI_SALL:  return tap_or_hold(record, SEL_ALL,  KC_LEFT_GUI);
     case MT_ALT_DEL:   return tap_or_hold(record, MAC_DEL,  KC_LEFT_ALT);
-    // CW_TOGG isn't a basic keycode, so it can't go through tap_or_hold's register_code16
+    // CW_TOGG is not a basic keycode, so tap_or_hold's register_code16 cannot send it.
     case MT_SFT_CW:
       if (record->tap.count > 0) {
         if (record->event.pressed) caps_word_toggle();
@@ -457,19 +459,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
-    // Override LT tap: KC_F16 placeholder -> KC_ASTR (shifted case handled by custom_shift_keys module)
-    case BRM_ASTR:
-      if (record->tap.count > 0 && !((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT)) {
-        if (record->event.pressed) {
-          register_code16(KC_ASTR);
-        } else {
-          unregister_code16(KC_ASTR);
-        }
-        return false;
-      }
-      return true;
-
-    // Home row mod tapping-term tuning. FAST shortens (-1 step), SLOW lengthens (+1).
     case TT_G_FAST: TT_ADJUST(global, -1);
     case TT_G_SLOW: TT_ADJUST(global, +1);
     case TT_I_FAST: TT_ADJUST(index,  -1);
@@ -486,8 +475,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
 
     case TT_DUMP:
-      // Reuse get_tapping_term so the readout always matches the live terms.
-      // It ignores `record` for HRM keys, so NULL is safe.
+      // get_tapping_term ignores `record` for HRM keys, so NULL is safe.
       if (record->event.pressed) {
         char buf[64];
         snprintf(buf, sizeof(buf), "global=%d index=%d middle=%d ring=%d pinky=%d",

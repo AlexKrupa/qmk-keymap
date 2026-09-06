@@ -56,7 +56,7 @@ parse_config:
     BRM_COM: { t: ",", s: ";", h: "R⌥" }
     BRM_DOT: { t: ".", s: ":", h: "$$mdi:star-three-points$$" }
     BRM_SLS: { t: "/", s: "?", h: "$$mdi:star-four-points$$" }
-    BRM_ASTR: { t: "*", s: "!", h: "SYSTEM" }
+    MO(5): "SYSTEM"
     # Plain modifiers (used on NUM layer)
     KC_LEFT_CTRL: "$$mdi:apple-keyboard-control$$"
     KC_LEFT_GUI: "$$mdi:apple-keyboard-command$$"

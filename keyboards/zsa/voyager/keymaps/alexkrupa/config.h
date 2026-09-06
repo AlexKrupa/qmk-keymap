@@ -1,6 +1,6 @@
 #define CHORDAL_HOLD
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-#define PERMISSIVE_HOLD
+#define PERMISSIVE_HOLD_PER_KEY
 #define SPECULATIVE_HOLD
 
 #define TAPPING_TERM 200
@@ -50,6 +50,7 @@
 
 // Cyclotab: https://getreuer.info/posts/keyboards/cyclotab/index.html
 #define CYCLOTAB_KEYS LGUI(KC_TAB)
+#define CYCLOTAB_TIMEOUT 0
 
 // Lumino: https://getreuer.info/posts/keyboards/lumino/index.html
 // Cycles brightness 0-40-100%

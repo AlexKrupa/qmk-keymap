@@ -1,21 +1,21 @@
 # ZSA Voyager QMK keymap
 
-Custom QMK keymap for the ZSA Voyager, using the
-[external userspace](https://docs.qmk.fm/newbs_external_userspace) pattern. Uses mainline QMK
-firmware (not [ZSA's fork](https://github.com/zsa/qmk_firmware)) with ZSA-specific features pulled
-in as [community modules](https://github.com/zsa/qmk_modules). The firmware repo is cloned
-separately and never modified. This repo contains the keymap, community modules and the
-`heatmap/` report tool.
+Custom QMK keymap for the ZSA Voyager. It uses the
+[external userspace](https://docs.qmk.fm/newbs_external_userspace) pattern. The firmware is mainline
+QMK, not [ZSA's fork](https://github.com/zsa/qmk_firmware).
+
+ZSA-specific features come from [community modules](https://github.com/zsa/qmk_modules). The
+firmware repo is cloned separately and never modified. This repo has the keymap, the community
+modules and the `heatmap/` report tool.
 
 ## Overview
 
 ![Keymap](keymap-drawer/keymap.svg)
 
-6 layers, QWERTY base. The Voyager has 4 rows and 6 columns per half; this keymap uses 3 rows (top
-row unused) and 5 columns, plus an outer 6th column for `` ` ``, `=`, Tab, `-`, and RGB controls on
-layer 5. With both thumb clusters that's 40 keys total (36 main + 4 thumbs).
+The Voyager has 4 rows and 6 columns per half. This keymap uses 3 rows and 5 columns, plus both
+thumb clusters: 34 keys total (30 main + 4 thumbs). The top row and outer column are unused.
 
-Layers:
+6 layers, QWERTY base:
 
 - **BASE** - letters, home-row mods, bottom-row mods. Thumbs hold into the other layers.
 - **NAV** - arrows, macOS app/tab shortcuts, clipboard, brackets.
@@ -92,8 +92,8 @@ Compile and flash:
 qmk flash -kb zsa/voyager -km alexkrupa
 ```
 
-Then enter bootloader mode: press the physical reset button on the bottom of the left half.
-Alternatively, hold `*` (activates layer 5) and press the top-right key (`QK_BOOT`).
+Then enter bootloader mode: press the physical reset button on the bottom of the left half. Or hold
+`*` (activates layer 5), then press the top-right key (`QK_BOOT`).
 
 ### Updating QMK firmware
 
@@ -138,15 +138,13 @@ All keymap files are in `keyboards/zsa/voyager/keymaps/alexkrupa/`.
 
 ## Resources
 
-- [Pascal Getreuer](https://getreuer.info/posts/keyboards/faqs/index.html) and his
-  [QMK keymap repo](https://github.com/getreuer/qmk-keymap) - a goldmine of ideas
+- [Pascal Getreuer's FAQs](https://getreuer.info/posts/keyboards/faqs/index.html) and
+  [QMK keymap repo](https://github.com/getreuer/qmk-keymap) - the largest source of ideas here
 - [precondition's home row mods guide](https://precondition.github.io/home-row-mods) - the best
-  intro to the topic
+  introduction to the topic
 - [urob's timeless home row mods](https://github.com/urob/zmk-config#timeless-homerow-mods) - the
   standard for home row mod timing
-- [sunaku's Glove80 keymap](https://sunaku.github.io/moergo-glove80-keyboard.html) - a deep dive
-  into layers, combos and philosophy that got me down this rabbit hole, even though I don't really
-  use the Glove80 anymore
-- [Moosy's TailorKey](https://sites.google.com/view/tailorkey/) - sunaku's ideas made approachable
-- [r/ErgoMechKeyboards](https://reddit.com/r/ErgoMechKeyboards) - a steady stream of ideas and
-  discussion
+- [sunaku's Glove80 keymap](https://sunaku.github.io/moergo-glove80-keyboard.html) - layers, combos
+  and the reasons for them. It started my interest, although I no longer use the Glove80
+- [Moosy's TailorKey](https://sites.google.com/view/tailorkey/) - sunaku's ideas in a simpler form
+- [r/ErgoMechKeyboards](https://reddit.com/r/ErgoMechKeyboards) - ideas and discussion

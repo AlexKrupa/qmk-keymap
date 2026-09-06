@@ -42,5 +42,5 @@ Community modules are declared in `keymap.json` and live in `modules/`. Both `mo
 
 ## Gotchas
 
-- The top row of every layer is `KC_NO` (Voyager is used in 3x6 config, ignoring the top physical row)
+- The top row and both outer columns of every layer are `KC_NO` (Voyager is used in 3x5 config, 34 keys with thumbs)
 - The `QK_MODS` case in `process_record_user()` fixes modifier handling for mouse/consumer keys on macOS - don't remove it

@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 KEYMAP_C="$SCRIPT_DIR/../keyboards/zsa/voyager/keymaps/alexkrupa/keymap.c"
 CONFIG="$SCRIPT_DIR/keymap-config.yaml"
 COMBOS="$SCRIPT_DIR/combos.yaml"
-LAYOUT_JSON="$SCRIPT_DIR/voyager-3x6.json"
+LAYOUT_JSON="$SCRIPT_DIR/voyager-3x5.json"
 OUTPUT_SVG="$SCRIPT_DIR/keymap.svg"
 
 # Use keymap-drawer's own Python (has PyYAML)
@@ -23,14 +23,16 @@ keymap -c "$CONFIG" parse -q "$tmpdir/keymap.json" \
   | sed '/layout_name: LAYOUT_voyager/d' \
   > "$tmpdir/parsed.yaml"
 
-# 3. Strip top row (Voyager used in 3x6 config, top row is KC_NO)
+# 3. Strip top row and outer columns (unused KC_NO keys)
 $PYTHON -c "
 import yaml, sys
 
 parsed = yaml.safe_load(open('$tmpdir/parsed.yaml'))
 for name, rows in parsed.get('layers', {}).items():
     if isinstance(rows, list) and isinstance(rows[0], list):
-        parsed['layers'][name] = rows[1:]
+        parsed['layers'][name] = [
+            row[1:-1] if len(row) == 12 else row for row in rows[1:]
+        ]
 yaml.dump(parsed, sys.stdout, default_flow_style=False, allow_unicode=True, sort_keys=False)
 " > "$tmpdir/stripped.yaml"
 

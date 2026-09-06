@@ -1,12 +1,20 @@
 # Combos can't be parsed from keymap.c (qmk c2json limitation) - maintain here.
-# p: key positions (0-indexed per 40-key layout, top row stripped)
-#    0-11 row 1, 12-23 home row, 24-35 bottom row, 36-37 L thumbs, 38-39 R thumbs
+# p: key positions (0-indexed per 34-key layout, top row and outer columns stripped)
+#    0-9 row 1, 10-19 home row, 20-29 bottom row, 30-31 L thumbs, 32-33 R thumbs
 combos:
-  - p: [14, 15] # S + D
+  - p: [11, 12] # S + D
     k: "$$mdi:keyboard-tab$$"
     l: [BASE]
     a: mid
-  - p: [14, 15] # S + D on NAV: Cmd+Tab app switcher
+  - p: [11, 12] # S + D on NAV: Cmd+Tab app switcher
     k: "$$mdi:swap-horizontal$$"
     l: [NAV]
+    a: mid
+  - p: [17, 18] # K + L
+    k: "-"
+    l: [BASE]
+    a: mid
+  - p: [27, 28] # , + .
+    k: "_"
+    l: [BASE]
     a: mid
