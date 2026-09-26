@@ -43,6 +43,9 @@
 #undef MOUSEKEY_WHEEL_MAX_SPEED
 #define MOUSEKEY_WHEEL_MAX_SPEED 16
 
+// Allow System Do Not Disturb (0x9B) for MAC_DND
+#define SYSTEM_CONTROL_USAGE_MAXIMUM 0x009B
+
 #define SERIAL_NUMBER "amZp5/Wv7bYl"  // used by zsa/oryx module
 #define LAYER_STATE_8BIT
 #define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
