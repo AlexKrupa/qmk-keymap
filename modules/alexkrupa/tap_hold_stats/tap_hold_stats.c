@@ -77,9 +77,14 @@ static void add_press(raw_state_t *raw, uint16_t keycode, keyrecord_t *record) {
   slot->term = get_tapping_term(keycode, record);
 }
 
+// No TAP_CODE_DELAY: with it, a dump of a day of data takes minutes.
+static void send_text(const char *text) {
+  send_string_with_delay(text, 0);
+}
+
 static void send_newline(void) {
   // Shift+Enter, so a dump into a chat input does not submit it.
-  SEND_STRING(SS_LSFT(SS_TAP(X_ENTER)));
+  SEND_STRING_DELAY(SS_LSFT(SS_TAP(X_ENTER)), 0);
 }
 
 static void send_bucket(uint8_t index, uint16_t count) {
@@ -91,7 +96,7 @@ static void send_bucket(uint8_t index, uint16_t count) {
   } else {
     snprintf(text, sizeof(text), " %u=%u", (unsigned)(UNDER_MS / BUCKET_MS + index - 1), (unsigned)count);
   }
-  send_string(text);
+  send_text(text);
 }
 
 static void send_histogram(const slot_t *slot, uint8_t context, uint8_t decision) {
@@ -103,7 +108,7 @@ static void send_histogram(const slot_t *slot, uint8_t context, uint8_t decision
   char text[32];
   snprintf(text, sizeof(text), "  %s %s n=%lu", context_names[context], decision_names[decision],
            (unsigned long)total);
-  send_string(text);
+  send_text(text);
   for (uint8_t i = 0; i < BUCKET_COUNT; i++) {
     if (counts[i] > 0) send_bucket(i, counts[i]);
   }
@@ -115,15 +120,15 @@ static void dump(void) {
   snprintf(text, sizeof(text), "tap_hold_stats uptime=%lu presses=%lu bucket=%ums under=0-%ums over=%ums",
            (unsigned long)(timer_read32() / 1000), (unsigned long)press_count, (unsigned)BUCKET_MS,
            (unsigned)(UNDER_MS - 1), (unsigned)OVER_MS);
-  send_string(text);
+  send_text(text);
   send_newline();
 
   for (uint8_t i = 0; i < SLOT_COUNT && slots[i].keycode != 0; i++) {
     const slot_t *slot = &slots[i];
     // get_keycode_string() returns a static buffer, so send it before the next call.
-    send_string(get_keycode_string(slot->keycode));
+    send_text(get_keycode_string(slot->keycode));
     snprintf(text, sizeof(text), " term=%u", (unsigned)slot->term);
-    send_string(text);
+    send_text(text);
     send_newline();
     for (uint8_t context = 0; context < CONTEXT_COUNT; context++) {
       for (uint8_t decision = 0; decision < DECISION_COUNT; decision++) {
@@ -131,7 +136,7 @@ static void dump(void) {
       }
     }
   }
-  send_string("time=");
+  send_text("time=");
 }
 
 bool pre_process_record_tap_hold_stats(uint16_t keycode, keyrecord_t *record) {

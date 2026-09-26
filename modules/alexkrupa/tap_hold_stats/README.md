@@ -8,7 +8,7 @@ reads the text and suggests tapping terms per key.
 1. Put `THS_DMP` on a key.
 2. Type normally for some days.
 3. Open a text editor and press `THS_DMP`. The keyboard types the dump. It is blocked until the dump
-   ends, 1-3 min for a day of data. Keys pressed during the dump are lost.
+   ends. Keys pressed during the dump are lost.
 4. After `time=`, type the wall-clock time, for example `2026-09-26 14:05`.
 5. Save the text to `~/.ai/qmk-keymap/tap-hold-stats/`, one file per dump.
 
