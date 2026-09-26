@@ -1,5 +1,6 @@
 {
     "modules": [
+        "alexkrupa/tap_hold_stats",
         "zsa/oryx",
         "zsa/mousejiggler",
         "getreuer/cyclotab",

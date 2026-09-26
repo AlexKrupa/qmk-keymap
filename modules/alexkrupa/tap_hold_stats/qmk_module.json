@@ -1,0 +1,14 @@
+{
+    "module_name": "Tap-Hold Stats",
+    "maintainer": "alexkrupa",
+    "license": "GPL-2.0-or-later",
+    "features": {
+        "keycode_string": true
+    },
+    "keycodes": [
+        {
+            "key": "TAP_HOLD_STATS_DUMP",
+            "aliases": ["THS_DMP"]
+        }
+    ]
+}

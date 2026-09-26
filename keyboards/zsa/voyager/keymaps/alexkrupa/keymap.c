@@ -143,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO , KC_NO               , KC_NO               , KC_NO             , KC_NO               , KC_NO         ,     KC_NO     , KC_NO     , KC_NO     , KC_NO     , KC_NO     , KC_NO,
   KC_NO , RM_SPDD             , RM_SPDU             , KC_F14            , KC_F15              , KC_NO         ,     TT_G_SLOW , TT_I_SLOW , TT_M_SLOW , TT_R_SLOW , TT_P_SLOW , KC_NO,
   KC_NO , KC_MEDIA_PREV_TRACK , KC_MEDIA_NEXT_TRACK , KC_AUDIO_VOL_DOWN , KC_AUDIO_VOL_UP     , KC_NO         ,     TT_G_FAST , TT_I_FAST , TT_M_FAST , TT_R_FAST , TT_P_FAST , KC_NO,
-  KC_NO , RM_PREV             , RM_NEXT             , RM_HUED           , RM_HUEU             , LUMINO        ,     KC_TRNS   , KC_NO     , TT_DUMP   , TT_RESET  , QK_BOOT   , KC_NO,
+  KC_NO , RM_PREV             , RM_NEXT             , RM_HUED           , RM_HUEU             , LUMINO        ,     KC_TRNS   , THS_DMP   , TT_DUMP   , TT_RESET  , QK_BOOT   , KC_NO,
                                                                           KC_MEDIA_PLAY_PAUSE , KC_AUDIO_MUTE ,     MAC_LOCK  , MAC_DND
 )
 };
