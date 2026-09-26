@@ -129,6 +129,7 @@ All keymap files are in `keyboards/zsa/voyager/keymaps/alexkrupa/`.
 
 | Module                       | Purpose                                            |
 | ---------------------------- | -------------------------------------------------- |
+| `alexkrupa/tap_hold_stats`   | Tap-hold press durations for tapping term tuning   |
 | `zsa/oryx`                   | Keymapp live view and Oryx live training           |
 | `zsa/mousejiggler`           | Mouse jiggler toggle                               |
 | `getreuer/cyclotab`          | Cmd+Tab cycling that auto-releases on layer change |
