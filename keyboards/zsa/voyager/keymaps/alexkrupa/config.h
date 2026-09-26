@@ -8,6 +8,7 @@
 #define QUICK_TAP_TERM 200
 #define QUICK_TAP_TERM_PER_KEY
 #define FLOW_TAP_TERM 150
+#define SPECULATIVE_HOLD_FLOW_TERM 150
 
 // Speculative hold: neutralize flashing mods on tap rollback
 #define DUMMY_MOD_NEUTRALIZER_KEYCODE KC_RIGHT_CTRL
