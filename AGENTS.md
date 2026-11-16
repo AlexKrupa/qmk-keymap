@@ -1,10 +1,10 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file gives guidance to Claude Code (claude.ai/code) for the code in this repository.
 
 ## What this is
 
-QMK keymap for a ZSA Voyager keyboard, using the [external userspace](https://docs.qmk.fm/newbs_external_userspace) pattern. This repo is an overlay - it contains the keymap, community modules and the `heatmap/` report tool, not the QMK firmware itself.
+QMK keymap for a ZSA Voyager keyboard, using the [external userspace](https://docs.qmk.fm/newbs_external_userspace) pattern. This repo is an overlay. It contains the keymap, community modules and the `heatmap/` report tool, not the QMK firmware itself.
 
 ## Build commands
 
@@ -16,7 +16,7 @@ qmk compile -kb zsa/voyager -km alexkrupa
 qmk flash -kb zsa/voyager -km alexkrupa
 ```
 
-`make` does not work with external userspace - always use `qmk compile` / `qmk flash`.
+`make` does not work with external userspace. Always use `qmk compile` / `qmk flash`.
 
 QMK home points to mainline `qmk/qmk_firmware`. This repo is configured as the overlay dir. ZSA-specific features come from community modules (`modules/zsa/`, via `zsa/qmk_modules` submodule).
 
@@ -24,11 +24,11 @@ QMK home points to mainline `qmk/qmk_firmware`. This repo is configured as the o
 
 All keymap source lives in `keyboards/zsa/voyager/keymaps/alexkrupa/`:
 
-- `keymap.c` - the main file: layers, combos, macros, tapping terms, `process_record_user()`, chordal hold layout
-- `config.h` - QMK feature flags and timing overrides (tapping term, mouse speed, RGB, combo count)
-- `rules.mk` - enables/disables QMK features (combos, caps word, oryx, etc.)
-- `keymap.json` - declares community modules (not the keymap layout - that's in `keymap.c`)
-- `i18n.h` - macOS shortcut aliases (`KC_MAC_UNDO`, etc.)
+- `keymap.c`: the main file with layers, combos, macros, tapping terms, `process_record_user()`, chordal hold layout
+- `config.h`: QMK feature flags and timing overrides (tapping term, mouse speed, RGB, combo count)
+- `rules.mk`: enables or disables QMK features, for example combos, caps word and Oryx
+- `keymap.json`: declares community modules. The keymap layout is in `keymap.c`.
+- `i18n.h`: macOS shortcut aliases, for example `KC_MAC_UNDO`
 
 Community modules are declared in `keymap.json` and live in `modules/`. Both `modules/zsa` and `modules/getreuer/custom_shift_keys` are git submodules.
 
@@ -43,4 +43,4 @@ Community modules are declared in `keymap.json` and live in `modules/`. Both `mo
 ## Gotchas
 
 - The top row and both outer columns of every layer are `KC_NO` (Voyager is used in 3x5 config, 34 keys with thumbs)
-- The `QK_MODS` case in `process_record_user()` fixes modifier handling for mouse/consumer keys on macOS - don't remove it
+- The `QK_MODS` case in `process_record_user()` fixes modifier handling for mouse and consumer keys on macOS. Do not remove it.
