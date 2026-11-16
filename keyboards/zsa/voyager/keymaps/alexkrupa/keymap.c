@@ -332,8 +332,8 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef FLOW_TAP_TERM
+// Any previous key counts, so rolls at a word start after Space or punctuation are taps too.
 uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode) {
-  if (get_tap_keycode(prev_keycode) < KC_A || get_tap_keycode(prev_keycode) > KC_Z) return 0;
   // Alt is excluded, so diacritics (Alt+letter) keep flow tap.
   if (get_mods() & MOD_MASK_CG) return 0;
 
