@@ -316,7 +316,12 @@ bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
 
 // false = tap-preferred, true = balanced
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
-  return keycode != BRM_N;
+  switch (keycode) {
+    case BRM_N:
+    case TMB_SPC:
+      return false;
+  }
+  return true;
 }
 
 // true = hold-preferred
