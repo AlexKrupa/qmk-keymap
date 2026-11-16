@@ -16,7 +16,8 @@ A dump does not clear the data. A reflash, a power cut or an MCU reset clears it
 
 ## Tracked keys
 
-An `MT()` or `LT()` key is tracked when its resolved keycode is the same as its layer 0 keycode.
+If the resolved keycode of an `MT()` or `LT()` key is the same as its layer 0 keycode, the module
+tracks the key.
 A key resolved on another layer is not tracked. There are 24 slots, assigned by matrix position in
 the order of first press.
 
@@ -29,6 +30,9 @@ RSFT_T(KC_J) term=180
   alone hold n=35 17=1 25=2 over=32
   overlap tap n=2210 under=2150 10=41 11=12 12=5 13=2
   overlap hold n=48 under=3 12=6 13=4 15=2 over=33
+  short hold after=space n=3 50=2 100=1
+  long hold after=letter n=12 150=1 200=4 500=7
+  long hold after=other n=68 200=8 500=60
 time=2026-09-26 14:05
 ```
 
@@ -40,7 +44,16 @@ time=2026-09-26 14:05
   340-349 ms. `over` is 350 ms or more.
 - Duration: from the raw key press to the raw key release.
 - Decision: the decision that QMK made. `tap` or `hold`.
-- Context: `overlap` if another key was pressed while this key was down, else `alone`.
+- Context: `alone` or `overlap`. If you pressed another key while this key was down, the context is
+  `overlap`.
+- An idle line: the holds of the key from both contexts, by the key event before the press.
+  `short` is a hold shorter than `term`, `long` is a hold of `term` or longer. `after` is the type
+  of the previous key: `letter` (`KC_A` to `KC_Z`), `space` or `other`. Mod-tap and layer-tap keys
+  count as their tap keycode. Then the total count `n`, then `idle=count` for each idle bucket that
+  is not zero. Empty idle lines are not typed.
+- Idle buckets: the time from the previous key event, press or release, to this press. A bucket name
+  is its lower bound in ms: `0`, `50`, `100`, `150`, `200`, `500`. `150` is 150-199 ms. `500` is
+  500 ms or more, and also the first press after boot.
 - `time`: the wall-clock time that the user typed.
 
 ## Key names
@@ -58,7 +71,8 @@ Short keycode names: `KC_SPC`, `KC_ENT`, `KC_ESC`, `KC_BSPC`, `KC_COMM`, `KC_SLS
 
 ## Which QMK feature decides
 
-The term decides only when the key is still undecided at the end of the term.
+If the key is still undecided at the end of the term, the term decides. Otherwise another feature
+decides.
 
 | Context | Decided by | Term matters when |
 | --- | --- | --- |
@@ -77,6 +91,8 @@ Read the keymap source for the per-key settings: `get_tapping_term()`, `get_perm
 - `alone`: taps and holds form 2 groups. A good term is in the low area between them.
 - Taps near the term, on either side, are probable false holds or near misses.
 - Holds just above the term in `alone` are probable slow taps.
+- `short hold` lines are probable false holds. Flow Tap stops a false hold in an idle bucket below
+  `get_flow_tap_term()`. Use `after` and the idle buckets to find these holds.
 
 ## Combine dumps
 

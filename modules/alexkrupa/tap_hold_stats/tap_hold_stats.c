@@ -17,6 +17,17 @@ enum decision { DECISION_TAP, DECISION_HOLD, DECISION_COUNT };
 static const char *const context_names[CONTEXT_COUNT] = {"alone", "overlap"};
 static const char *const decision_names[DECISION_COUNT] = {"tap", "hold"};
 
+// Holds only: a hold shorter than the term is a probable false hold.
+enum hold_length { HOLD_SHORT, HOLD_LONG, HOLD_LENGTH_COUNT };
+enum previous_key { PREVIOUS_LETTER, PREVIOUS_SPACE, PREVIOUS_OTHER, PREVIOUS_COUNT };
+
+static const char *const hold_length_names[HOLD_LENGTH_COUNT] = {"short", "long"};
+static const char *const previous_key_names[PREVIOUS_COUNT] = {"letter", "space", "other"};
+
+// Lower bounds in ms of the time from the previous key event to the press.
+static const uint16_t idle_bucket_starts_ms[] = {0, 50, 100, 150, 200, 500};
+#define IDLE_BUCKET_COUNT (sizeof(idle_bucket_starts_ms) / sizeof(idle_bucket_starts_ms[0]))
+
 enum phase { PHASE_IDLE, PHASE_DOWN, PHASE_RELEASED };
 enum pending { PENDING_NONE, PENDING_TAP, PENDING_HOLD, PENDING_SKIP };
 
@@ -27,6 +38,8 @@ typedef struct {
   // Set by the resolved press, because the release tap.count is not reliable.
   uint8_t pending : 2;
   uint8_t overlap : 1;
+  uint8_t previous_key : 2;
+  uint8_t idle_bucket : 3;
 } raw_state_t;
 
 typedef struct {
@@ -34,16 +47,34 @@ typedef struct {
   keypos_t key;
   uint16_t term;
   uint16_t counts[CONTEXT_COUNT][DECISION_COUNT][BUCKET_COUNT];
+  uint16_t idle_counts[HOLD_LENGTH_COUNT][PREVIOUS_COUNT][IDLE_BUCKET_COUNT];
 } slot_t;
 
 static raw_state_t raw_states[MATRIX_ROWS][MATRIX_COLS];
 static slot_t slots[SLOT_COUNT];
 static uint32_t press_count = 0;
+// 32-bit, because a 16-bit difference wraps after a pause of 65 s.
+static uint32_t last_event_ms = 0;
+static uint8_t last_event_previous_key = PREVIOUS_OTHER;
+static bool has_last_event = false;
 
 static uint8_t bucket_index(uint16_t duration_ms) {
   if (duration_ms < UNDER_MS) return 0;
   if (duration_ms >= OVER_MS) return BUCKET_COUNT - 1;
   return 1 + (duration_ms - UNDER_MS) / BUCKET_MS;
+}
+
+static uint8_t idle_bucket_index(uint32_t idle_ms) {
+  uint8_t index = IDLE_BUCKET_COUNT - 1;
+  while (idle_ms < idle_bucket_starts_ms[index]) index--;
+  return index;
+}
+
+static uint8_t previous_key_index(uint16_t keycode) {
+  uint16_t tap_keycode = get_tap_keycode(keycode);
+  if (KC_A <= tap_keycode && tap_keycode <= KC_Z) return PREVIOUS_LETTER;
+  if (tap_keycode == KC_SPC) return PREVIOUS_SPACE;
+  return PREVIOUS_OTHER;
 }
 
 static slot_t *find_slot(keypos_t key, uint16_t keycode) {
@@ -69,12 +100,18 @@ static void add_press(raw_state_t *raw, uint16_t keycode, keyrecord_t *record) {
   slot_t *slot = find_slot(record->event.key, keycode);
   if (slot == NULL) return;
 
-  uint8_t context  = raw->overlap ? CONTEXT_OVERLAP : CONTEXT_ALONE;
-  uint8_t decision = raw->pending == PENDING_TAP ? DECISION_TAP : DECISION_HOLD;
-  uint8_t bucket   = bucket_index(TIMER_DIFF_16(raw->release_time, raw->press_time));
-  uint16_t *count  = &slot->counts[context][decision][bucket];
+  uint8_t context      = raw->overlap ? CONTEXT_OVERLAP : CONTEXT_ALONE;
+  uint8_t decision     = raw->pending == PENDING_TAP ? DECISION_TAP : DECISION_HOLD;
+  uint16_t duration_ms = TIMER_DIFF_16(raw->release_time, raw->press_time);
+  uint16_t *count      = &slot->counts[context][decision][bucket_index(duration_ms)];
   if (*count < UINT16_MAX) (*count)++;
   slot->term = get_tapping_term(keycode, record);
+
+  if (decision == DECISION_HOLD) {
+    uint8_t length       = duration_ms < slot->term ? HOLD_SHORT : HOLD_LONG;
+    uint16_t *idle_count = &slot->idle_counts[length][raw->previous_key][raw->idle_bucket];
+    if (*idle_count < UINT16_MAX) (*idle_count)++;
+  }
 }
 
 // No TAP_CODE_DELAY: with it, a dump of a day of data takes minutes.
@@ -115,6 +152,25 @@ static void send_histogram(const slot_t *slot, uint8_t context, uint8_t decision
   send_newline();
 }
 
+static void send_idle_histogram(const slot_t *slot, uint8_t length, uint8_t previous_key) {
+  const uint16_t *counts = slot->idle_counts[length][previous_key];
+  uint32_t total = 0;
+  for (uint8_t i = 0; i < IDLE_BUCKET_COUNT; i++) total += counts[i];
+  if (total == 0) return;
+
+  char text[48];
+  snprintf(text, sizeof(text), "  %s hold after=%s n=%lu", hold_length_names[length],
+           previous_key_names[previous_key], (unsigned long)total);
+  send_text(text);
+  for (uint8_t i = 0; i < IDLE_BUCKET_COUNT; i++) {
+    if (counts[i] > 0) {
+      snprintf(text, sizeof(text), " %u=%u", (unsigned)idle_bucket_starts_ms[i], (unsigned)counts[i]);
+      send_text(text);
+    }
+  }
+  send_newline();
+}
+
 static void dump(void) {
   char text[96];
   snprintf(text, sizeof(text), "tap_hold_stats uptime=%lu presses=%lu bucket=%ums under=0-%ums over=%ums",
@@ -135,6 +191,11 @@ static void dump(void) {
         send_histogram(slot, context, decision);
       }
     }
+    for (uint8_t length = 0; length < HOLD_LENGTH_COUNT; length++) {
+      for (uint8_t previous_key = 0; previous_key < PREVIOUS_COUNT; previous_key++) {
+        send_idle_histogram(slot, length, previous_key);
+      }
+    }
   }
   send_text("time=");
 }
@@ -143,8 +204,11 @@ bool pre_process_record_tap_hold_stats(uint16_t keycode, keyrecord_t *record) {
   if (!IS_KEYEVENT(record->event)) return true;
 
   raw_state_t *raw = &raw_states[record->event.key.row][record->event.key.col];
+  uint32_t now_ms  = timer_read32();
   if (record->event.pressed) {
     press_count++;
+    raw->previous_key = last_event_previous_key;
+    raw->idle_bucket  = has_last_event ? idle_bucket_index(now_ms - last_event_ms) : IDLE_BUCKET_COUNT - 1;
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
       for (uint8_t col = 0; col < MATRIX_COLS; col++) {
         if (raw_states[row][col].phase == PHASE_DOWN) raw_states[row][col].overlap = true;
@@ -158,6 +222,9 @@ bool pre_process_record_tap_hold_stats(uint16_t keycode, keyrecord_t *record) {
     raw->release_time = record->event.time;
     raw->phase        = PHASE_RELEASED;
   }
+  last_event_ms           = now_ms;
+  last_event_previous_key = previous_key_index(keycode);
+  has_last_event          = true;
   return true;
 }
 
