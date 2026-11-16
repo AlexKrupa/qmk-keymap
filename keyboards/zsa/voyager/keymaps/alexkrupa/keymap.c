@@ -30,6 +30,8 @@ enum custom_keycodes {
   TT_DUMP,                                       // type effective terms (COMMA)
 };
 
+#define CAG_T(kc) LCAG_T(kc)
+
 enum keycode_aliases {
   // The LT layer numbers are placeholders. process_record_user overrides tap and hold.
   NUM_7_F7     = LT(14, KC_W),
@@ -60,14 +62,14 @@ enum keycode_aliases {
 
   // Bottom row mods
   BRM_Z   = ALL_T(KC_Z),
-  BRM_X   = MEH_T(KC_X),
+  BRM_X   = CAG_T(KC_X),
   BRM_C   = MT(MOD_RALT, KC_C),
   BRM_V   = LT(2, KC_V),
 
   BRM_N   = LT(5, KC_N),
   BRM_M   = LT(2, KC_M),
   BRM_COM = MT(MOD_RALT, KC_COMMA),
-  BRM_DOT = MEH_T(KC_DOT),
+  BRM_DOT = CAG_T(KC_DOT),
   BRM_SLS = ALL_T(KC_SLASH),
 
   // Thumbs
