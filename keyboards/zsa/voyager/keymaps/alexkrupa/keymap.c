@@ -305,6 +305,7 @@ bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
     case HRM_D:   // LAlt
     case HRM_K:   // LAlt
     case BRM_C:   // RAlt
+    case BRM_COM: // RAlt
     case HRM_A:   // LGui
     case HRM_QUO: // RGui
       return true;
