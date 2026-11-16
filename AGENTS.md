@@ -40,6 +40,16 @@ Community modules are declared in `keymap.json` and live in `modules/`. Both `mo
 - `MCR_ARR` sends `-> ` (arrow macro). `MCR_DLR_BRC` sends `${}` with cursor inside.
 - `MAC_DND` and `MAC_LOCK` use the `HSS()`/`HCS()` shorthand macros defined in `config.h`
 
+## Tap-hold design
+
+- Home row mods form 2 groups:
+  - Shortcut group (Cmd, Ctrl, Hyper, Ctrl+Alt+Gui): not used while typing. Flow Tap applies after
+    any previous key.
+  - Typing group (Shift, Alt): used while typing for capitals and diacritics. No Flow Tap.
+- Keep permissive hold on the home row mods.
+- Keep both keyboard halves symmetrical.
+- Make one tap-hold change at a time, then compare the next `tap_hold_stats` dump.
+
 ## Gotchas
 
 - The top row and both outer columns of every layer are `KC_NO` (Voyager is used in 3x5 config, 34 keys with thumbs)
